@@ -159,6 +159,33 @@ table.vs{width:100%;border-collapse:collapse;min-width:620px;font-size:.95rem}
 .hats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .hat{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;font-size:.92rem}
 .hat b{display:block;font-family:var(--display);font-size:1.08rem;color:var(--red)}
+.funrules{margin:0;padding-left:22px;display:grid;gap:6px}
+.inventor{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:700px){.inventor{grid-template-columns:minmax(0,1fr)}}
+.inv-ctrl{display:grid;gap:10px}
+.inv-ctrl select,.builder input[type=text]{font:inherit;padding:9px 10px;border-radius:10px;border:1px solid var(--rule);background:var(--panel);color:var(--ink)}
+.inv-card{background:var(--gold-soft);border-radius:16px;padding:20px;display:grid;gap:8px;min-height:180px}
+.inv-card h4{font-size:1.5rem}
+.inv-card dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px}
+.inv-card dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.inv-card dd{margin:0}
+.builder{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.builder{grid-template-columns:minmax(0,1fr)}}
+.b-steps{display:grid;gap:14px}
+.b-steps fieldset{border:1px solid var(--rule);border-radius:14px;padding:12px 14px 14px;margin:0;background:var(--panel);display:grid;gap:10px}
+.b-steps legend{font-weight:700;padding:0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:.9rem}
+.chip[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.slider{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1fr);gap:10px;align-items:center;font-size:.85rem}
+.slider span:last-child{text-align:right}
+.slider input{width:100%;accent-color:var(--red)}
+.stylecard{position:sticky;top:76px;background:var(--pitch);color:#fff;border-radius:18px;padding:22px;display:grid;gap:12px}
+@media (max-width:860px){.stylecard{position:static}}
+.stylecard .eyebrow{color:rgba(255,255,255,.7)}
+.stylecard h4{font-size:1.8rem}
+.stylecard .row{display:grid;gap:2px;border-top:1px solid rgba(255,255,255,.2);padding-top:10px}
+.stylecard .row b{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#FFD65A;font-weight:700}
 .section-title{font-size:1.5rem;margin-top:44px;margin-bottom:12px}
 
 footer{padding-block:48px 64px}
@@ -183,10 +210,11 @@ footer h2{font-size:2rem}
   <div class="wrap">
     <p class="eyebrow">A visual course · from zero to pro coach</p>
     <h1>The Coach's <span>Road</span></h1>
-    <p class="lede">Eight levels, starting at zero. Each one has moving tactics boards, a "like you're 6" story, the real coach words, a drill to try this week, and a checklist. By the end you will look at football the way Cesc Fàbregas and Gian Piero Gasperini do.</p>
+    <p class="lede">Nine levels, from zero to your own coaching style. Each one has moving tactics boards, a "like you're 6" story, the real coach words, a drill to try this week, and a checklist. By the end you will look at football the way Cesc Fàbregas and Gian Piero Gasperini do.</p>
     <div class="missions">
       <div class="mission"><span class="tag">MISSION 1</span><h3>Grow Omani youth players to a European standard</h3><p>Know what to teach at each age, what European academies do every week, and which levers matter most in Oman.</p></div>
       <div class="mission"><span class="tag">MISSION 2</span><h3>Coach a team in a modern style</h3><p>Build a game model for all 4 moments of the game, train it with games, and lead the players and staff around you.</p></div>
+      <div class="mission"><span class="tag">MISSION 3</span><h3>Create your own playful coaching style</h3><p>Turn everything you learn into your own method: fun games with stories, your values, your way of teaching. Level 8 is where you build it.</p></div>
     </div>
     <div class="howto"><span><b>Watch</b> the board (press Play)</span><span><b>Read</b> the yellow story</span><span><b>Learn</b> the coach words</span><span><b>Do</b> the drill</span><span><b>Tick</b> the boxes. Your progress is saved in this browser.</span></div>
   </div>
@@ -535,6 +563,81 @@ footer h2{font-size:2rem}
     </div>
   </div>
 </section>
+
+<!-- LEVEL 8 -->
+<section class="level" id="level-8" data-title="Your own style">
+  <div class="wrap">
+    <div class="lvl-head"><span class="lvl-num">8</span><p class="eyebrow">Level 8 · Mission 3 · The final goal</p><h2>Build your own playful coaching style</h2></div>
+    <div class="cols">
+      <div class="text">
+        <p class="goal">You'll be able to: design your own training games, coach in your own way, and explain your method on one card.</p>
+        <div class="kid"><p class="eyebrow">Like you're 6</p>Kids don't learn football because a grown-up talks. They learn because they're <b>playing a game they love</b> and the game secretly teaches them. Your job is to be a <b>game inventor</b>. A pirate game can teach pressing. A falcon game can teach when to attack. If they're laughing and trying hard, they're learning.</div>
+        <ul class="ideas">
+          <li><span class="cw">Coach word: coaching philosophy</span><h4>Your style has 4 layers</h4><p><b>Why</b>: your values (what kind of people you build). <b>What</b>: your game model (Levels 1–4). <b>How</b>: the way you teach (Level 5). <b>Games</b>: your signature activities. Change one layer and your style changes.</p></li>
+          <li><span class="cw">Coach word: game-based learning</span><h4>Hide the lesson inside the game</h4><p>Every game has a secret lesson. "Sharks and minnows" secretly teaches dribbling with your head up. "Four goals" secretly teaches switching play. The kids just think they're playing.</p></li>
+          <li><span class="cw">Coach word: STEP</span><h4>4 buttons to make any game easier or harder</h4><p><b>S</b>pace (bigger or smaller pitch), <b>T</b>ask (the rules), <b>E</b>quipment (balls, goals, cones), <b>P</b>eople (more attackers or defenders). If it's too easy, they get bored. Too hard, they give up. Aim for "just hard enough".</p></li>
+          <li><span class="cw">Coach word: themes & stories</span><h4>Give every game a story</h4><p>Children remember "the falcon dives when the rabbit turns its back" much longer than "press on the trigger". Use stories from their world: falcons, dhows, the desert, superheroes.</p></li>
+          <li><span class="cw">Coach word: challenge levels</span><h4>Make it like a video game</h4><p>Level 1: do it with 3 touches. Level 2: 2 touches. Boss level: 1 touch with your weak foot. Players choose their own level and want to "unlock" the next one.</p></li>
+        </ul>
+
+        <h3 style="font-size:1.4rem">The 10 fun rules of your sessions</h3>
+        <ol class="funrules">
+          <li><b>No lines, no queues.</b> If kids are waiting, the game is wrong.</li>
+          <li><b>A ball for every player</b> in the warm-up.</li>
+          <li><b>Talk less than 30 seconds</b>, then let them play.</li>
+          <li><b>Most of the time is playing</b>: aim for at least 70%.</li>
+          <li><b>Every game has a score.</b> Give points for what you want to see.</li>
+          <li><b>Clap brave mistakes.</b> A failed dribble that was brave gets applause.</li>
+          <li><b>Let them choose.</b> Players invent one rule each week.</li>
+          <li><b>Name everything.</b> Games, moves and teams get fun names.</li>
+          <li><b>Always finish with the big game.</b> It's what they came for.</li>
+          <li><b>End with a smile.</b> Ask "What did you enjoy most?"</li>
+        </ol>
+        <div class="drill"><h4>Try it this week</h4><p>Take one game you already use. Give it a story, a fun name, a scoring system and 3 challenge levels. Run it, then ask the players to invent one new rule. Write down the new version: that's game #1 of your own method.</p></div>
+        <div class="checks" data-level="8">
+          <label><input type="checkbox" id="c8a" data-key="8a"> I invented a game with a story, a score and challenge levels</label>
+          <label><input type="checkbox" id="c8b" data-key="8b"> I ran a session following the 10 fun rules</label>
+          <label><input type="checkbox" id="c8c" data-key="8c"> I filled in my coaching style card below</label>
+        </div>
+      </div>
+      <div class="board" data-scenes="sharks,gates,fourGoals"></div>
+    </div>
+
+    <h3 class="section-title">The playful game library</h3>
+    <p style="max-width:70ch;color:var(--muted);margin-bottom:14px">Each game has a story, a secret lesson, and a link to the level it trains. Start your method from these and change them until they feel like yours.</p>
+    <div class="levers" id="library"></div>
+
+    <h3 class="section-title">Game inventor</h3>
+    <div class="inventor">
+      <div class="inv-ctrl">
+        <label for="invTeach" style="font-weight:700">What do you want to teach?</label>
+        <select id="invTeach"></select>
+        <button class="cbtn play" id="invSpin" style="min-width:auto">Invent a game</button>
+        <p style="font-size:.88rem;color:var(--muted)">Press again for a new idea. Keep the parts you like, change the rest.</p>
+      </div>
+      <div class="inv-card" id="invCard" aria-live="polite"></div>
+    </div>
+
+    <h3 class="section-title">My coaching style card <span class="eyebrow" style="font-family:var(--mono);font-size:12px;vertical-align:middle">saved in this browser</span></h3>
+    <div class="builder">
+      <div class="b-steps">
+        <fieldset><legend>1 · Why: pick your 3 values</legend><div class="chips" id="valChips"></div></fieldset>
+        <fieldset><legend>2 · What: your game model</legend>
+          <div class="slider"><span>Keep the ball</span><input type="range" id="sl1" min="0" max="100" value="35" aria-label="Keep the ball or play direct"><span>Play direct</span></div>
+          <div class="slider"><span>Press high</span><input type="range" id="sl2" min="0" max="100" value="25" aria-label="Press high or defend deep"><span>Defend deep</span></div>
+          <div class="slider"><span>Fàbregas: positions</span><input type="range" id="sl3" min="0" max="100" value="45" aria-label="Positional play or duels"><span>Gasperini: duels</span></div>
+        </fieldset>
+        <fieldset><legend>3 · How: the way you teach</legend>
+          <div class="slider"><span>Ask questions</span><input type="range" id="sl4" min="0" max="100" value="25" aria-label="Ask questions or give instructions"><span>Give instructions</span></div>
+          <div class="slider"><span>Free play</span><input type="range" id="sl5" min="0" max="100" value="40" aria-label="Free play or structured drills"><span>Structured</span></div>
+        </fieldset>
+        <fieldset><legend>4 · Games: your 3 signature games</legend><div class="chips" id="gameChips"></div></fieldset>
+        <label for="styleName" style="font-weight:700;display:grid;gap:6px">Name your method<input id="styleName" type="text" placeholder="e.g. The Falcon Way" maxlength="40"></label>
+      </div>
+      <div class="stylecard" id="styleCard" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
@@ -599,6 +702,42 @@ offside:{ name:'Offside', labels:{t1:''}, frames:[
  {d:800, cap:'...the pass is played: OFFSIDE! The assistant referee raises his flag. Free kick to the other team.', p:{b:[86,31]}, arr:[['pass','b','u9']], z:[{x:80,y:0,w:25,h:68,l:'OFFSIDE!'}]},
  {d:700, cap:'Let\'s try again. Smart attackers stay level with the last defender and wait.', p:{u9:[79,29],b:[51.8,34]}},
  {d:1000, cap:'Then they run at the exact moment the pass is played. Onside! The goal counts.', p:{u9:[92,31],b:[91,32.5]}, arr:[['run','u9',[92,31]],['pass',[51.8,34],[91,32.5]]]}
+]},
+sharks:{ name:'Sharks & minnows', labels:{a1:'',a2:'',a3:'',a4:'',a5:'',d1:'',d2:''}, frames:[
+ {d:0, cap:'Sharks & minnows: every minnow has a ball. They must dribble across the sea without the 2 sharks kicking their ball away.',
+  p:{a1:[33,16],a2:[33,26],a3:[33,36],a4:[33,46],a5:[33,54],d1:[52,24],d2:[52,44],b1:[34.8,16],b2:[34.8,26],b3:[34.8,36],b4:[34.8,46],b5:[34.8,54]}, z:[{x:30,y:10,w:46,h:48,l:'THE SEA'}]},
+ {d:1900, cap:'Go! Heads up to see the sharks. Change speed, change direction, protect the ball with your body.',
+  p:{a1:[72,14],b1:[73.8,14],a2:[71,23],b2:[72.8,23],a4:[72,48],b4:[73.8,48],a5:[72,56],b5:[73.8,56],a3:[50,37],b3:[60,63],d1:[66,22],d2:[51,39]},
+  arr:[['run','a1',[72,14]],['run','a4',[72,48]],['press','d2','a3']], z:[{x:30,y:10,w:46,h:48,l:'THE SEA'}]},
+ {d:500, cap:'Caught! The minnow who lost the ball becomes a shark too. The last minnow left is the champion.', p:{a3:[52,30]}, z:[{x:30,y:10,w:46,h:48,l:'THE SEA'}]},
+ {d:300, cap:'Secret lesson: dribbling with your head up and protecting the ball. Make it harder (STEP): a smaller sea, or more sharks.', p:{}, z:[{x:30,y:10,w:46,h:48,l:'THE SEA'}]}
+]},
+gates:{ name:'Gates game', labels:{a1:'',a2:'',a3:'',a4:''}, frames:[
+ {d:0, cap:'Gates game: with a partner, pass through as many cone gates as you can in 60 seconds.',
+  p:{a1:[37,20],a2:[45,21],a3:[49,34],a4:[56,34],b1:[38.8,20],b2:[50.8,34]},
+  z:[{x:25,y:8,w:55,h:52},{x:40.5,y:17,w:1.5,h:7,l:'GATE'},{x:59.5,y:13,w:1.5,h:7},{x:52.5,y:31,w:1.5,h:7},{x:38,y:45,w:1.5,h:7},{x:66.5,y:47,w:1.5,h:7}]},
+ {d:800, cap:'Pass through the gate to your partner. One gate = one point.', p:{b1:[43.2,21],b2:[54.2,34]}, arr:[['pass','b1','a2'],['pass','b2','a4']],
+  z:[{x:25,y:8,w:55,h:52},{x:40.5,y:17,w:1.5,h:7,l:'GATE'},{x:59.5,y:13,w:1.5,h:7},{x:52.5,y:31,w:1.5,h:7},{x:38,y:45,w:1.5,h:7},{x:66.5,y:47,w:1.5,h:7}]},
+ {d:1300, cap:'Look up first! Find a free gate, dribble to it, and your partner runs to the other side.',
+  p:{a2:[64,16],b1:[62.2,16.4],a1:[56,16],a4:[64,50],b2:[62.2,50],a3:[71,50]}, arr:[['run','a1',[56,16]],['run','a3',[71,50]]],
+  z:[{x:25,y:8,w:55,h:52},{x:40.5,y:17,w:1.5,h:7},{x:59.5,y:13,w:1.5,h:7,l:'FREE!'},{x:52.5,y:31,w:1.5,h:7},{x:38,y:45,w:1.5,h:7},{x:66.5,y:47,w:1.5,h:7,l:'FREE!'}]},
+ {d:800, cap:'Two more points! Count your gates out loud.', p:{b1:[57.8,16],b2:[69.2,50]}, arr:[['pass','b1','a1'],['pass','b2','a3']],
+  z:[{x:25,y:8,w:55,h:52},{x:40.5,y:17,w:1.5,h:7},{x:59.5,y:13,w:1.5,h:7},{x:52.5,y:31,w:1.5,h:7},{x:38,y:45,w:1.5,h:7},{x:66.5,y:47,w:1.5,h:7}]},
+ {d:300, cap:'Secret lesson: scanning, passing, and moving after you pass. Boss level: one touch, weak foot, and a "gatekeeper" who closes gates.', p:{},
+  z:[{x:25,y:8,w:55,h:52},{x:40.5,y:17,w:1.5,h:7},{x:59.5,y:13,w:1.5,h:7},{x:52.5,y:31,w:1.5,h:7},{x:38,y:45,w:1.5,h:7},{x:66.5,y:47,w:1.5,h:7}]}
+]},
+fourGoals:{ name:'Four goals', labels:{a1:'',a2:'',a3:'',o1:'',o2:'',o3:''}, frames:[
+ {d:0, cap:'Four goals: each team attacks 2 small goals. If one goal is blocked, attack the other one!',
+  p:{a1:[40,32],a2:[50,18],a3:[52,48],o1:[62,22],o2:[62,42],o3:[49,33],b:[41.8,32]},
+  z:[{x:25,y:8,w:55,h:52},{x:79,y:11,w:2.5,h:8,l:'GOAL'},{x:79,y:49,w:2.5,h:8,l:'GOAL'},{x:23.5,y:11,w:2.5,h:8},{x:23.5,y:49,w:2.5,h:8}]},
+ {d:900, cap:'We pass to the top. Their whole team runs to block the top goal...',
+  p:{b:[51.8,18],o1:[57,16],o3:[52,25],o2:[61,31]}, arr:[['pass','b','a2']],
+  z:[{x:25,y:8,w:55,h:52},{x:79,y:11,w:2.5,h:8,l:'BLOCKED'},{x:79,y:49,w:2.5,h:8,l:'GOAL'},{x:23.5,y:11,w:2.5,h:8},{x:23.5,y:49,w:2.5,h:8}]},
+ {d:1000, cap:'...so we switch the ball to the other side. Wide open!', p:{b:[53.8,48]}, arr:[['pass','b','a3']],
+  z:[{x:25,y:8,w:55,h:52},{x:79,y:11,w:2.5,h:8,l:'BLOCKED'},{x:79,y:49,w:2.5,h:8,l:'OPEN!'},{x:23.5,y:11,w:2.5,h:8},{x:23.5,y:49,w:2.5,h:8}]},
+ {d:1300, cap:'Goal! Nobody told them "switch the play". The game taught them. That\'s the Fàbregas idea, learned by playing.',
+  p:{a3:[75,52],b:[80.5,53]}, arr:[['run','a3',[75,52]]],
+  z:[{x:25,y:8,w:55,h:52},{x:79,y:11,w:2.5,h:8},{x:79,y:49,w:2.5,h:8,l:'GOAL!'},{x:23.5,y:11,w:2.5,h:8},{x:23.5,y:49,w:2.5,h:8}]}
 ]},
 fourMoments:{ name:'The 4 moments', frames:[
  {d:0, cap:'Moment 1 · We have the ball. We open like an umbrella: wide to the side lines, tall up the pitch.',
@@ -781,10 +920,10 @@ function makeBoard(root){
     tabs.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.id===id));
     svg.setAttribute('aria-label',S.scene.name+' animation');
     pLayer.innerHTML=''; S.nodes={};
-    const order=S.scene.ids.filter(x=>x!=='b').concat(S.scene.ids.includes('b')?['b']:[]);
+    const isBall=x=>/^b\d*$/.test(x); const order=S.scene.ids.filter(x=>!isBall(x)).concat(S.scene.ids.filter(isBall));
     order.forEach(pid=>{
       const g=el('g',{},pLayer);
-      if(pid==='b'){ el('circle',{r:1.05,fill:'#fff',stroke:'#111','stroke-width':.3},g); }
+      if(isBall(pid)){ el('circle',{r:1.05,fill:'#fff',stroke:'#111','stroke-width':.3},g); }
       else{
         const us=/^[ua]/.test(pid);
         el('circle',{r:2.15,fill:us?'var(--red)':'var(--them)',stroke:us?'#fff':'var(--them-ink)','stroke-width':.3},g);
@@ -809,7 +948,7 @@ function makeBoard(root){
       const A=typeof a==='string'?(type==='mark'?f.pos[a]:f.prev[a]||f.pos[a]):a;
       let B=typeof b==='string'?f.pos[b]:b;
       if(!A||!B) return;
-      if(typeof b==='string'&&b!=='b'){ const dx=B[0]-A[0],dy=B[1]-A[1],L=Math.hypot(dx,dy)||1,cut=Math.min(2.8,L*.3); B=[B[0]-dx/L*cut,B[1]-dy/L*cut]; }
+      if(typeof b==='string'&&!/^b\d*$/.test(b)){ const dx=B[0]-A[0],dy=B[1]-A[1],L=Math.hypot(dx,dy)||1,cut=Math.min(2.8,L*.3); B=[B[0]-dx/L*cut,B[1]-dy/L*cut]; }
       if(Math.hypot(B[0]-A[0],B[1]-A[1])<1.5) return;
       const attrs={class:'arr '+type,d:`M${A[0]} ${A[1]} L${B[0]} ${B[1]}`};
       if(type!=='mark') attrs['marker-end']=`url(#${uid}${type})`;
@@ -892,6 +1031,84 @@ function showAge(k){ const A=AGES[k]; tree.style.transform=`scale(${A.s})`;
   agesBox.querySelectorAll('.age').forEach((b,j)=>b.setAttribute('aria-pressed',j===k)); }
 AGES.forEach((A,k)=>{ const b=document.createElement('button'); b.className='age'; b.textContent='Age '+A.a; b.onclick=()=>showAge(k); agesBox.appendChild(b); });
 showAge(1);
+
+/* ---------- Level 8: library ---------- */
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LIB=[
+ {n:'Sharks & minnows',age:'5–10',lv:'Level 0–1',story:'Minnows cross the sea; sharks hunt their balls.',secret:'Dribbling with the head up, protecting the ball.'},
+ {n:'Gates game',age:'6–12',lv:'Level 2',story:'Pairs collect points by passing through cone gates.',secret:'Scanning, passing, moving after the pass.'},
+ {n:'Four goals',age:'7–16',lv:'Level 2',story:'Two small goals to attack on each side.',secret:'Seeing the open side and switching play.'},
+ {n:'Treasure rondo',age:'8–adult',lv:'Level 2',story:'Pirates guard the treasure chest in the middle. A pass between two pirates steals a gold coin.',secret:'Split passes, body shape, angles.'},
+ {n:'Falcon hunt',age:'8–14',lv:'Level 3',story:'Falcons may only dive when the rabbits pass sideways or turn their backs.',secret:'Pressing triggers and pressing together.'},
+ {n:'The snake',age:'7–14',lv:'Level 3',story:'Defenders are one snake. If it breaks into pieces, the snake "dies".',secret:'Compactness, sliding as one.'},
+ {n:'Hunters (5 seconds)',age:'9–adult',lv:'Level 3',story:'Lose the ball? Hunters have 5 seconds to catch it back for a bonus.',secret:'Counter-pressing.'},
+ {n:'Dhow race',age:'10–adult',lv:'Level 4',story:'Sail the ball through 3 harbours (zones) to reach the goal, while pirates press.',secret:'Build-up and beating the press, Fàbregas style.'},
+ {n:'Superhero joker',age:'6–14',lv:'Level 2',story:'One superhero in a cape always plays for the team with the ball.',secret:'Numerical superiority, finding the free player.'},
+ {n:'Partner chase',age:'9–adult',lv:'Level 4',story:'Everyone gets a secret partner to follow. Lose your partner, lose a point.',secret:'Man-to-man duels, Gasperini style.'}
+];
+document.getElementById('library').innerHTML=LIB.map(g=>`<div class="lever"><span class="cw">${g.lv} · age ${g.age}</span><h4>${g.n}</h4><p class="kidline">${g.story}</p><p style="font-size:.9rem"><b>Secret lesson:</b> ${g.secret}</p></div>`).join('');
+
+/* ---------- Level 8: game inventor ---------- */
+const TEACH={
+ 'Dribbling with the head up':['Sharks and minnows of the Sea of Oman','Camel caravan escaping desert bandits','Superheroes escaping the robot army'],
+ 'Scanning before receiving':['Detectives looking for the secret free player','Lighthouse keepers spotting ships','Falcon eyes: see everything before you catch'],
+ 'Passing through lines':['Pirates sneaking past the guards','Arrows through the castle walls','Dhow sailors sailing between the rocks'],
+ 'Switching the play':['Two treasure chests: raid the unguarded one','Two city gates: attack the open gate','Wind changes: the dhow turns to the other harbour'],
+ 'Counter-pressing in 5 seconds':['Bees protecting the hive','Hunters chasing the stolen treasure','Fire fighters: put the fire out in 5 seconds'],
+ 'Compact defending':['The snake that must never break','The wall of the old fort','A school of fish swimming together'],
+ '1 v 1 courage':['Knight duels at the castle gate','Lion against lion','The bravest falcon wins the prize']
+};
+const SPACES=['in a 20×20 m square','on a long, thin pitch (40×20 m)','with 4 small goals, 2 per team','with a middle "lava" zone nobody may stand in','with 3 zones the ball must travel through','in a circle with the treasure (a cone) in the middle'];
+const RULES=['2 touches maximum','your weak foot scores double','a joker always plays for the team with the ball','after scoring, the scorer must run around a flag and come back','everyone must touch the ball before a goal counts','the coach calls a colour and that team gets one extra player for 30 seconds'];
+const SCORES=['a pass between two defenders = 1 gold coin','winning it back in 5 seconds = bonus point','a goal after switching sides counts 3','10 passes in a row = 1 goal','a brave dribble that fails still earns a "brave point"','the team that cheers loudest after a goal gets +1'];
+const LEVELS=['Level 1: 3 touches. Level 2: 2 touches. Boss level: 1 touch.','Level 1: big space. Level 2: half the space. Boss level: add a defender.','Level 1: any foot. Level 2: weak foot only. Boss level: weak foot, 1 touch.'];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const cap1=x=>x.charAt(0).toUpperCase()+x.slice(1);
+const invTeach=document.getElementById('invTeach'), invCard=document.getElementById('invCard');
+Object.keys(TEACH).forEach(t=>{ const o=document.createElement('option'); o.textContent=t; invTeach.appendChild(o); });
+function invent(){
+  const t=invTeach.value, story=pick(TEACH[t]);
+  invCard.innerHTML=`<p class="eyebrow">Your new game</p><h4>${esc(story)}</h4><dl>
+   <dt>Secret lesson</dt><dd>${esc(t)}</dd><dt>Where</dt><dd>Play it ${pick(SPACES)}.</dd><dt>Special rule</dt><dd>${cap1(pick(RULES))}.</dd>
+   <dt>Scoring</dt><dd>${cap1(pick(SCORES))}.</dd><dt>Challenge</dt><dd>${pick(LEVELS)}</dd>
+   <dt>Ask them</dt><dd>"What helped you win points?" Then let one player add a new rule.</dd></dl>`;
+}
+document.getElementById('invSpin').onclick=invent; invTeach.onchange=invent; invent();
+
+/* ---------- Level 8: style card ---------- */
+const VALUES=['Brave','Joy','Respect','Hard work','Creativity','Team first','Discipline','Curiosity','Humble','Never give up'];
+const st=(()=>{ try{ return JSON.parse(store.get('style')||'{}'); }catch(e){ return {}; } })();
+st.values=st.values||['Brave','Joy','Respect']; st.games=st.games||['Treasure rondo','Four goals','Hunters (5 seconds)'];
+function chipRow(box,list,key){
+  box.innerHTML='';
+  list.forEach(v=>{ const c=document.createElement('button'); c.type='button'; c.className='chip'; c.textContent=v; c.setAttribute('aria-pressed',st[key].includes(v));
+    c.onclick=()=>{ const i=st[key].indexOf(v); if(i>-1) st[key].splice(i,1); else { st[key].push(v); if(st[key].length>3) st[key].shift(); } chipRow(box,list,key); renderStyle(); };
+    box.appendChild(c); });
+}
+const sl=[1,2,3,4,5].map(n=>document.getElementById('sl'+n)), nameIn=document.getElementById('styleName');
+sl.forEach((s,k)=>{ if(st['s'+k]!=null) s.value=st['s'+k]; s.oninput=renderStyle; });
+if(st.name) nameIn.value=st.name; nameIn.oninput=renderStyle;
+function side(v,a,b,mid){ return v<38?a:v>62?b:mid; }
+function renderStyle(){
+  sl.forEach((s,k)=>st['s'+k]=+s.value); st.name=nameIn.value; store.set('style',JSON.stringify(st));
+  const v=sl.map(s=>+s.value);
+  const model=[side(v[0],'we keep the ball and build patiently','we attack fast and direct','we keep the ball, but go forward the moment it is on'),
+               side(v[1],'we press high to win it near their goal','we defend deep and counter-attack','we press in the middle and jump on triggers'),
+               side(v[2],'players find spaces between the lines','every player wins his own duel','clever positions in attack, fierce duels in defence')];
+  const how=[side(v[3],'I ask questions so players discover answers','I give clear, short instructions','I ask first, and tell when they need it'),
+             side(v[4],'most learning happens in free games','we use clear, structured practices','I use games with a clear structure inside them')];
+  const vals=st.values.length?st.values.join(' · '):'Pick your values';
+  const games=st.games.length?st.games.join(' · '):'Pick your signature games';
+  document.getElementById('styleCard').innerHTML=`<p class="eyebrow">My coaching style</p><h4>${esc(st.name||'My Method')}</h4>
+   <div class="row"><b>Why · we build players who are</b><span>${esc(vals)}</span></div>
+   <div class="row"><b>What · on the pitch</b><span>${cap1(model[0])}. ${cap1(model[1])}. ${cap1(model[2])}.</span></div>
+   <div class="row"><b>How · I teach</b><span>${how[0]}, and ${how[1]}. Always playful, always with a score.</span></div>
+   <div class="row"><b>Games · my signature</b><span>${esc(games)}</span></div>
+   <div class="row"><b>Promise</b><span>Every player leaves training better, braver, and wanting to come back tomorrow.</span></div>`;
+}
+chipRow(document.getElementById('valChips'),VALUES,'values');
+chipRow(document.getElementById('gameChips'),LIB.map(g=>g.n),'games');
+renderStyle();
 
 /* ---------- Progress + road ---------- */
 const stops=document.getElementById('stops');
