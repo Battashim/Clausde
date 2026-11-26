@@ -1,0 +1,817 @@
+<title>The Coach's Road</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a coach's notebook. Text column beside a live tactics board, one "level" per band, a road map pinned on top. */
+:root{
+  --paper:#F2F5F1; --panel:#FFFFFF; --ink:#16231B; --muted:#56655B; --rule:#D5DED6;
+  --pitch:#2A6B45; --pitch-2:#25603E; --line:rgba(255,255,255,.78);
+  --red:#C8102E; --red-soft:#F7DDE1; --green:#0B7A3E; --green-soft:#DCEFE3;
+  --gold:#E2A92B; --gold-soft:#FBF0D6; --them:#F4F1E8; --them-ink:#1C2A44;
+  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0F1712; --panel:#17221B; --ink:#E5ECE6; --muted:#9DAEA2; --rule:#2A3A2F;
+  --pitch:#1F5536; --pitch-2:#1B4D31; --line:rgba(255,255,255,.7);
+  --red:#F0566C; --red-soft:#3A1B21; --green:#4CC284; --green-soft:#16301F;
+  --gold:#F0BF4C; --gold-soft:#33291A; --them:#EDEAE0; --them-ink:#1C2A44; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1712; --panel:#17221B; --ink:#E5ECE6; --muted:#9DAEA2; --rule:#2A3A2F;
+  --pitch:#1F5536; --pitch-2:#1B4D31; --line:rgba(255,255,255,.7);
+  --red:#F0566C; --red-soft:#3A1B21; --green:#4CC284; --green-soft:#16301F;
+  --gold:#F0BF4C; --gold-soft:#33291A; --them:#EDEAE0; --them-ink:#1C2A44; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* Hero */
+.hero{padding-block:48px 28px}
+.hero h1{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:800;letter-spacing:-.02em}
+.hero h1 span{color:var(--red)}
+.hero .lede{font-size:1.2rem;max-width:62ch;margin-top:16px;color:var(--muted)}
+.missions{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:28px}
+.mission{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:20px;display:grid;gap:8px}
+.mission h3{font-size:1.25rem}
+.mission .tag{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--red);letter-spacing:.08em}
+.howto{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:22px;color:var(--muted);font-size:.95rem}
+.howto b{color:var(--ink)}
+
+/* Road nav */
+.road{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--rule)}
+.road .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.stops{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.stops::-webkit-scrollbar{display:none}
+.stop{flex:none;display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);font-size:.85rem;padding:5px 10px 5px 5px;border-radius:999px;border:1px solid var(--rule);background:var(--panel);white-space:nowrap}
+.stop i{font-style:normal;font-family:var(--mono);font-weight:700;font-size:.75rem;width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--green-soft);color:var(--green)}
+.stop.done i{background:var(--green);color:var(--panel)}
+.meter{flex:none;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.meter .bar{width:90px;height:8px;border-radius:9px;background:var(--rule);overflow:hidden}
+.meter .bar b{display:block;height:100%;width:0;background:var(--red);transition:width .4s}
+
+/* Level band */
+.level{padding-block:56px;border-bottom:1px solid var(--rule);scroll-margin-top:64px}
+.lvl-head{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;align-items:end;margin-bottom:28px}
+.lvl-num{grid-row:span 2;font-family:var(--display);font-weight:800;font-size:clamp(3.5rem,9vw,6rem);line-height:.8;color:var(--red)}
+.lvl-head h2{font-size:clamp(1.8rem,4vw,2.8rem)}
+.lvl-head .goal{color:var(--muted)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:32px;align-items:start}
+@media (max-width:900px){.cols{grid-template-columns:minmax(0,1fr)}}
+.text{display:grid;gap:22px;min-width:0}
+.kid{background:var(--gold-soft);border-radius:14px;padding:18px 20px;font-size:1.08rem}
+.kid .eyebrow{color:var(--ink);opacity:.7;margin-bottom:6px}
+.ideas{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.ideas li{display:grid;gap:3px;padding-left:16px;border-left:3px solid var(--rule)}
+.ideas h4{font-size:1.08rem}
+.cw{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--green);text-transform:uppercase}
+
+/* Board */
+.board{position:sticky;top:76px;background:var(--panel);border:1px solid var(--rule);border-radius:16px;padding:14px;display:grid;gap:12px;min-width:0}
+@media (max-width:900px){.board{position:static}}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tab{border:1px solid var(--rule);background:transparent;border-radius:999px;padding:5px 12px;font-size:.85rem;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pitchbox{border-radius:10px;overflow:hidden;background:var(--pitch);aspect-ratio:111/74;max-width:100%}
+.pitchbox svg{display:block;width:100%;height:100%}
+.cap{min-height:5.2em;font-size:1.05rem;line-height:1.45}
+.cap .step{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.ctrls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cbtn{border:1px solid var(--rule);background:var(--paper);border-radius:10px;height:38px;min-width:42px;padding:0 12px;cursor:pointer;font-weight:700}
+.cbtn.play{background:var(--red);color:#fff;border-color:var(--red);min-width:96px}
+.dots{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap}
+.dot{width:12px;height:12px;border-radius:50%;border:none;background:var(--rule);padding:0;cursor:pointer}
+.dot.on{background:var(--red)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:50%;display:inline-block}
+.ln{width:18px;height:0;border-top:2px solid var(--muted);display:inline-block}
+
+/* Drill + checklist */
+.drill{border:2px dashed var(--green);border-radius:14px;padding:16px 18px;display:grid;gap:6px}
+.drill h4{font-size:1.05rem;color:var(--green)}
+.checks{display:grid;gap:8px}
+.checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.checks input{width:20px;height:20px;accent-color:var(--red);margin-top:3px;flex:none}
+
+/* Eyes */
+.eyes{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:6px}
+.eye{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;font-size:.95rem}
+.eye b{display:block;font-family:var(--display);font-size:1.05rem}
+
+/* Compare */
+.compare{margin-top:40px;display:grid;gap:14px}
+.vs-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:14px;background:var(--panel)}
+table.vs{width:100%;border-collapse:collapse;min-width:620px;font-size:.95rem}
+.vs th,.vs td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+.vs thead th{font-family:var(--display);font-size:1.1rem}
+.vs tbody th{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;width:18%}
+.vs tr:last-child td,.vs tr:last-child th{border-bottom:none}
+.model{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.model label{display:grid;gap:6px;font-weight:700;font-size:.95rem}
+.model textarea{font:inherit;font-weight:400;font-size:.95rem;min-height:110px;border-radius:10px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);padding:10px;resize:vertical}
+
+/* Session builder */
+.session{display:flex;height:64px;border-radius:12px;overflow:hidden;border:1px solid var(--rule)}
+.blk{border:none;cursor:pointer;color:#fff;font-size:.8rem;font-weight:700;padding:4px;line-height:1.15;min-width:0;overflow:hidden}
+.blk[aria-pressed="true"]{box-shadow:inset 0 -5px 0 rgba(255,255,255,.85)}
+.blkinfo{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;min-height:7em}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:8px 6px;text-align:center;font-size:.78rem;line-height:1.3}
+.day b{display:block;font-family:var(--mono);font-size:.72rem;color:var(--red)}
+.day .h{height:46px;display:flex;align-items:flex-end;justify-content:center;margin:6px 0}
+.day .h i{width:60%;border-radius:4px 4px 0 0;background:var(--green)}
+@media (max-width:560px){.week{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* Palm growth */
+.grow{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:20px;align-items:end}
+@media (max-width:600px){.grow{grid-template-columns:minmax(0,1fr)}}
+.palm{background:var(--panel);border:1px solid var(--rule);border-radius:16px;padding:10px}
+.palm svg{display:block;width:100%;height:auto}
+#palmTree{transform-origin:100px 230px;transition:transform .9s cubic-bezier(.3,1.4,.5,1)}
+.ages{display:flex;gap:6px;flex-wrap:wrap}
+.age{border:1px solid var(--rule);background:var(--panel);border-radius:999px;padding:6px 14px;cursor:pointer;font-weight:700}
+.age[aria-pressed="true"]{background:var(--green);color:#fff;border-color:var(--green)}
+.agecard{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:18px;display:grid;gap:10px;margin-top:12px}
+.agecard ul{margin:0;padding-left:20px}
+.levers{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.lever{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:grid;gap:4px;align-content:start}
+.lever h4{font-size:1.02rem}
+.lever .kidline{font-size:.92rem;color:var(--muted)}
+
+/* Ladder */
+.ladder{display:grid;gap:8px}
+.rung{display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;align-items:center;background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 14px}
+.rung b{font-family:var(--display);font-size:1.15rem;color:var(--red)}
+.rung:nth-child(1){margin-left:0}.rung:nth-child(2){margin-left:4%}.rung:nth-child(3){margin-left:8%}.rung:nth-child(4){margin-left:12%}.rung:nth-child(5){margin-left:16%}
+@media (max-width:600px){.rung{margin-left:0!important;grid-template-columns:minmax(0,1fr)}}
+.plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.plan div{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px;font-size:.92rem}
+.plan b{display:block;font-family:var(--mono);font-size:.75rem;color:var(--green);letter-spacing:.06em}
+.section-title{font-size:1.5rem;margin-top:44px;margin-bottom:12px}
+
+footer{padding-block:48px 64px}
+footer h2{font-size:2rem}
+.next{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.next span{border:1px solid var(--rule);border-radius:999px;padding:5px 12px;font-size:.9rem;background:var(--panel)}
+
+/* SVG pieces */
+.zone{fill:rgba(255,214,90,.16);stroke:#FFD65A;stroke-width:.35;stroke-dasharray:1.2 .8}
+.zlabel{fill:#FFE79A;font-family:var(--mono);font-size:2.4px;font-weight:700;letter-spacing:.05em}
+.arr{fill:none;stroke-linecap:round;animation:draw .5s ease-out both}
+.arr.pass{stroke:#fff;stroke-width:.55}
+.arr.run{stroke:#fff;stroke-width:.45;stroke-dasharray:1.3 .9}
+.arr.press{stroke:#FFD65A;stroke-width:.6;stroke-dasharray:.9 .6}
+.arr.mark{stroke:rgba(255,255,255,.55);stroke-width:.3;stroke-dasharray:.4 .6}
+@keyframes draw{from{opacity:0}to{opacity:1}}
+.zone,.zlabel{animation:draw .5s ease-out both}
+@media (prefers-reduced-motion:reduce){.arr,.zone,.zlabel{animation:none}#palmTree{transition:none}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">A visual course · from zero to pro coach</p>
+    <h1>The Coach's <span>Road</span></h1>
+    <p class="lede">Seven levels. Each one has moving tactics boards, a "like you're 6" story, the real coach words, a drill to try this week, and a checklist. By the end you will look at football the way Cesc Fàbregas and Gian Piero Gasperini do.</p>
+    <div class="missions">
+      <div class="mission"><span class="tag">MISSION 1</span><h3>Grow Omani youth players to a European standard</h3><p>Know what to teach at each age, what European academies do every week, and which levers matter most in Oman.</p></div>
+      <div class="mission"><span class="tag">MISSION 2</span><h3>Coach a team in a modern style</h3><p>Build a game model for all 4 moments of the game, train it with games, and lead the players and staff around you.</p></div>
+    </div>
+    <div class="howto"><span><b>Watch</b> the board (press Play)</span><span><b>Read</b> the yellow story</span><span><b>Learn</b> the coach words</span><span><b>Do</b> the drill</span><span><b>Tick</b> the boxes. Your progress is saved in this browser.</span></div>
+  </div>
+</header>
+
+<nav class="road" aria-label="Levels">
+  <div class="wrap">
+    <div class="stops" id="stops"></div>
+    <div class="meter"><span class="bar"><b id="meterBar"></b></span><span id="meterTxt">0%</span></div>
+  </div>
+</nav>
+
+<main>
+<!-- LEVEL 1 -->
+<section class="level" id="level-1" data-title="See the game">
+  <div class="wrap">
+    <div class="lvl-head"><span class="lvl-num">1</span><p class="eyebrow">Level 1 · Coach's eyes</p><h2>See the game</h2></div>
+    <div class="cols">
+      <div class="text">
+        <p class="goal">You'll be able to: watch any match and say what is really happening, not just where the ball is.</p>
+        <div class="kid"><p class="eyebrow">Like you're 6</p>Football is a big game of tag with a ball. When <b>we</b> have the ball, we want the field to feel <b>big</b>, so there's lots of room to run. When <b>they</b> have it, we want the field to feel <b>small</b>, so they have nowhere to go. The game keeps flipping between big and small, again and again.</div>
+        <ul class="ideas">
+          <li><span class="cw">Coach word: the 4 moments</span><h4>Every second is one of 4 moments</h4><p>1. We have the ball. 2. We just lost it. 3. They have the ball. 4. We just won it. Great coaches have a plan for every moment, not only for attacking.</p></li>
+          <li><span class="cw">Coach word: thirds, lanes, half-spaces</span><h4>The pitch is a map</h4><p>Cut it into 3 slices across and 5 streets long-ways. The two "half-spaces" are the streets between the wing and the middle. Defenders get confused there.</p></li>
+          <li><span class="cw">Coach word: Zone 14</span><h4>The most dangerous square</h4><p>The area just in front of the penalty box. A player who gets the ball there facing goal can pass, dribble, or shoot.</p></li>
+          <li><span class="cw">Coach word: off-ball view</span><h4>Watch the game, not the ball</h4><p>The ball tells you what <i>is</i> happening. The players without the ball tell you what is <i>about to</i> happen.</p></li>
+        </ul>
+        <div>
+          <h4 style="font-size:1.1rem">The 5 questions in a coach's head</h4>
+          <div class="eyes">
+            <div class="eye"><b>Which moment?</b>Do we have it, lose it, defend, or win it?</div>
+            <div class="eye"><b>Who is free?</b>Find the player no one is watching.</div>
+            <div class="eye"><b>How many?</b>Near the ball: are there more of us or more of them?</div>
+            <div class="eye"><b>Where is space?</b>Wide, behind, or between their lines?</div>
+            <div class="eye"><b>What if we lose it now?</b>Who is ready to stop their counter?</div>
+          </div>
+        </div>
+        <div class="drill"><h4>Try it this week</h4><p>Watch 15 minutes of a match with the sound off. Every time the ball changes team, say out loud "Moment 2!" or "Moment 4!". Then watch 5 minutes looking only at one team's back line. Write 3 things you noticed.</p></div>
+        <div class="checks" data-level="1">
+          <label><input type="checkbox" id="c1a" data-key="1a"> I can name the 4 moments of the game</label>
+          <label><input type="checkbox" id="c1b" data-key="1b"> I can point to the half-spaces and Zone 14</label>
+          <label><input type="checkbox" id="c1c" data-key="1c"> I watched 15 minutes without following the ball</label>
+        </div>
+      </div>
+      <div class="board" data-scenes="fourMoments,zones"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEVEL 2 -->
+<section class="level" id="level-2" data-title="Play with the ball">
+  <div class="wrap">
+    <div class="lvl-head"><span class="lvl-num">2</span><p class="eyebrow">Level 2 · Attacking principles</p><h2>Play with the ball</h2></div>
+    <div class="cols">
+      <div class="text">
+        <p class="goal">You'll be able to: explain why the ball moves, and teach players where to stand so they are always free.</p>
+        <div class="kid"><p class="eyebrow">Like you're 6</p>You and your friends pass a toy while your little brother tries to grab it. If you all stand in a bunch, he grabs it. If you spread out and always stand where he can't reach, he never gets it. Standing in the right place is called <b>positional play</b>. It's the heart of how Fàbregas thinks.</div>
+        <ul class="ideas">
+          <li><span class="cw">Coach word: support angles</span><h4>Always make triangles</h4><p>Never stand in a straight line with the ball and a defender. Make a triangle so the player with the ball has 2 friends to pass to.</p></li>
+          <li><span class="cw">Coach word: width & depth</span><h4>Stretch the pitch</h4><p>Some players hold the side lines (width). One stays high behind their defenders (depth). The opponent has to stretch too, and holes appear in the middle.</p></li>
+          <li><span class="cw">Coach word: superiority</span><h4>Be "more" where the ball is</h4><p>3 ways to be stronger: <b>more players</b> (3 vs 2), <b>better place</b> (between their lines), or <b>better player</b> (your best dribbler 1 vs 1).</p></li>
+          <li><span class="cw">Coach word: third man</span><h4>A → B → C</h4><p>When A can't pass to C, A passes to B and B gives it first-time to C. Defenders watch the ball; the third man arrives free.</p></li>
+          <li><span class="cw">Coach word: scanning & half-turn</span><h4>Look before you get it</h4><p>Check over your shoulder before the ball comes. Receive with your body open (side-on) so you can play forward with your first touch.</p></li>
+        </ul>
+        <div class="drill"><h4>Try it this week: the rondo ladder</h4><p>Start 4 vs 1 in a 10×10 m square, 2 touches. 10 passes = 1 point. A pass between two defenders (split pass) = 2 points. When it's easy go to 5 vs 2, then 1 touch. Ask: "Where should you stand so the ball can always reach you?"</p></div>
+        <div class="checks" data-level="2">
+          <label><input type="checkbox" id="c2a" data-key="2a"> I can explain triangles, width and depth to a child</label>
+          <label><input type="checkbox" id="c2b" data-key="2b"> I can name the 3 kinds of superiority</label>
+          <label><input type="checkbox" id="c2c" data-key="2c"> I ran a rondo and asked questions instead of shouting orders</label>
+        </div>
+      </div>
+      <div class="board" data-scenes="rondo,thirdMan,widthDepth"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEVEL 3 -->
+<section class="level" id="level-3" data-title="Play without the ball">
+  <div class="wrap">
+    <div class="lvl-head"><span class="lvl-num">3</span><p class="eyebrow">Level 3 · Defending principles</p><h2>Play without the ball</h2></div>
+    <div class="cols">
+      <div class="text">
+        <p class="goal">You'll be able to: organise a team that is hard to play through and wins the ball back fast.</p>
+        <div class="kid"><p class="eyebrow">Like you're 6</p>When they have the ball, our team is one big blanket. If someone pulls one corner, the whole blanket moves, so there are never any holes. And when we lose the ball, we're like bees: the closest bees buzz straight back at it.</div>
+        <ul class="ideas">
+          <li><span class="cw">Coach word: compactness</span><h4>Short and narrow</h4><p>Keep about 30–35 metres from your last defender to your striker, and slide as one group toward the ball side. The far side can wait.</p></li>
+          <li><span class="cw">Coach word: counter-pressing (gegenpressing)</span><h4>The 5-second rule</h4><p>When we lose the ball, the nearest 3 players attack it at once. The other team is messy right then. If it doesn't work in about 5 seconds, drop back into shape.</p></li>
+          <li><span class="cw">Coach word: pressing triggers</span><h4>Wait for the signal, then jump together</h4><p>Triggers: a pass to the side line, a bad touch, a pass backwards, a player facing his own goal. One player pressing alone is useless. Eleven pressing together is a trap.</p></li>
+          <li><span class="cw">Coach word: cover shadow</span><h4>Press with your back</h4><p>Run in a curve so your body hides the pass behind you. You press one player and block a second one at the same time.</p></li>
+          <li><span class="cw">Coach word: block height</span><h4>High, middle or low</h4><p>Decide where your blanket lives: near their goal (high press), in the middle, or near your own box (low block). Modern teams can do all three.</p></li>
+        </ul>
+        <div class="drill"><h4>Try it this week: 6 v 6 with a bonus</h4><p>Normal small game on a 40×30 m pitch. New rule: if you win the ball back within 5 seconds of losing it, that's a bonus point. Count the bonuses. Kids learn to react instead of complaining.</p></div>
+        <div class="checks" data-level="3">
+          <label><input type="checkbox" id="c3a" data-key="3a"> I can explain compactness with the "rope" picture</label>
+          <label><input type="checkbox" id="c3b" data-key="3b"> I can list 4 pressing triggers</label>
+          <label><input type="checkbox" id="c3c" data-key="3c"> I coached a counter-press game and counted bonuses</label>
+        </div>
+      </div>
+      <div class="board" data-scenes="counterpress,compactShift,pressTrap"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEVEL 4 -->
+<section class="level" id="level-4" data-title="Your game model">
+  <div class="wrap">
+    <div class="lvl-head"><span class="lvl-num">4</span><p class="eyebrow">Level 4 · Fàbregas &amp; Gasperini</p><h2>Build your game model</h2></div>
+    <div class="cols">
+      <div class="text">
+        <p class="goal">You'll be able to: describe how your team plays in all 4 moments, and borrow the best of two modern coaches.</p>
+        <div class="kid"><p class="eyebrow">Like you're 6</p>A game model is your team's <b>recipe</b>. When everyone knows the recipe, nobody has to stop and think "what do I do now?". Fàbregas's recipe: keep the ball and be clever. Gasperini's recipe: everybody chases a partner and never stops running. Two very different recipes, and both taste great.</div>
+        <ul class="ideas">
+          <li><span class="cw">Coach word: structure vs formation</span><h4>A formation is only a photo</h4><p>"4-3-3" is where players start. Look at the shape <b>with</b> the ball (often 3-2-5 or 2-3-5) and <b>without</b> it (often 4-4-2). The shape changes; the principles stay.</p></li>
+          <li><span class="cw">Coach word: positional play (Fàbregas)</span><h4>Bait, beat the line, find the free man</h4><p>Short passes from the goalkeeper, centre-backs who wait for the striker to come before passing, midfielders who turn between lines, and wingers left 1 vs 1.</p></li>
+          <li><span class="cw">Coach word: man-oriented pressing (Gasperini)</span><h4>Everyone gets a partner</h4><p>3-4-2-1 shape. Each player follows one opponent all over the pitch. Centre-backs are allowed to chase into midfield and even join the attack. It needs huge fitness and courage in duels.</p></li>
+          <li><span class="cw">Coach word: rest defence</span><h4>A safety net while attacking</h4><p>Keep "their strikers + 1" behind the ball, plus one or two midfielders. Then losing the ball is not a disaster.</p></li>
+        </ul>
+        <div class="drill"><h4>Try it this week</h4><p>Watch 20 minutes of a Fàbregas team (Como) and 20 minutes of a Gasperini team (Atalanta 2016–2025, Roma since 2025). For each, write one sentence per moment. You've just written your first two game models.</p></div>
+        <div class="checks" data-level="4">
+          <label><input type="checkbox" id="c4a" data-key="4a"> I can draw my team's shape with and without the ball</label>
+          <label><input type="checkbox" id="c4b" data-key="4b"> I can explain how Fàbregas and Gasperini differ</label>
+          <label><input type="checkbox" id="c4c" data-key="4c"> I wrote my own recipe below for all 4 moments</label>
+        </div>
+      </div>
+      <div class="board" data-scenes="fabregasBuild,gasperiniMan,restDefence"></div>
+    </div>
+
+    <div class="compare">
+      <h3 class="section-title" style="margin-top:12px">Two lenses, side by side</h3>
+      <div class="vs-wrap">
+        <table class="vs">
+          <thead><tr><th></th><th>Fàbregas lens</th><th>Gasperini lens</th></tr></thead>
+          <tbody>
+            <tr><th>Big idea</th><td>The ball is our home. Control the game by passing and positioning.</td><td>The opponent is the reference. Win duels everywhere and attack fast with many players.</td></tr>
+            <tr><th>Shape</th><td>4-3-3 or 4-2-3-1 on paper, becomes 3-2-5 / 2-3-5 with the ball.</td><td>3-4-2-1 or 3-4-1-2, with wing-backs giving the width.</td></tr>
+            <tr><th>Without the ball</th><td>High, zonal press, and an instant counter-press after losing it.</td><td>Man-to-man over the whole pitch. Every pass is contested.</td></tr>
+            <tr><th>Key players</th><td>A goalkeeper who plays with his feet, calm centre-backs, clever midfielders who turn.</td><td>Tireless wing-backs, centre-backs who win duels and carry the ball forward.</td></tr>
+            <tr><th>Training feel</th><td>Rondos, positional games, patterns to beat the press.</td><td>Duels, 1 vs 1, high-intensity games, hard running.</td></tr>
+            <tr><th>Asks you for</th><td>Patience and detail.</td><td>Energy and courage.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="max-width:70ch">For Omani youth, use both. Positional play builds the <b>brain and feet</b> that European scouts look for. Gasperini-style duels build <b>courage, intensity and fitness</b>, which the senior European game demands every minute.</p>
+      <h3 class="section-title">Write your recipe <span class="eyebrow" style="font-family:var(--mono);font-size:12px;vertical-align:middle">saved in this browser</span></h3>
+      <div class="model">
+        <label for="m1">1 · We have the ball<textarea id="m1" data-model="m1" placeholder="e.g. Build short from the goalkeeper. 3+2 at the back. Wingers stay wide. Find the free man between the lines."></textarea></label>
+        <label for="m2">2 · We just lost it<textarea id="m2" data-model="m2" placeholder="e.g. Nearest 3 press for 5 seconds. Others block passes inside. Then drop to a mid block."></textarea></label>
+        <label for="m3">3 · They have the ball<textarea id="m3" data-model="m3" placeholder="e.g. 4-4-2 mid block. Press on the side-line trigger. Stay 30 m short."></textarea></label>
+        <label for="m4">4 · We just won it<textarea id="m4" data-model="m4" placeholder="e.g. First look forward: can we pass behind? If not, keep it and rebuild."></textarea></label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEVEL 5 -->
+<section class="level" id="level-5" data-title="Train it">
+  <div class="wrap">
+    <div class="lvl-head"><span class="lvl-num">5</span><p class="eyebrow">Level 5 · Session design</p><h2>Train it</h2></div>
+    <div class="cols">
+      <div class="text">
+        <p class="goal">You'll be able to: plan a session and a week that teach your game model through games.</p>
+        <div class="kid"><p class="eyebrow">Like you're 6</p>You don't learn to ride a bike by listening to a talk about bikes. You ride, and you wobble, and you get better. Football is the same. Players learn by playing <b>games with special rules</b> that make the lesson happen by itself.</div>
+        <ul class="ideas">
+          <li><span class="cw">Coach word: constraints-led approach</span><h4>Change the rules, change the lesson</h4><p>Want more switching play? Put 2 goals on each side. Want faster passing? 2 touches max. Want counter-pressing? Bonus point for winning it back in 5 seconds.</p></li>
+          <li><span class="cw">Coach word: guided discovery</span><h4>Ask, don't tell</h4><p>"Where was the free player?" teaches more than "Pass to him!". Players who find the answer themselves remember it in matches.</p></li>
+          <li><span class="cw">Coach word: freeze, flow, one-to-one</span><h4>3 ways to correct</h4><p>Freeze everyone (rarely, max 30 seconds), speak while the game flows, or pull one player aside. Most coaching should happen while they keep playing.</p></li>
+          <li><span class="cw">Coach word: tactical periodization</span><h4>Every day has a job</h4><p>The week before a game is planned backwards from match day. Small spaces and duels early in the week, big spaces mid-week, short and sharp the day before.</p></li>
+          <li><span class="cw">Coach word: plan · do · review</span><h4>Film yourself</h4><p>Put a phone up high on one session a week. Watch it back: did the rules create the lesson? How long did you talk?</p></li>
+        </ul>
+        <div class="drill"><h4>Try it this week</h4><p>Run the 90-minute session on the right with the rules shown. Afterwards write down: one thing players did better, one thing you said too much, one rule to change next time.</p></div>
+        <div class="checks" data-level="5">
+          <label><input type="checkbox" id="c5a" data-key="5a"> I planned a session where every exercise is a game</label>
+          <label><input type="checkbox" id="c5b" data-key="5b"> I used questions more than instructions</label>
+          <label><input type="checkbox" id="c5c" data-key="5c"> I filmed one session and reviewed it</label>
+        </div>
+      </div>
+      <div class="board" style="gap:16px">
+        <div>
+          <p class="eyebrow" style="margin-bottom:8px">A 90-minute session · tap a block</p>
+          <div class="session" id="session"></div>
+        </div>
+        <div class="blkinfo" id="blkinfo" aria-live="polite"></div>
+        <div>
+          <p class="eyebrow" style="margin-bottom:8px">A game week · bar = how hard (load)</p>
+          <div class="week" id="week"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEVEL 6 -->
+<section class="level" id="level-6" data-title="Grow Omani players">
+  <div class="wrap">
+    <div class="lvl-head"><span class="lvl-num">6</span><p class="eyebrow">Level 6 · Mission 1</p><h2>Grow Omani players to European level</h2></div>
+    <div class="cols">
+      <div class="text">
+        <p class="goal">You'll be able to: plan what each age group needs, and fix the gaps between a young Omani player and a European academy player.</p>
+        <div class="kid"><p class="eyebrow">Like you're 6</p>Growing a footballer is like growing a palm tree. You can't pull it to make it taller. You give it water every day, sunshine, and time, and you give the right thing at the right age. Europe's secret isn't magic. It is <b>lots of good football, every week, for about 10 years</b>, with good coaches the whole way.</div>
+        <ul class="ideas">
+          <li><span class="cw">Coach word: long-term player development</span><h4>The right thing at the right age</h4><p>Young kids need fun and touches. Pre-teens need skill. Teenagers need understanding and strength. Young adults need hard competition. Skipping a stage leaves a hole that shows later.</p></li>
+          <li><span class="cw">Coach word: relative age effect</span><h4>Don't pick only the big kids</h4><p>In almost every country, kids born early in the year get picked more because they're older and bigger, not better. Many late-born or late-growing kids become the best players. Keep them.</p></li>
+          <li><span class="cw">Coach word: bio-banding</span><h4>Group by growth, not only birthday</h4><p>Sometimes group players by how grown they are. Small kids get to play with the ball more; early-growers must learn to win with skill, not size.</p></li>
+          <li><span class="cw">Coach word: deliberate practice</span><h4>Touches with a purpose</h4><p>Small games (3v3 to 5v5) give each child many more touches and decisions than 11v11. Volume of quality practice is the biggest difference with Europe.</p></li>
+        </ul>
+      </div>
+      <div class="board" style="gap:14px">
+        <p class="eyebrow">Choose an age · watch the tree grow</p>
+        <div class="ages" id="ages"></div>
+        <div class="grow">
+          <div class="palm" aria-hidden="true">
+            <svg viewBox="0 0 200 240">
+              <rect x="0" y="228" width="200" height="12" rx="3" fill="var(--rule)"></rect>
+              <g id="palmTree">
+                <path d="M96 230 C 94 180, 102 130, 100 80 L 106 80 C 108 130, 102 180, 106 230 Z" fill="#8A6A45"></path>
+                <g fill="var(--green)">
+                  <path d="M103 82 C 80 60, 50 62, 30 78 C 55 70, 80 74, 103 86 Z"></path>
+                  <path d="M103 82 C 126 60, 156 62, 176 78 C 151 70, 126 74, 103 86 Z"></path>
+                  <path d="M103 80 C 90 52, 66 40, 44 42 C 66 50, 86 62, 101 84 Z"></path>
+                  <path d="M103 80 C 116 52, 140 40, 162 42 C 140 50, 120 62, 105 84 Z"></path>
+                  <path d="M103 80 C 100 56, 104 40, 112 30 C 108 46, 108 62, 106 82 Z"></path>
+                </g>
+                <circle cx="98" cy="88" r="4" fill="#B8862F"></circle><circle cx="107" cy="89" r="4" fill="#B8862F"></circle>
+              </g>
+            </svg>
+          </div>
+          <div id="agecard" class="agecard" aria-live="polite" style="margin-top:0"></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-title">What a European academy player gets that most kids don't</h3>
+    <div class="levers">
+      <div class="lever"><span class="cw">Volume</span><h4>Training most days</h4><p class="kidline">From about age 12, several sessions a week with a licensed coach, all year.</p></div>
+      <div class="lever"><span class="cw">Matches</span><h4>A real league every weekend</h4><p class="kidline">Competitive games against equal or better teams for about 10 months a year.</p></div>
+      <div class="lever"><span class="cw">One language</span><h4>The same game model from U9 to the first team</h4><p class="kidline">Every coach teaches the same recipe, so players grow up already "speaking" it.</p></div>
+      <div class="lever"><span class="cw">Support</span><h4>School, food, sleep, video</h4><p class="kidline">Football and education fit together, and players review their own games.</p></div>
+    </div>
+
+    <h3 class="section-title">The Oman levers · where you can make the biggest difference</h3>
+    <div class="levers">
+      <div class="lever"><span class="cw">Lever 1 · Coaches</span><h4>Coach the coaches</h4><p class="kidline">The biggest lever. Every age group needs a trained coach using the same model. Run monthly workshops with your staff.</p></div>
+      <div class="lever"><span class="cw">Lever 2 · Heat</span><h4>Train with the climate</h4><p class="kidline">Evening sessions, shade and water breaks, indoor futsal in the hottest months. Futsal also builds close control and fast decisions.</p></div>
+      <div class="lever"><span class="cw">Lever 3 · Minutes</span><h4>More games, all year</h4><p class="kidline">Push for regular leagues in every age group. Add festivals and small-sided tournaments when there's no league.</p></div>
+      <div class="lever"><span class="cw">Lever 4 · Late bloomers</span><h4>Don't cut kids too early</h4><p class="kidline">Check birth months in your squad. Keep late-growers, use bio-banding, judge skill and decisions over size.</p></div>
+      <div class="lever"><span class="cw">Lever 5 · School</span><h4>Partner with schools</h4><p class="kidline">Agree training times and study support, so parents say yes to football.</p></div>
+      <div class="lever"><span class="cw">Lever 6 · Intensity</span><h4>Make training harder than matches</h4><p class="kidline">Duels, speed of play, little standing around. European games are fast every minute; training must be too.</p></div>
+      <div class="lever"><span class="cw">Lever 7 · Exposure</span><h4>Build the level at home first</h4><p class="kidline">FIFA rules limit international transfers under 18, so make home training European-level. Use tournaments, club partnerships and video comparisons with European U-teams.</p></div>
+      <div class="lever"><span class="cw">Lever 8 · Measure</span><h4>Track what matters</h4><p class="kidline">Minutes played, sprint speed, 1v1s won, scanning before receiving, good decisions. Film and compare each season.</p></div>
+      <div class="lever"><span class="cw">Lever 9 · Mind</span><h4>Habits of a pro</h4><p class="kidline">Sleep, food, punctuality, handling mistakes. Talent gets noticed; habits get careers.</p></div>
+    </div>
+    <div class="checks" data-level="6" style="margin-top:24px">
+      <label><input type="checkbox" id="c6a" data-key="6a"> I can say what each age group needs most</label>
+      <label><input type="checkbox" id="c6b" data-key="6b"> I checked the birth months in a squad I coach or watch</label>
+      <label><input type="checkbox" id="c6c" data-key="6c"> I chose my top 3 Oman levers and wrote a first step for each</label>
+    </div>
+  </div>
+</section>
+
+<!-- LEVEL 7 -->
+<section class="level" id="level-7" data-title="Become the pro">
+  <div class="wrap">
+    <div class="lvl-head"><span class="lvl-num">7</span><p class="eyebrow">Level 7 · The pathway</p><h2>Become the pro</h2></div>
+    <div class="cols">
+      <div class="text">
+        <p class="goal">You'll be able to: plan your licences, your weekly study habits, and how you lead people.</p>
+        <div class="kid"><p class="eyebrow">Like you're 6</p>Being a great coach is like being a great teacher and a great captain at the same time. You keep learning every week, you explain things simply, and people trust you because you're fair and you care about them.</div>
+        <ul class="ideas">
+          <li><span class="cw">Coach word: licensing pathway</span><h4>Climb the AFC ladder</h4><p>In Oman, courses run through the Oman Football Association under the AFC Coaching Convention. Check current entry rules and dates with the OFA before you apply.</p></li>
+          <li><span class="cw">Coach word: match analysis</span><h4>Two matches a week, with a pen</h4><p>One top European match and one of your own team. Use the 5 questions from Level 1. Pause, draw, write.</p></li>
+          <li><span class="cw">Coach word: communication</span><h4>Short, clear, kind</h4><p>One key message per talk. Talk to players one by one every week. Explain to parents what you're building and why it takes years.</p></li>
+          <li><span class="cw">Coach word: staff</span><h4>Build a small team</h4><p>An assistant, a goalkeeper coach, someone for fitness, and someone to film and cut clips. Even volunteers help a lot.</p></li>
+        </ul>
+        <div class="checks" data-level="7">
+          <label><input type="checkbox" id="c7a" data-key="7a"> I know the next licence course I'll take and its dates</label>
+          <label><input type="checkbox" id="c7b" data-key="7b"> I keep a coach journal every week</label>
+          <label><input type="checkbox" id="c7c" data-key="7c"> I watched 2 matches this week with the 5 questions</label>
+        </div>
+      </div>
+      <div class="board" style="gap:14px">
+        <p class="eyebrow">The licence ladder (AFC)</p>
+        <div class="ladder">
+          <div class="rung"><b>Grassroots</b><span>Coaching young children: games, fun, safety. A good place to start.</span></div>
+          <div class="rung"><b>C licence</b><span>Basics of sessions, technique and small-sided games for youth teams.</span></div>
+          <div class="rung"><b>B licence</b><span>Tactics, game model, planning a season. Coaching youth and amateur senior teams.</span></div>
+          <div class="rung"><b>A licence</b><span>Advanced tactics, analysis, managing a squad at a high level.</span></div>
+          <div class="rung"><b>Pro licence</b><span>The top. Needed to be head coach in top professional leagues.</span></div>
+        </div>
+        <p class="eyebrow" style="margin-top:6px">Your first 12 weeks on this road</p>
+        <div class="plan">
+          <div><b>WEEKS 1–2</b>Level 1. Watch 4 matches with the 5 questions.</div>
+          <div><b>WEEKS 3–4</b>Level 2. Run rondos twice a week.</div>
+          <div><b>WEEKS 5–6</b>Level 3. Teach the rope and the 5-second rule.</div>
+          <div><b>WEEKS 7–8</b>Level 4. Write your recipe. Draw your shapes.</div>
+          <div><b>WEEKS 9–10</b>Level 5. Plan a full game week. Film it.</div>
+          <div><b>WEEKS 11–12</b>Level 6. Plan a season for one age group.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="eyebrow">We build this together</p>
+    <h2>Next lessons we can add</h2>
+    <p style="max-width:65ch;margin-top:10px;color:var(--muted)">Tell me which level you're on, what felt hard, and the age group you coach. I'll add new boards, drills and explanations, and adjust the ones that didn't click.</p>
+    <div class="next"><span>Set pieces</span><span>Goalkeeper with the feet</span><span>Video analysis on a phone</span><span>Scouting an opponent</span><span>Match-day: talks &amp; subs</span><span>Full season plan for U13</span><span>Arabic version</span><span>Fàbregas build-up patterns, deeper</span><span>Gasperini pressing, deeper</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const store = {
+  get(k){ try{ return localStorage.getItem('coachroad:'+k); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem('coachroad:'+k,v); }catch(e){} }
+};
+
+/* ---------- Scenes ---------- */
+/* pitch: x 0-105 (we attack to the right), y 0-68. Frame: d = move time ms, cap, p = positions, arr = arrows, z = zones */
+const SCENES = {
+fourMoments:{ name:'The 4 moments', frames:[
+ {d:0, cap:'Moment 1 · We have the ball. We open like an umbrella: wide to the side lines, tall up the pitch.',
+  p:{u1:[6,34],u5:[32,20],u4:[32,48],u3:[46,5],u2:[46,63],u6:[44,34],u8:[58,24],u10:[60,44],u11:[76,7],u9:[82,34],u7:[76,61],
+     t1:[100,34],t2:[85,14],t5:[87,28],t4:[87,40],t3:[85,54],t7:[72,14],t8:[73,28],t6:[73,40],t11:[72,54],t9:[62,30],t10:[62,40],b:[45.8,34]}},
+ {d:900, cap:'We pass to find a friend who is free.', p:{b:[57,25.6]}, arr:[['pass','b','u8']]},
+ {d:700, cap:'Oops! They steal it. Moment 2 · We just lost the ball.', p:{t8:[62,26],b:[61,26.5]}},
+ {d:900, cap:'The 3 or 4 closest friends jump on the ball right away. 5 seconds of fire!', p:{u8:[60,23],u6:[56,30],u11:[66,19],u9:[67,31],u10:[63,35],t8:[63,26],b:[64,26.5]},
+  arr:[['press','u8','t8'],['press','u6','t8'],['press','u11','t8'],['press','u9','t8']], z:[{c:[63,26],r:9}]},
+ {d:900, cap:'They escape the trap with a pass back. Now they are calm with the ball.', p:{b:[84,15]}, arr:[['pass','b','t2']]},
+ {d:1500, cap:'Moment 3 · They have the ball and are organised. We shrink into a small, tight box. No holes.',
+  p:{u1:[5,34],u3:[24,16],u5:[24,28],u4:[24,40],u2:[24,52],u11:[36,14],u8:[36,27],u6:[36,41],u7:[36,54],u9:[48,29],u10:[48,40],
+     t2:[70,12],t5:[80,26],t4:[80,42],t3:[66,58],t8:[56,27],t6:[58,40],t7:[46,8],t11:[45,60],t9:[30,31],t10:[31,42],b:[69,13]},
+  z:[{x:21,y:11,w:30,h:46,l:'SMALL BOX'}]},
+ {d:900, cap:'They try to pass through the middle. We grab it! Moment 4 · We just won the ball.', p:{u8:[52,27],b:[53.5,27.5]}, arr:[['pass','b','u8']]},
+ {d:1300, cap:'Attack fast, before they get back! Their players are still out of position.', p:{u9:[70,26],u11:[62,10],u7:[62,56],u10:[60,40],b:[69.5,26.5]}, arr:[['pass','b','u9'],['run','u11',[62,10]],['run','u7',[62,56]]]},
+ {d:1000, cap:'Four moments, again and again, all game long. A great coach has a plan for each one.', p:{u9:[88,30],b:[89.5,30.5],t5:[86,30]}, arr:[['run','u9',[88,30]]]}
+]},
+zones:{ name:'The pitch map', frames:[
+ {d:0, cap:'Cut the pitch into 3 slices: our end (be safe), the middle (build), their end (be brave).', p:{u10:[52,34],b:[53.6,34]},
+  z:[{x:0,y:0,w:35,h:68,l:'OUR THIRD'},{x:35,y:0,w:35,h:68,l:'MIDDLE THIRD'},{x:70,y:0,w:35,h:68,l:'FINAL THIRD'}]},
+ {d:600, cap:'Now cut it the long way into 5 streets: 2 wings, 2 half-spaces, and the middle.', p:{},
+  z:[{x:0,y:0,w:105,h:14,l:'WING'},{x:0,y:14,w:105,h:11,l:'HALF-SPACE'},{x:0,y:25,w:105,h:18,l:'MIDDLE'},{x:0,y:43,w:105,h:11,l:'HALF-SPACE'},{x:0,y:54,w:105,h:14,l:'WING'}]},
+ {d:1300, cap:'The half-spaces are the magic streets. Between the side and the middle, defenders argue: "Is he yours or mine?"', p:{u10:[76,20],b:[77.6,20.4]},
+  z:[{x:0,y:14,w:105,h:11,l:'HALF-SPACE'},{x:0,y:43,w:105,h:11,l:'HALF-SPACE'}], arr:[['run','u10',[76,20]]]},
+ {d:1100, cap:'The square in front of the penalty box is "Zone 14". Get the ball here facing goal and you can pass, dribble or shoot.', p:{u10:[80,34],b:[81.6,34]},
+  z:[{x:70,y:25,w:18,h:18,l:'ZONE 14'}], arr:[['run','u10',[80,34]]]}
+]},
+rondo:{ name:'Rondo 4 v 1', labels:{a1:'',a2:'',a3:'',a4:''}, frames:[
+ {d:0, cap:'A rondo: 4 friends keep the ball away from 1 "monster" in the middle.', p:{a1:[52,22],a2:[64,34],a3:[52,46],a4:[40,34],d1:[52,34],b:[52,24]}, z:[{x:40,y:22,w:24,h:24}]},
+ {d:700, cap:'The ball is a hot potato: pass it before the monster arrives.', p:{b:[62,34],d1:[56,31]}, arr:[['pass','b','a2']], z:[{x:40,y:22,w:24,h:24}]},
+ {d:700, cap:'Always have 2 friends to pass to, one on each side. That makes a triangle.', p:{b:[52,44],d1:[54,40]}, arr:[['pass','b','a3']], z:[{x:40,y:22,w:24,h:24}]},
+ {d:700, cap:'The monster blocks one road with his body. Coaches call that his "shadow".', p:{d1:[47,40]}, arr:[['run','d1',[47,40]]], z:[{x:40,y:22,w:24,h:24}]},
+ {d:800, cap:'So we use the other road, right through the middle. That\'s a split pass!', p:{b:[52,24]}, arr:[['pass','b','a1']], z:[{x:40,y:22,w:24,h:24}]},
+ {d:800, cap:'Rondos teach 3 super-powers: look before you get it, move to help, pass fast.', p:{d1:[51,28],b:[42,34]}, arr:[['pass','b','a4']], z:[{x:40,y:22,w:24,h:24}]}
+]},
+thirdMan:{ name:'The third man', labels:{u4:'A',u8:'B',u10:'C'}, frames:[
+ {d:0, cap:'Player A wants to give the ball to C. But a defender stands on that road.', p:{u4:[28,46],u8:[44,40],u10:[48,22],t9:[38,34],t8:[47,42],t6:[60,30],b:[29.8,45.4]}, arr:[['mark','u4','u10']]},
+ {d:800, cap:'So A passes to B. Every defender looks at B.', p:{b:[42.4,40.4]}, arr:[['pass','b','u8']]},
+ {d:800, cap:'B passes first time to C. C is the "third man": free, and already facing forward!', p:{t8:[45.5,41.5],t9:[42,37],b:[49.6,22.6]}, arr:[['pass','b','u10']]},
+ {d:1200, cap:'A → B → C. Three friends beat a defender who looked like he was winning. Fàbregas teams do this all game.', p:{u10:[68,22],b:[69.6,22.6],u8:[60,36],t6:[64,27]}, arr:[['run','u10',[68,22]],['run','u8',[60,36]]]}
+]},
+widthDepth:{ name:'Width & depth', frames:[
+ {d:0, cap:'If we all stand close together, they only need to defend a tiny space. Easy for them.',
+  p:{u1:[8,34],u5:[34,28],u4:[34,40],u3:[44,23],u2:[44,45],u6:[46,34],u8:[56,28],u10:[56,40],u11:[63,24],u9:[65,34],u7:[63,44],
+     t1:[100,34],t2:[78,22],t5:[80,30],t4:[80,38],t3:[78,46],t7:[68,22],t8:[69,30],t6:[69,38],t11:[68,46],t9:[57,30],t10:[57,38],b:[47.6,34]},
+  z:[{x:42,y:20,w:42,h:28}]},
+ {d:1600, cap:'Stretch wide to the side lines and tall behind their defence. Their box must stretch too, and holes appear.',
+  p:{u5:[30,20],u4:[30,48],u3:[50,4],u2:[50,64],u8:[60,24],u10:[60,44],u11:[76,4],u7:[76,64],u9:[90,34],
+     t2:[80,9],t5:[84,26],t4:[84,42],t3:[80,59],t7:[67,13],t8:[69,28],t6:[69,41],t11:[67,55],t9:[54,28],t10:[54,40]},
+  z:[{x:71,y:16,w:10,h:36,l:'GAPS'}]},
+ {d:1000, cap:'A friend steps into the hole between their lines and gets the ball facing goal.', p:{u8:[75,21],b:[76.6,21.4]}, arr:[['run','u8',[75,21]],['pass','b','u8']], z:[{x:71,y:16,w:10,h:36,l:'GAPS'}]}
+]},
+counterpress:{ name:'Counter-press', frames:[
+ {d:0, cap:'We attack down the left side...',
+  p:{u1:[12,34],u5:[40,22],u4:[40,46],u3:[60,10],u2:[58,58],u6:[54,34],u8:[68,22],u10:[68,44],u11:[80,8],u9:[86,32],u7:[80,58],
+     t1:[101,34],t2:[90,12],t5:[92,28],t4:[92,40],t3:[90,56],t7:[77,14],t8:[80,28],t6:[80,40],t11:[78,54],t9:[66,28],t10:[66,40],b:[61.6,10.4]}},
+ {d:700, cap:'...and lose the ball. The clock starts: 5 seconds!', p:{t7:[78,13],b:[78.5,14.6]}, arr:[['pass','b','t7']]},
+ {d:900, cap:'The closest 3 jump on him. The others lock the passes he wants: inside and backwards.',
+  p:{u11:[80,11],u8:[75,16],u3:[73,11],u9:[86,19],u6:[66,24],u10:[72,31],u4:[52,40],u5:[54,24]},
+  arr:[['press','u11','t7'],['press','u8','t7'],['press','u3','t7'],['run','u9',[86,19]],['run','u6',[66,24]],['run','u10',[72,31]]], z:[{c:[78,14],r:9}]},
+ {d:700, cap:'Trapped! We win it back near their goal while their team is still messy.', p:{b:[76.5,16.5],t7:[79,15]}},
+ {d:1000, cap:'This is the best moment to score. Klopp called the counter-press the best playmaker in the world.', p:{u9:[89,26],b:[90.5,26.5]}, arr:[['pass','b','u9']]}
+]},
+compactShift:{ name:'Slide as one', frames:[
+ {d:0, cap:'Defend like one rope. The ball is on this side, so our whole team leans this way.',
+  p:{u1:[3,34],u3:[20,14],u5:[19,26],u4:[19,38],u2:[20,50],u11:[32,10],u8:[31,22],u6:[31,34],u7:[32,46],u9:[44,20],u10:[44,32],
+     t1:[100,34],t5:[72,24],t4:[72,44],t2:[54,8],t3:[56,60],t6:[60,34],t8:[52,24],t10:[52,46],t7:[36,6],t9:[25,32],t11:[34,62],b:[52.6,9]},
+  z:[{x:17,y:6,w:30,h:47,l:'ONE ROPE'}]},
+ {d:1700, cap:'The ball goes to the other side. Everyone slides together, like a rope being pulled.',
+  p:{u3:[20,20],u5:[19,32],u4:[19,44],u2:[20,56],u11:[32,22],u8:[31,34],u6:[31,46],u7:[32,58],u9:[44,36],u10:[44,48],b:[54.6,59.5]},
+  arr:[['pass',[52.6,9],[54.6,59.5]]], z:[{x:17,y:15,w:30,h:47,l:'ONE ROPE'}]},
+ {d:1000, cap:'The far side is empty, but the ball can\'t hurt us there yet. Short and narrow: about 30 metres front to back.',
+  p:{t11:[34,58],u7:[34,55],u2:[26,59],b:[35.5,59.5]}, arr:[['pass','b','t11'],['press','u7','t11'],['press','u2','t11']], z:[{x:17,y:15,w:30,h:47,l:'ONE ROPE'}]}
+]},
+pressTrap:{ name:'Pressing trap', frames:[
+ {d:0, cap:'They have the ball at the back. We wait patiently and close the middle.',
+  p:{t1:[101,34],t5:[92,24],t4:[92,44],t2:[85,6],t3:[84,62],t6:[80,34],t8:[72,22],t10:[72,46],t7:[62,6],t11:[62,62],t9:[58,34],
+     u9:[82,30],u10:[78,40],u11:[76,13],u7:[76,56],u8:[67,24],u6:[66,38],u3:[57,9],u5:[50,28],u4:[50,42],u2:[57,58],u1:[30,34],b:[90.5,24.5]}},
+ {d:900, cap:'Trigger! A pass out to the side line. That\'s our signal.', p:{b:[84,7.2]}, arr:[['pass','b','t2']]},
+ {d:1100, cap:'Jump together! The 11 runs in a curve so his back hides the pass back. Everyone grabs a partner.',
+  p:{u11:[82,10],u9:[89,19],u8:[70,20],u3:[60,8],u6:[74,30],u10:[81,33],u5:[56,30],u4:[56,40],u2:[63,54]},
+  arr:[['press','u11','t2'],['run','u9',[89,19]],['press','u8','t8'],['press','u3','t7'],['press','u10','t6']], z:[{c:[84,8],r:11,l:'TRAP'}]},
+ {d:800, cap:'The side line is our extra defender. No way out: ball won 20 metres from their goal.', p:{b:[81,9.5],t2:[86,5]}}
+]},
+fabregasBuild:{ name:'Fàbregas: build-up', frames:[
+ {d:0, cap:'Fàbregas idea 1 · The ball is our home. Even the goalkeeper plays. We start short and brave.',
+  p:{u1:[3,34],u5:[9,18],u4:[9,50],u6:[22,30],u8:[24,40],u3:[30,6],u2:[30,62],u10:[46,24],u11:[54,5],u7:[54,63],u9:[66,34],
+     t9:[15,25],t10:[15,43],t8:[32,27],t6:[32,40],t7:[38,10],t11:[38,58],t2:[56,13],t5:[60,28],t4:[60,40],t3:[56,55],t1:[100,34],b:[4.6,34]},
+  z:[{x:1,y:12,w:27,h:44,l:'3 + 2'}]},
+ {d:900, cap:'Fàbregas idea 2 · Bait. The centre-back keeps the ball and waits... until their striker comes to him.', p:{b:[10.6,18.6],t9:[12,23]}, arr:[['pass','b','u5']]},
+ {d:900, cap:'He comes. Pass! Now that striker is behind the ball: one line beaten.', p:{t9:[10.5,20.5],u3:[24,8],t7:[30,11],b:[24,9.6]}, arr:[['pass','b','u3'],['run','u3',[24,8]]]},
+ {d:1000, cap:'Fàbregas idea 3 · Half-turn. Our 10 drops into the hole between their lines and receives with his body open.', p:{u10:[38,18],b:[39.6,18.4],t8:[34,24]}, arr:[['run','u10',[38,18]],['pass','b','u10']], z:[{x:35,y:13,w:20,h:42,l:'BETWEEN LINES'}]},
+ {d:1000, cap:'Fàbregas idea 4 · Isolate. Our winger now faces one defender alone. That\'s the reward for patience.', p:{u11:[60,7],b:[61.6,7.4],u9:[72,26],u3:[46,4]}, arr:[['pass','b','u11'],['run','u9',[72,26]],['run','u3',[46,4]]]},
+ {d:1100, cap:'Short, brave passes at the back create space and 1 v 1s at the front.', p:{u11:[80,13],b:[81.6,13.4],t2:[74,13]}, arr:[['run','u11',[80,13]]]}
+]},
+gasperiniMan:{ name:'Gasperini: man-to-man', frames:[
+ {d:0, cap:'Gasperini idea · Everyone gets a partner. Not a zone, a person. Man-to-man, all over the pitch.',
+  p:{t1:[101,34],t5:[92,26],t4:[92,42],t2:[84,8],t3:[84,60],t6:[80,34],t8:[74,22],t10:[74,46],t7:[62,8],t9:[60,34],t11:[62,60],
+     u1:[8,34],u5:[34,20],u4:[32,34],u2:[34,48],u3:[50,6],u7:[50,62],u6:[48,28],u8:[48,40],u10:[62,24],u11:[62,44],u9:[70,34],b:[99.4,34]}},
+ {d:1500, cap:'Each one finds his partner and sticks close. Count them: 10 pairs. Nobody is free.',
+  p:{u9:[88,28],u11:[88,42],u10:[77,33],u6:[71,23],u8:[71,45],u3:[80,10],u7:[80,58],u5:[59,10],u2:[59,58],u4:[56,34],u1:[18,34]},
+  arr:[['mark','u9','t5'],['mark','u11','t4'],['mark','u10','t6'],['mark','u6','t8'],['mark','u8','t10'],['mark','u3','t2'],['mark','u7','t3'],['mark','u5','t7'],['mark','u2','t11'],['mark','u4','t9']]},
+ {d:900, cap:'The goalkeeper passes to their full-back...', p:{b:[83,9.6]}, arr:[['pass','b','t2']]},
+ {d:900, cap:'...our wing-back jumps at him. The pass goes on to their winger, but our centre-back follows him all the way.', p:{u3:[83,11],b:[61,8.6],u5:[61,11]}, arr:[['press','u3','t2'],['pass',[83,9.6],[61,8.6]],['press','u5','t7']]},
+ {d:700, cap:'Duel won! Gasperini lets his centre-backs chase their man into midfield. Brave and wild.', p:{b:[62,11.5],t7:[60,6]}},
+ {d:1300, cap:'Win it and attack at once with many players. Even the centre-back joins. Hard work for 95 minutes.', p:{u5:[74,13],b:[75.6,13.4],u3:[92,8],u9:[94,30],u10:[88,40],u11:[90,48]}, arr:[['run','u5',[74,13]],['run','u3',[92,8]],['run','u9',[94,30]],['run','u10',[88,40]]]},
+ {d:800, cap:'That is the Gasperini picture: duels everywhere, then a wave of runners.', p:{b:[93,29.4]}, arr:[['pass','b','u9']]}
+]},
+restDefence:{ name:'Rest defence', frames:[
+ {d:0, cap:'While we attack, 5 friends stay behind the ball as a safety net. Coaches call it "rest defence".',
+  p:{t1:[101,34],t2:[92,12],t5:[93,28],t4:[93,40],t3:[92,56],t7:[82,12],t8:[82,28],t6:[82,40],t11:[82,56],t9:[60,30],t10:[62,42],
+     u1:[22,34],u5:[50,20],u4:[48,34],u2:[50,48],u6:[61,27],u3:[61,41],u11:[86,4],u8:[87,21],u9:[89,34],u10:[87,46],u7:[86,64],b:[85.5,46.4]},
+  z:[{x:45,y:15,w:20,h:38,l:'SAFETY NET'}]},
+ {d:700, cap:'We lose it! They want to kick it long to their 2 fast strikers.', p:{t6:[83,43],b:[81.6,43]}, z:[{x:45,y:15,w:20,h:38,l:'SAFETY NET'}]},
+ {d:900, cap:'But the safety net is already there: 3 of us against their 2. We win it before it gets dangerous.', p:{b:[57.5,31],u4:[57,32],t9:[59,29],u5:[54,24],u2:[56,44]}, arr:[['pass',[81.6,43],[57.5,31]],['press','u4','t9']], z:[{x:45,y:15,w:20,h:38,l:'SAFETY NET'}]},
+ {d:900, cap:'The rule: their strikers + 1 stay back. They keep 2 up? We keep 3. Then attack again.', p:{b:[62.5,27.5]}, arr:[['pass','b','u6']]}
+]}
+};
+
+/* ---------- Pitch drawing ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function drawPitch(svg){
+  const g=el('g',{},svg);
+  for(let i=0;i<10;i++) el('rect',{x:i*10.5,y:0,width:10.5,height:68,fill:i%2?'var(--pitch)':'var(--pitch-2)'},g);
+  const L={fill:'none',stroke:'var(--line)','stroke-width':.35};
+  el('rect',Object.assign({x:0,y:0,width:105,height:68},L),g);
+  el('line',Object.assign({x1:52.5,y1:0,x2:52.5,y2:68},L),g);
+  el('circle',Object.assign({cx:52.5,cy:34,r:9.15},L),g);
+  el('circle',{cx:52.5,cy:34,r:.4,fill:'var(--line)'},g);
+  [[0,1],[105,-1]].forEach(([x0,s])=>{
+    el('rect',Object.assign({x:s>0?0:105-16.5,y:13.84,width:16.5,height:40.32},L),g);
+    el('rect',Object.assign({x:s>0?0:105-5.5,y:24.84,width:5.5,height:18.32},L),g);
+    el('circle',{cx:x0+s*11,cy:34,r:.4,fill:'var(--line)'},g);
+    el('path',Object.assign({d:`M ${x0+s*16.5} 26.7 A 9.15 9.15 0 0 ${s>0?1:0} ${x0+s*16.5} 41.3`},L),g);
+    el('rect',Object.assign({x:s>0?-2:105,y:30.34,width:2,height:7.32},L),g);
+  });
+}
+function defs(svg,uid){
+  const d=el('defs',{},svg);
+  [['pass','#fff'],['run','#fff'],['press','#FFD65A']].forEach(([t,c])=>{
+    const m=el('marker',{id:uid+t,viewBox:'0 0 10 10',refX:7,refY:5,markerWidth:4,markerHeight:4,orient:'auto-start-reverse'},d);
+    el('path',{d:'M0 0 L10 5 L0 10 z',fill:c},m);
+  });
+}
+
+/* ---------- Board engine ---------- */
+function resolve(scene){
+  let pos={};
+  scene.frames.forEach(f=>{ f.prev=pos; pos=Object.assign({},pos,f.p||{}); f.pos=pos; });
+  scene.ids=Object.keys(scene.frames[0].p);
+  scene.frames.forEach(f=>Object.keys(f.p||{}).forEach(k=>{ if(!scene.ids.includes(k)) scene.ids.push(k); }));
+}
+Object.values(SCENES).forEach(resolve);
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+let boardCount=0;
+
+function makeBoard(root){
+  const ids=root.dataset.scenes.split(',');
+  const uid='bd'+(boardCount++);
+  root.innerHTML=`<div class="tabs" role="tablist"></div>
+   <div class="pitchbox"><svg viewBox="-3 -3 111 74" role="img"></svg></div>
+   <p class="cap" aria-live="polite"></p>
+   <div class="ctrls"><button class="cbtn" data-a="back" aria-label="Previous step">◀</button><button class="cbtn play" data-a="play">▶ Play</button><button class="cbtn" data-a="next" aria-label="Next step">▶|</button><div class="dots"></div></div>
+   <div class="legend"><span><i class="sw" style="background:var(--red)"></i>Our team</span><span><i class="sw" style="background:var(--them);border:1px solid var(--muted)"></i>Opponent</span><span><i class="ln" style="border-top-style:solid"></i>Pass</span><span><i class="ln" style="border-top-style:dashed"></i>Run</span><span><i class="ln" style="border-color:var(--gold);border-top-style:dotted"></i>Press</span></div>`;
+  const tabs=root.querySelector('.tabs'), svg=root.querySelector('svg'), cap=root.querySelector('.cap'),
+        playBtn=root.querySelector('[data-a=play]'), dotsBox=root.querySelector('.dots');
+  defs(svg,uid); drawPitch(svg);
+  const zLayer=el('g',{},svg), aLayer=el('g',{},svg), pLayer=el('g',{},svg);
+  const S={scene:null,i:0,t:0,playing:false,visible:false,last:0,nodes:{}};
+
+  ids.forEach((id,k)=>{
+    const b=document.createElement('button'); b.className='tab'; b.role='tab'; b.textContent=SCENES[id].name;
+    b.onclick=()=>{ load(id); play(); }; b.dataset.id=id; tabs.appendChild(b);
+  });
+
+  function load(id){
+    S.scene=SCENES[id]; S.i=0; S.t=0; S.playing=false;
+    tabs.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.id===id));
+    svg.setAttribute('aria-label',S.scene.name+' animation');
+    pLayer.innerHTML=''; S.nodes={};
+    const order=S.scene.ids.filter(x=>x!=='b').concat(S.scene.ids.includes('b')?['b']:[]);
+    order.forEach(pid=>{
+      const g=el('g',{},pLayer);
+      if(pid==='b'){ el('circle',{r:1.05,fill:'#fff',stroke:'#111','stroke-width':.3},g); }
+      else{
+        const us=/^[ua]/.test(pid);
+        el('circle',{r:2.15,fill:us?'var(--red)':'var(--them)',stroke:us?'#fff':'var(--them-ink)','stroke-width':.3},g);
+        const lab=(S.scene.labels&&pid in S.scene.labels)?S.scene.labels[pid]:pid.replace(/^\D+/,'');
+        const tx=el('text',{'text-anchor':'middle',y:.95,'font-size':2.5,'font-weight':700,'font-family':'Atkinson Hyperlegible, system-ui, sans-serif',fill:us?'#fff':'var(--them-ink)'},g);
+        tx.textContent=pid.startsWith('d')?'':lab;
+      }
+      S.nodes[pid]=g;
+    });
+    dotsBox.innerHTML='';
+    S.scene.frames.forEach((f,k)=>{ const d=document.createElement('button'); d.className='dot'; d.setAttribute('aria-label','Step '+(k+1)); d.onclick=()=>{S.playing=false;jump(k,true);}; dotsBox.appendChild(d); });
+    jump(0,true); syncBtn();
+  }
+  function overlay(){
+    const f=S.scene.frames[S.i];
+    zLayer.innerHTML=''; aLayer.innerHTML='';
+    (f.z||[]).forEach(z=>{
+      if(z.c){ el('circle',{cx:z.c[0],cy:z.c[1],r:z.r,class:'zone'},zLayer); if(z.l) el('text',{x:z.c[0],y:z.c[1]-z.r-1,'text-anchor':'middle',class:'zlabel'},zLayer).textContent=z.l; }
+      else { el('rect',{x:z.x,y:z.y,width:z.w,height:z.h,rx:1,class:'zone'},zLayer); if(z.l) el('text',{x:z.x+1.2,y:z.y+3.2,class:'zlabel'},zLayer).textContent=z.l; }
+    });
+    (f.arr||[]).forEach(([type,a,b])=>{
+      const A=typeof a==='string'?(type==='mark'?f.pos[a]:f.prev[a]||f.pos[a]):a;
+      let B=typeof b==='string'?f.pos[b]:b;
+      if(!A||!B) return;
+      if(typeof b==='string'&&b!=='b'){ const dx=B[0]-A[0],dy=B[1]-A[1],L=Math.hypot(dx,dy)||1,cut=Math.min(2.8,L*.3); B=[B[0]-dx/L*cut,B[1]-dy/L*cut]; }
+      if(Math.hypot(B[0]-A[0],B[1]-A[1])<1.5) return;
+      const attrs={class:'arr '+type,d:`M${A[0]} ${A[1]} L${B[0]} ${B[1]}`};
+      if(type!=='mark') attrs['marker-end']=`url(#${uid}${type})`;
+      el('path',attrs,aLayer);
+    });
+    cap.innerHTML=`<span class="step">Step ${S.i+1} of ${S.scene.frames.length}</span>`+f.cap;
+    dotsBox.querySelectorAll('.dot').forEach((d,k)=>d.classList.toggle('on',k===S.i));
+  }
+  function hold(f){ return Math.max(2200,f.cap.length*48); }
+  function jump(k,atRest){ S.i=k; S.t=atRest?1e9:0; overlay(); draw(); }
+  function draw(){
+    const f=S.scene.frames[S.i], D=reduce?0:f.d;
+    const p=(D===0||S.t>=D)?1:ease(S.t/D);
+    for(const pid in S.nodes){
+      const a=(f.prev[pid]||f.pos[pid]), b=f.pos[pid];
+      const x=a[0]+(b[0]-a[0])*p, y=a[1]+(b[1]-a[1])*p;
+      S.nodes[pid].setAttribute('transform',`translate(${x.toFixed(2)} ${y.toFixed(2)})`);
+    }
+  }
+  function syncBtn(){
+    const end=S.i===S.scene.frames.length-1&&!S.playing;
+    playBtn.textContent=S.playing?'❚❚ Pause':(end&&S.t>0?'↺ Replay':'▶ Play');
+  }
+  function play(){
+    if(S.i===S.scene.frames.length-1){ jump(0,true); }
+    S.playing=true; S.t=Math.max(S.t,0); if(S.t>1e8){ S.t=hold(S.scene.frames[S.i])+(S.scene.frames[S.i].d); }
+    syncBtn();
+  }
+  playBtn.onclick=()=>{ if(S.playing){S.playing=false;syncBtn();} else play(); };
+  root.querySelector('[data-a=next]').onclick=()=>{ S.playing=false; if(S.i<S.scene.frames.length-1) jump(S.i+1,false); syncBtn(); };
+  root.querySelector('[data-a=back]').onclick=()=>{ S.playing=false; if(S.i>0) jump(S.i-1,true); syncBtn(); };
+
+  function tick(now){
+    const dt=Math.min(64,now-(S.last||now)); S.last=now;
+    if(S.visible){
+      const f=S.scene.frames[S.i], D=reduce?0:f.d;
+      if(S.t<1e8){ S.t+=dt; draw(); }
+      if(S.playing && S.t>=D+hold(f)){
+        if(S.i<S.scene.frames.length-1){ jump(S.i+1,false); }
+        else { S.playing=false; syncBtn(); }
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  load(ids[0]);
+  let started=false;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(es=>es.forEach(e=>{ S.visible=e.isIntersecting; if(e.isIntersecting&&!started&&!reduce){ started=true; play(); } }),{threshold:.45}).observe(root);
+  } else S.visible=true;
+  requestAnimationFrame(tick);
+}
+document.querySelectorAll('.board[data-scenes]').forEach(makeBoard);
+
+/* ---------- Session builder ---------- */
+const BLOCKS=[
+ {n:'Warm-up rondo',m:15,c:'#3E8E63',t:'Rondo 5 v 2, two touches. Body open, scan before receiving. Ask: "Where can the ball reach you?"'},
+ {n:'Positional game',m:20,c:'#2A6B45',t:'6 v 6 + 3 jokers in 40×30 m. Point for 8 passes or a pass to a player between the lines. Teaches width, depth and the free man.'},
+ {n:'Phase game',m:20,c:'#C8102E',t:'Build-up 6 v 5 to two mini goals: our back line + goalkeeper against their press. Teaches the bait and beating the first line.'},
+ {n:'Big game',m:25,c:'#9C1B2F',t:'8 v 8 or 11 v 11 on a big pitch. One rule: 5-second counter-press bonus. Let them play; coach in flow.'},
+ {n:'Cool-down & talk',m:10,c:'#6B7A70',t:'Stretch and 3 questions: What worked? What was hard? What will you try next time? Players answer, you listen.'}
+];
+const ses=document.getElementById('session'), info=document.getElementById('blkinfo');
+function showBlock(k){ const b=BLOCKS[k]; info.innerHTML=`<p class="eyebrow" style="margin-bottom:4px">${b.m} minutes</p><h4 style="font-size:1.15rem;margin-bottom:4px">${b.n}</h4><p>${b.t}</p>`; ses.querySelectorAll('.blk').forEach((x,j)=>x.setAttribute('aria-pressed',j===k)); }
+BLOCKS.forEach((b,k)=>{ const x=document.createElement('button'); x.className='blk'; x.style.flex=b.m; x.style.background=b.c; x.textContent=b.m+'′'; x.title=b.n; x.setAttribute('aria-label',b.n+', '+b.m+' minutes'); x.onclick=()=>showBlock(k); ses.appendChild(x); });
+showBlock(0);
+const WEEK=[['MD+1','Recover: light jog, stretch, rest legs',20],['MD+2','Day off',0],['MD-4','Small spaces, many duels, strength',85],['MD-3','Big spaces, long runs, game model',100],['MD-2','Speed, tactics vs next opponent',60],['MD-1','Short and sharp, set pieces',35],['MD','Match day!',100]];
+const wk=document.getElementById('week');
+WEEK.forEach(([d,t,h])=>{ const x=document.createElement('div'); x.className='day'; x.innerHTML=`<b>${d}</b><div class="h"><i style="height:${Math.max(h,3)}%;${d==='MD'?'background:var(--red)':''}"></i></div>${t}`; wk.appendChild(x); });
+
+/* ---------- Age stages ---------- */
+const AGES=[
+ {a:'5–8',s:.35,t:'Fall in love with the ball',items:['Lots of play, lots of touches: 3 v 3 to 5 v 5, futsal is perfect','Dribbling and 1 v 1 every session','No fixed positions; everyone attacks and defends','Fun first. A child who loves it will practise alone at home'],eu:'European kids this age play small-sided games every weekend, with no league tables pressure.'},
+ {a:'9–12',s:.58,t:'The golden age of skill',items:['Best age to learn technique: both feet, first touch, passing','Rondos and simple positional games','Start the scanning habit: look before you receive','7 v 7 to 9 v 9 matches; rotate positions'],eu:'European academies train these kids 3–4 times a week and teach the club\'s game model in simple words.'},
+ {a:'13–16',s:.8,t:'Learn the game',items:['Tactics by position, 11 v 11, the 4 moments','Strength and speed basics, injury prevention','Bio-banding during the growth spurt','Habits: sleep, food, school, handling mistakes'],eu:'Training most days, regular league matches, video review, and sports-science support begin here.'},
+ {a:'17–21',s:1,t:'Compete to win',items:['Lots of minutes at a high level, including senior football','Specialise in a position and a role in the game model','Mental strength under pressure','Exposure to European level: tournaments, trials, partner clubs'],eu:'In Europe, the best 17–19 year olds are already training with or playing for first teams or on loan.'}
+];
+const agesBox=document.getElementById('ages'), agecard=document.getElementById('agecard'), tree=document.getElementById('palmTree');
+function showAge(k){ const A=AGES[k]; tree.style.transform=`scale(${A.s})`;
+  agecard.innerHTML=`<p class="eyebrow">Age ${A.a}</p><h4 style="font-size:1.3rem">${A.t}</h4><ul>${A.items.map(i=>'<li>'+i+'</li>').join('')}</ul><p style="color:var(--muted);font-size:.95rem"><b style="color:var(--ink)">European standard: </b>${A.eu}</p>`;
+  agesBox.querySelectorAll('.age').forEach((b,j)=>b.setAttribute('aria-pressed',j===k)); }
+AGES.forEach((A,k)=>{ const b=document.createElement('button'); b.className='age'; b.textContent='Age '+A.a; b.onclick=()=>showAge(k); agesBox.appendChild(b); });
+showAge(1);
+
+/* ---------- Progress + road ---------- */
+const stops=document.getElementById('stops');
+const levels=[...document.querySelectorAll('.level')];
+levels.forEach((s,k)=>{ const a=document.createElement('a'); a.className='stop'; a.href='#'+s.id; a.innerHTML=`<i>${k+1}</i>${s.dataset.title}`; a.dataset.level=k+1; stops.appendChild(a); });
+const boxes=[...document.querySelectorAll('.checks input')];
+function refresh(){
+  const done=boxes.filter(b=>b.checked).length, pct=Math.round(done/boxes.length*100);
+  document.getElementById('meterBar').style.width=pct+'%'; document.getElementById('meterTxt').textContent=pct+'%';
+  stops.querySelectorAll('.stop').forEach(st=>{ const own=boxes.filter(b=>b.closest('.checks').dataset.level===st.dataset.level); st.classList.toggle('done',own.length&&own.every(b=>b.checked)); });
+}
+boxes.forEach(b=>{ b.checked=store.get('chk:'+b.dataset.key)==='1'; b.onchange=()=>{ store.set('chk:'+b.dataset.key,b.checked?'1':'0'); refresh(); }; });
+refresh();
+document.querySelectorAll('textarea[data-model]').forEach(t=>{ const v=store.get('model:'+t.dataset.model); if(v) t.value=v; t.oninput=()=>store.set('model:'+t.dataset.model,t.value); });
+})();
+</script>
