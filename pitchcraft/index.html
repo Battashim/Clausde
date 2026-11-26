@@ -1,0 +1,1025 @@
+<title>Pitchcraft Coaching Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky kit-bar nav, then one view at a time; drill library is list + sticky tactics board. */
+:root{
+  --bg:#f2f5f1; --surface:#ffffff; --surface-2:#e8eee8; --ink:#13201a; --muted:#56675c; --line:#d3ddd5;
+  --accent:#f0561d; --accent-ink:#b93d0e; --accent-soft:#ffe6da;
+  --pitch:#246b43; --pitch-2:#2a7a4d; --chalk:#eaf6ee;
+  --def:#2f6fdc; --mid:#0f9f7a; --att:#e0431b; --gk:#8b4fd8; --all:#56675c;
+  --font-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --font-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1612; --surface:#151f19; --surface-2:#1c2821; --ink:#e5eee7; --muted:#9aac9f; --line:#283a2f;
+  --accent:#ff6d36; --accent-ink:#ff9466; --accent-soft:#3a2117;
+  --pitch:#1d5a37; --pitch-2:#226541; --chalk:#e3f2e8;
+  --def:#6a9cff; --mid:#3cc9a0; --att:#ff7a52; --gk:#b78cff; --all:#9aac9f;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1612; --surface:#151f19; --surface-2:#1c2821; --ink:#e5eee7; --muted:#9aac9f; --line:#283a2f;
+  --accent:#ff6d36; --accent-ink:#ff9466; --accent-soft:#3a2117;
+  --pitch:#1d5a37; --pitch-2:#226541; --chalk:#e3f2e8;
+  --def:#6a9cff; --mid:#3cc9a0; --att:#ff7a52; --gk:#b78cff; --all:#9aac9f;
+  color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3,h4{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.05;letter-spacing:.01em}
+p{margin:0}
+a{color:var(--accent-ink)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* nav */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:18px;padding-block:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand-mark{width:34px;height:34px;border-radius:8px;background:var(--pitch);display:grid;place-items:center}
+.brand b{font-family:var(--font-display);font-size:22px;letter-spacing:.02em;text-transform:uppercase}
+.brand small{display:block;font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:-3px}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-left:auto;max-width:100%}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{white-space:nowrap;text-decoration:none;color:var(--muted);font-weight:600;font-size:15px;padding:8px 12px;border-radius:8px}
+.tabs a:hover{color:var(--ink);background:var(--surface-2)}
+.tabs a[aria-current="page"]{color:var(--ink);background:var(--accent-soft);box-shadow:inset 0 -2px 0 var(--accent)}
+
+main{padding-block:28px 64px}
+.view{display:flex;flex-direction:column;gap:28px}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
+.lede{color:var(--muted);max-width:62ch;font-size:17px}
+.sec-head{display:flex;flex-direction:column;gap:8px}
+.sec-head h2{font-size:clamp(32px,5vw,48px);text-transform:uppercase}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(44px,7.4vw,84px);text-transform:uppercase;line-height:.92}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-copy{display:flex;flex-direction:column;gap:18px;min-width:0}
+.hero-board{min-width:0}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);padding:10px 16px;border-radius:999px;font-weight:600;text-decoration:none;color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.05)}
+.entry{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.entry a{display:flex;flex-direction:column;gap:6px;padding:18px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);text-decoration:none;color:var(--ink);min-width:0}
+.entry a:hover{border-color:var(--accent)}
+.entry b{font-family:var(--font-display);font-size:24px;text-transform:uppercase}
+.entry span{color:var(--muted);font-size:14.5px}
+.entry .k{font-family:var(--font-mono);font-size:12px;color:var(--accent-ink)}
+
+/* board */
+.board{display:flex;flex-direction:column;gap:10px}
+.board svg{width:100%;height:auto;display:block;border-radius:12px;background:var(--pitch);touch-action:manipulation}
+.board .cap{min-height:3.2em;font-weight:600;font-size:16px;display:flex;gap:10px;align-items:flex-start}
+.board .cap .n{flex:none;font-family:var(--font-mono);font-size:12px;background:var(--ink);color:var(--bg);border-radius:6px;padding:3px 7px;margin-top:2px}
+.ctrls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ctrls button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px;cursor:pointer;font-weight:600;font-size:14px;min-width:38px}
+.ctrls button:hover{border-color:var(--ink)}
+.ctrls .play{background:var(--ink);color:var(--bg);border-color:var(--ink);min-width:84px}
+.ctrls .spd{margin-left:auto;display:flex;gap:2px;background:var(--surface-2);border-radius:8px;padding:2px}
+.ctrls .spd button{border:0;background:transparent;min-width:0;padding:4px 8px;font-family:var(--font-mono);font-size:12px}
+.ctrls .spd button[aria-pressed="true"]{background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.steps{display:flex;gap:4px}
+.steps button{flex:1;height:6px;border:0;border-radius:3px;background:var(--line);cursor:pointer;padding:0}
+.steps button.done{background:var(--muted)}
+.steps button.on{background:var(--accent)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.ring{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{stroke-opacity:.95}50%{stroke-opacity:.25}}
+
+/* license */
+.ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;position:relative}
+.rung{position:relative;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 14px 12px;cursor:pointer;display:flex;flex-direction:column;gap:4px;min-width:0}
+.rung:hover{border-color:var(--ink)}
+.rung[aria-selected="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset;background:var(--accent-soft)}
+.rung .lvl{font-family:var(--font-display);font-size:38px;font-weight:800;line-height:1}
+.rung .tl{font-size:13.5px;color:var(--muted);font-weight:600}
+.rung .bar{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-top:6px}
+.rung .bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.rung .uefa{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+.climb{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--surface-2),var(--accent));opacity:.7}
+.lic{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card h3{font-size:22px;text-transform:uppercase}
+.card h4{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.card ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px}
+.span-12{grid-column:span 12}.span-8{grid-column:span 8}.span-6{grid-column:span 6}.span-4{grid-column:span 4}
+.lic-head{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap}
+.lic-head .big{font-family:var(--font-display);font-weight:800;font-size:clamp(70px,12vw,120px);line-height:.8;color:var(--accent)}
+.lic-head h3{font-size:clamp(28px,4vw,40px);text-transform:uppercase}
+.facts{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--surface);color:var(--ink);white-space:nowrap}
+.chip.def{color:var(--def);border-color:currentColor}.chip.mid{color:var(--mid);border-color:currentColor}
+.chip.att{color:var(--att);border-color:currentColor}.chip.gk{color:var(--gk);border-color:currentColor}.chip.all{color:var(--all);border-color:currentColor}
+.check{display:flex;flex-direction:column;gap:6px}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:6px 8px;border-radius:8px}
+.check label:hover{background:var(--surface-2)}
+.check input{accent-color:var(--accent);width:18px;height:18px;margin-top:3px;flex:none}
+.check input:checked+span{text-decoration:line-through;color:var(--muted)}
+.note{font-size:14px;color:var(--muted);border-left:3px solid var(--accent);padding:4px 0 4px 12px}
+.links{display:flex;gap:8px;flex-wrap:wrap}
+.links a,.links button{font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:6px 10px;color:var(--ink);cursor:pointer}
+.links a:hover,.links button:hover{border-color:var(--accent)}
+
+/* method */
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pyr{display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0}
+.pyr button{border:0;cursor:pointer;color:#fff;font-family:var(--font-display);font-weight:700;font-size:18px;letter-spacing:.03em;text-transform:uppercase;padding:9px 6px;border-radius:6px;transform-origin:center bottom;animation:rise .5s both}
+.pyr button[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:2px}
+@keyframes rise{from{transform:translateY(12px) scaleX(.9);opacity:.2}to{transform:none;opacity:1}}
+.pyr-info{min-height:5.5em;background:var(--surface-2);border-radius:8px;padding:12px 14px}
+.prin{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.prin div{border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.prin b{font-family:var(--font-display);font-size:19px;text-transform:uppercase}
+.prin span{font-size:14.5px;color:var(--muted)}
+.fusion{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.fusion div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.fusion .num{font-family:var(--font-display);font-size:44px;font-weight:800;color:var(--accent);line-height:.9}
+.fusion b{font-family:var(--font-display);font-size:21px;text-transform:uppercase}
+.fusion span{font-size:14.5px;color:var(--muted)}
+.ppp{display:flex;gap:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.ppp div{flex:1;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0;background:var(--surface)}
+.ppp div+div{border-left:1px solid var(--line)}
+.ppp b{font-family:var(--font-display);font-size:22px;text-transform:uppercase}
+.ppp .t{font-family:var(--font-mono);font-size:12px;color:var(--accent-ink)}
+.ppp span{font-size:14.5px;color:var(--muted)}
+.moments{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.moments div{border-radius:8px;padding:12px;background:var(--surface-2);display:flex;flex-direction:column;gap:4px;min-width:0}
+.moments b{font-family:var(--font-display);font-size:18px;text-transform:uppercase}
+.moments span{font-size:14px;color:var(--muted)}
+
+/* drills */
+.lib{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:22px;align-items:start}
+.filters{display:flex;flex-direction:column;gap:10px}
+.fgroup{display:flex;gap:6px;flex-wrap:wrap}
+.fgroup button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:600;font-size:14px;cursor:pointer}
+.fgroup button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dlist{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.ditem{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:10px 12px;cursor:pointer;width:100%}
+.ditem:hover{border-color:var(--ink)}
+.ditem[aria-current="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.ditem .thumb{width:62px;height:46px;border-radius:6px;background:var(--pitch);display:block}
+.ditem b{font-family:var(--font-display);font-size:20px;text-transform:uppercase;display:block;line-height:1.05}
+.ditem .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.ditem .meta .chip{font-size:11.5px;padding:1px 8px}
+.detail{scroll-margin-top:130px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);display:flex;flex-direction:column;gap:16px;min-width:0}
+.detail h3{font-size:clamp(30px,4vw,42px);text-transform:uppercase}
+.dfacts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.dfacts div{background:var(--surface-2);border-radius:8px;padding:8px 10px;min-width:0}
+.dfacts small{display:block;font-family:var(--font-mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.dfacts b{font-size:15px}
+.roots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.roots div{border:1px dashed var(--line);border-radius:8px;padding:8px 10px;font-size:14px;min-width:0}
+.roots small{display:block;font-family:var(--font-mono);font-size:11px;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.08em}
+.dcols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fun{background:var(--accent-soft);border-radius:8px;padding:10px 12px;font-size:15px}
+.fun b{color:var(--accent-ink)}
+ol.how{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+
+/* fix */
+.fix{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:22px;align-items:start}
+.plist{display:flex;flex-direction:column;gap:6px}
+.plist button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 12px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;gap:10px}
+.plist button:hover{border-color:var(--ink)}
+.plist button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.plist small{font-family:var(--font-mono);color:var(--muted);font-weight:500;font-size:12px;white-space:nowrap}
+.rec{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.rec button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:12px;cursor:pointer;display:flex;flex-direction:column;gap:6px}
+.rec button:hover{border-color:var(--accent)}
+.rec b{font-family:var(--font-display);font-size:20px;text-transform:uppercase}
+.rec span{font-size:14px;color:var(--muted)}
+
+/* session */
+.form{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.form label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:14px;min-width:0}
+.form select{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%}
+.timeline{display:flex;flex-direction:column;gap:10px}
+.blk{display:grid;grid-template-columns:88px 1fr auto;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.blk .min{font-family:var(--font-display);font-size:34px;font-weight:800;line-height:1}
+.blk .min small{font-size:14px;color:var(--muted);font-weight:600;margin-left:2px}
+.blk .ph{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.blk b{font-family:var(--font-display);font-size:22px;text-transform:uppercase;display:block}
+.blk p{font-size:14.5px;color:var(--muted)}
+.blk>div{min-width:0}
+.tbar{display:flex;height:12px;border-radius:6px;overflow:hidden;gap:2px}
+.tbar i{display:block;height:100%}
+
+footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);font-size:13.5px}
+
+@media (max-width:960px){
+  .hero,.lib,.fix,.method-grid{grid-template-columns:1fr}
+  .detail{position:static}
+  .entry{grid-template-columns:1fr 1fr}
+  .fusion{grid-template-columns:1fr 1fr}
+  .span-8,.span-6,.span-4{grid-column:span 12}
+  .ladder{grid-template-columns:repeat(5,minmax(0,1fr))}
+}
+@media (max-width:620px){
+  .ladder{grid-template-columns:1fr 1fr}
+  .climb{display:none}
+  .entry,.fusion,.prin,.moments,.dcols,.roots,.form{grid-template-columns:1fr}
+  .dfacts{grid-template-columns:1fr 1fr}
+  .ppp{flex-direction:column}.ppp div+div{border-left:0;border-top:1px solid var(--line)}
+  .blk{grid-template-columns:64px 1fr}.blk .links{grid-column:1/-1}
+  .tabs{margin-left:0;width:100%}
+}
+@media (prefers-reduced-motion:reduce){.ring,.pyr button{animation:none}}
+</style>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="Pitchcraft home">
+      <span class="brand-mark"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="1.5" y="1.5" width="19" height="19" rx="2" fill="none" stroke="#eaf6ee" stroke-width="1.5"/><line x1="11" y1="1.5" x2="11" y2="20.5" stroke="#eaf6ee" stroke-width="1.5"/><circle cx="11" cy="11" r="3.4" fill="none" stroke="#eaf6ee" stroke-width="1.5"/><circle cx="16" cy="7" r="2" fill="#ff6d36"/></svg></span>
+      <span><b>Pitchcraft</b><small>Coaching Lab</small></span>
+    </a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#home">Start</a>
+      <a href="#license">License path</a>
+      <a href="#method">The method</a>
+      <a href="#drills">Drill library</a>
+      <a href="#fix">Fix a problem</a>
+      <a href="#session">Session builder</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- HOME -->
+<section class="view" id="v-home">
+  <div class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">D License → Pro · Ball mastery × game intelligence</span>
+      <h1>Coach the <em>player</em>. Then the <em>team</em>. Then the club.</h1>
+      <p class="lede">Pitchcraft is our own training method. It mixes Coerver-style ball mastery (lots of touches, 1v1 courage) with Ekkono-style game intelligence (every rep has a decision). Every drill is animated, scored like a game, and tagged for defenders, midfielders, attackers and keepers.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#drills">Open the drill library</a>
+        <a class="btn" href="#license">See the license path</a>
+      </div>
+    </div>
+    <div class="hero-board" id="heroBoard"></div>
+  </div>
+  <div class="entry">
+    <a href="#license"><span class="k">D · C · B · A · Pro</span><b>License path</b><span>What each course assesses, what to study, and a checklist to track your progress.</span></a>
+    <a href="#method"><span class="k">Coerver + Ekkono</span><b>The method</b><span>The ideas we borrowed, and the 4 Pitchcraft rules every drill follows.</span></a>
+    <a href="#drills"><span class="k">17 animated drills</span><b>Drill library</b><span>Filter by position or skill. Press play to watch every movement.</span></a>
+    <a href="#session"><span class="k">Play–Practice–Play</span><b>Session builder</b><span>Pick a position and a problem. Get a full session in seconds.</span></a>
+  </div>
+</section>
+
+<!-- LICENSE -->
+<section class="view" id="v-license" hidden>
+  <div class="sec-head">
+    <span class="eyebrow">US Soccer coaching pathway</span>
+    <h2>From D License to Pro</h2>
+    <p class="lede">Each level asks a bigger question. D: can you help a player in the game? C: can you organise a team? B: do you have a playing style? A: can you lead an elite environment? Pro: can you run a professional club's football? Tap a level.</p>
+  </div>
+  <div class="ladder" id="ladder" role="tablist" aria-label="License levels"></div>
+  <div class="climb" aria-hidden="true"></div>
+  <div id="licDetail"></div>
+  <p class="note">Requirements, fees and course formats change often. Use this as a study guide, then confirm the current prerequisites on the <a href="https://learning.ussoccer.com" target="_blank" rel="noopener">US Soccer Learning Center</a> before you enroll. UEFA comparisons are approximate.</p>
+</section>
+
+<!-- METHOD -->
+<section class="view" id="v-method" hidden>
+  <div class="sec-head">
+    <span class="eyebrow">What we borrowed, what we built</span>
+    <h2>The Pitchcraft method</h2>
+    <p class="lede">Coerver gives players the ball skills. Ekkono teaches them when and why to use those skills. Pitchcraft puts both into every drill and makes it competitive, so players enjoy it and keep coming back.</p>
+  </div>
+  <div class="method-grid">
+    <div class="card">
+      <h4>Influence 1 · Coerver Coaching</h4>
+      <h3>The player development pyramid</h3>
+      <p>Skills are built from the bottom up. Tap a level to see how Pitchcraft trains it.</p>
+      <div class="pyr" id="pyr"></div>
+      <div class="pyr-info" id="pyrInfo"></div>
+    </div>
+    <div class="card">
+      <h4>Influence 2 · Ekkono Method</h4>
+      <h3>Game intelligence first</h3>
+      <p>Technique always serves a decision. Players learn to perceive, decide and then execute, in situations that look like the real game.</p>
+      <div class="prin">
+        <div><b>Perceive</b><span>Scan before the ball arrives: teammates, opponents, space.</span></div>
+        <div><b>Decide</b><span>Pass, dribble, shoot, hold. The coach asks questions instead of giving answers.</span></div>
+        <div><b>Execute</b><span>Technique under real pressure, with direction and opponents.</span></div>
+        <div><b>Superiority</b><span>Create 2v1s and 3v2s: in numbers, in position, or in quality.</span></div>
+        <div><b>Situations</b><span>Train 1v1, 2v1, rondos and positional games before big games.</span></div>
+        <div><b>Phases</b><span>Attack, defend and both transitions are coached as one game.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-head"><span class="eyebrow">Our creation</span><h2 style="font-size:clamp(26px,4vw,36px)">4 Pitchcraft rules</h2></div>
+  <div class="fusion">
+    <div><span class="num">1</span><b>Every rep has a decision</b><span>No drill without a read. Cones become defenders, gates become choices, coach cards become scanning cues.</span></div>
+    <div><span class="num">2</span><b>Touches before talking</b><span>Aim for 1,000+ touches a session. Keep queues short: max 2 players waiting per line.</span></div>
+    <div><span class="num">3</span><b>Score everything</b><span>Points, bonus points, streaks, a weekly leaderboard. Bonus points always reward the behaviour you coach.</span></div>
+    <div><span class="num">4</span><b>Same game, own role</b><span>Defenders, midfielders, attackers and keepers play the same activity, each with a position-specific job and scoring.</span></div>
+  </div>
+  <div class="sec-head"><span class="eyebrow">Session shape · used in the D & C License</span><h2 style="font-size:clamp(26px,4vw,36px)">Play – Practice – Play</h2></div>
+  <div class="ppp">
+    <div><span class="t">15–20 min</span><b>Play</b><span>Players arrive and play a small-sided game right away. You watch and spot the problem.</span></div>
+    <div><span class="t">30–45 min</span><b>Practice</b><span>A mastery block (Coerver) and then a situation (Ekkono) that fixes that one problem.</span></div>
+    <div><span class="t">20–30 min</span><b>Play</b><span>The big game again, with a Pitchcraft bonus for the behaviour you trained. You check if it transfers.</span></div>
+  </div>
+  <div class="sec-head"><span class="eyebrow">The language of every license</span><h2 style="font-size:clamp(26px,4vw,36px)">The 4 moments of the game</h2></div>
+  <div class="moments">
+    <div><b>In possession</b><span>Build up, progress, create, finish. Width, depth, support.</span></div>
+    <div><b>Lost the ball</b><span>Transition to defend: counter-press for 5 seconds or drop into shape.</span></div>
+    <div><b>Out of possession</b><span>Pressure, cover, balance. Stay compact, show them away from goal.</span></div>
+    <div><b>Won the ball</b><span>Transition to attack: play forward fast or keep it safe and rebuild.</span></div>
+  </div>
+</section>
+
+<!-- DRILLS -->
+<section class="view" id="v-drills" hidden>
+  <div class="sec-head">
+    <span class="eyebrow">Animated · position-specific · scored</span>
+    <h2>Drill library</h2>
+    <p class="lede">Pick a drill and press play. Orange = the players this drill develops, blue = opponents, yellow = neutrals, purple = goalkeepers. Dashed lines show runs; the orange line shows where the ball goes next.</p>
+  </div>
+  <div class="lib">
+    <div>
+      <div class="filters">
+        <div class="fgroup" id="fPos" aria-label="Filter by position"></div>
+        <div class="fgroup" id="fTheme" aria-label="Filter by skill"></div>
+      </div>
+      <div class="dlist" id="dlist"></div>
+    </div>
+    <div class="detail" id="detail"></div>
+  </div>
+</section>
+
+<!-- FIX -->
+<section class="view" id="v-fix" hidden>
+  <div class="sec-head">
+    <span class="eyebrow">Problem → cause → drill</span>
+    <h2>Fix a problem</h2>
+    <p class="lede">Choose what you saw in your last game. You get the most likely cause, what to coach, and the drills that solve it.</p>
+  </div>
+  <div class="fix">
+    <div class="plist" id="plist"></div>
+    <div id="pdetail" class="card"></div>
+  </div>
+</section>
+
+<!-- SESSION -->
+<section class="view" id="v-session" hidden>
+  <div class="sec-head">
+    <span class="eyebrow">Play – Practice – Play generator</span>
+    <h2>Session builder</h2>
+    <p class="lede">Tell us who you're working with and what went wrong. Pitchcraft builds a full session with timings, linked to animated drills.</p>
+  </div>
+  <form class="form" id="sform">
+    <label for="sPos">Focus group<select id="sPos"></select></label>
+    <label for="sProb">Problem to fix<select id="sProb"></select></label>
+    <label for="sMin">Session length<select id="sMin"><option value="60">60 minutes</option><option value="75" selected>75 minutes</option><option value="90">90 minutes</option></select></label>
+  </form>
+  <div class="tbar" id="tbar" aria-hidden="true"></div>
+  <div class="timeline" id="timeline"></div>
+</section>
+
+</main>
+<footer><div class="wrap">Pitchcraft Coaching Lab · original drills inspired by the principles of Coerver Coaching and the Ekkono Method. Not affiliated with US Soccer, UEFA, Coerver Coaching or Ekkono.</div></footer>
+
+<script>
+(()=>{
+const NS="http://www.w3.org/2000/svg";
+const TEAM={a:{f:"#ff6a2b",t:"#fff"},b:{f:"#2f7cf0",t:"#fff"},n:{f:"#f6c916",t:"#1b1b1b"},g:{f:"#9b5de5",t:"#fff"},c:{f:"#f4f7f4",t:"#1b1b1b"}};
+const CONE={y:"#f6c916",b:"#2f7cf0",r:"#e5383b",w:"#f4f7f4",o:"#ff6a2b"};
+const POS={all:"All positions",def:"Defenders",mid:"Midfielders",att:"Attackers",gk:"Goalkeepers"};
+const POSSHORT={all:"All",def:"DEF",mid:"MID",att:"ATT",gk:"GK"};
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------------- PROBLEMS ---------------- */
+const PROBLEMS=[
+ {id:"panic",name:"Loses the ball under pressure",cause:"Players receive without knowing where the pressure is, so the first touch goes into the defender. Often they also stand still and receive square-on.",coach:["Scan twice before the ball arrives","Receive on the half-turn, back foot","First touch away from pressure","Use the body as a shield"],bonus:"+1 point every time a player escapes a press with their first touch"},
+ {id:"scan",name:"Ball-watching / doesn't scan",cause:"Scanning was never trained, so eyes stay on the ball. The player only sees the defender after receiving.",coach:["Check both shoulders before every pass arrives","Coach shows colour cards: receiver must call them","Ask: 'What did you see before you got it?'"],bonus:"+1 point if the receiver calls the coach's card colour before touching the ball"},
+ {id:"touch",name:"Poor first touch",cause:"Too few touches in training and too many static passing lines with no direction.",coach:["Cushion with the surface facing the target","Touch into space, not under the body","Use both feet and different surfaces"],bonus:"+1 point for a directional first touch that sets up a pass or shot"},
+ {id:"att1v1",name:"Afraid to take players on",cause:"Fear of losing the ball and no trusted move. Players need a set of moves they own and permission to fail.",coach:["Attack the defender at speed","Sell the fake with the shoulders","Explode away after the move","Celebrate attempts, not just success"],bonus:"+2 points for beating a player 1v1, even if the attack ends after"},
+ {id:"def1v1",name:"Beaten easily 1v1",cause:"Defenders dive in, arrive too fast or stand square, so one touch beats them.",coach:["Sprint to close, then brake","Low stance, side-on, arm's length","Show the attacker outside","Tackle on the heavy touch"],bonus:"+2 points for winning the ball cleanly in a 1v1"},
+ {id:"finish",name:"Misses chances",cause:"Players rush, lean back, or aim for power. Few game-like finishing reps under pressure.",coach:["Look at the keeper's position before shooting","Low and across the keeper","Hit the target first, power second","Finish in 1–2 touches"],bonus:"Goals from a first-time finish count double"},
+ {id:"buildout",name:"Can't play out from the back",cause:"Defenders stay too close together, the keeper isn't involved, and nobody creates angles for the next pass.",coach:["Centre-backs split wide","Fullbacks high and wide","The 6 shows between the pressers","Keeper is the extra player"],bonus:"+1 point for every completed pass sequence from the keeper into midfield"},
+ {id:"transition",name:"Slow reaction after losing the ball",cause:"Players switch off or complain after losing the ball. Transitions are rarely trained on purpose.",coach:["5-second counter-press","Nearest player presses, next ones close passing lanes","If you can't win it, sprint back goal-side"],bonus:"+2 points for winning the ball back within 5 seconds"},
+ {id:"shape",name:"Gaps between defenders",cause:"Defenders follow attackers instead of the ball. No common words or reference points for the line.",coach:["Move with the ball, not the player","10–15 m between defenders","Talk: 'Slide', 'Step', 'Drop'","Cover the presser at an angle"],bonus:"+1 point for an interception by a compact line"},
+ {id:"movement",name:"Static off the ball",cause:"Players wait for the ball to come to them. They don't know when and where to run.",coach:["Move when the passer looks up","Run into the defender's blind side","Third-man runs: run as the ball travels to someone else","Make the pitch big in possession"],bonus:"+1 point when a run without the ball creates the assist"},
+ {id:"weak",name:"One-footed players",cause:"Players avoid the weaker foot because the drill lets them.",coach:["Force weak-foot zones or gates","Ball mastery on both feet every session","Reward weak-foot attempts"],bonus:"Weak-foot passes and goals count double"},
+ {id:"cross",name:"Crosses go nowhere",cause:"Strikers arrive too early or all run to the same spot. Wingers cross without looking.",coach:["Three zones: near post, far post, cut-back","Arrive late, at speed","Winger looks up before delivery"],bonus:"Goals from a cross or cut-back count double"},
+ {id:"talk",name:"Quiet team",cause:"Communication is not part of the task, so players don't do it.",coach:["Give players 3–4 key words","Make calls part of the scoring","Captain of the line for each rep"],bonus:"A goal only counts if the passer or defender called a key word"}
+];
+const P=Object.fromEntries(PROBLEMS.map(p=>[p.id,p]));
+
+/* ---------------- DRILLS ----------------
+ cast: {id,t(team),l(label),x,y,op}; frames: {d (move sec), h (hold), cap, m:{id:[x,y]}, b: holder|[x,y]|{key:..}, fade:{id:0..1}}
+*/
+const DRILLS=[
+{id:"mirror",name:"Mirror Mastery",pos:["all","mid"],theme:"Ball mastery",n:"Pairs (any number)",area:"30 × 20 m",time:"10–12 min",age:"U7 – Adult",
+ coerver:"Ball mastery: sole rolls, toe taps, inside-outside touches with both feet.",ekkono:"Perception: players must read the coach's colour card while keeping the ball.",
+ fixes:["touch","weak","scan"],
+ fun:"It's a race. The first to the gate scores, the loser does 3 toe-taps. Keep a running score in pairs.",
+ setup:"Pairs face each other, each with a ball, 4 m apart. Four coloured gates in the corners. Coach holds colour cards.",
+ how:["The leader performs ball mastery moves; the partner mirrors them like a reflection.","Change leader every 30 seconds.","When the coach shows a colour, both race to dribble through that gate.","First through scores a point. Back to the middle, swap leader."],
+ points:["Head up between touches so you see the card","Small touches, ball never more than a step away","Both feet, every move","Explode on the colour: first 3 steps fast"],
+ prog:["Easier: no race, just mirror","Harder: coach shouts the colour of the gate to AVOID","Harder: a defender guards the chosen gate"],
+ view:{w:30,h:20},marks:[{t:"gate",x1:1,y1:1.5,x2:4,y2:1.5,c:"y"},{t:"gate",x1:26,y1:1.5,x2:29,y2:1.5,c:"b"},{t:"gate",x1:1,y1:18.5,x2:4,y2:18.5,c:"r"},{t:"gate",x1:26,y1:18.5,x2:29,y2:18.5,c:"w"}],
+ cast:[{id:"a1",t:"a",l:"L",x:13,y:10},{id:"a2",t:"a",l:"M",x:17,y:10},{id:"c",t:"c",l:"C",x:15,y:4}],ball:{b1:"a1",b2:"a2"},focus:["a1","a2"],
+ frames:[
+  {d:1.1,cap:"Leader rolls the ball sideways with the sole. Partner mirrors it.",m:{a1:[13,7],a2:[17,7]}},
+  {d:1.1,cap:"Toe-taps back the other way. Mirror, don't copy: same side, like a reflection.",m:{a1:[13,13],a2:[17,13]}},
+  {d:.9,cap:"Inside-outside touches back to the middle. Heads up between touches.",m:{a1:[13,10],a2:[17,10]}},
+  {d:.6,h:.8,cap:"Coach shows a BLUE card…",m:{c:[16,3]}},
+  {d:1.4,cap:"…race! First to dribble through the blue gate scores.",m:{a1:[26,2.6],a2:[27.6,0]}}
+ ]},
+{id:"rondo",name:"Scan & Strike Rondo",pos:["all","mid","def"],theme:"Possession",n:"6 (4 v 2)",area:"15 × 15 m",time:"12–15 min",age:"U9 – Adult",
+ coerver:"Receiving & passing: two-touch, directional first touch.",ekkono:"Superiority 4v2 and perception: split passes, scanning, instant transition.",
+ fixes:["scan","panic","transition","talk"],
+ fun:"Split pass between the defenders = 2 points. 10 passes = 3 points. Defenders who win it get a 'transition' chance worth 3.",
+ setup:"4 players on the sides of a square, 2 defenders inside. One ball. Coach outside with colour cards.",
+ how:["Outside players keep the ball, max 2 touches.","Before receiving, the receiver must check the coach's card and shout the colour.","If defenders win the ball, they score by making 2 passes between them.","Outside players must win it back within 5 seconds. Lose = swap with a defender."],
+ points:["Check your shoulder before the pass arrives","Open your body so you can play both ways","Defenders: one presses, one covers the split","After losing the ball: react, don't complain"],
+ prog:["Easier: 5v2, 3 touches","Harder: 1 touch only","Harder: 4v3 in a bigger square with a neutral in the middle"],
+ view:{w:20,h:20},marks:[{t:"cone",x:1,y:1,c:"y"},{t:"cone",x:19,y:1,c:"y"},{t:"cone",x:1,y:19,c:"y"},{t:"cone",x:19,y:19,c:"y"}],
+ cast:[{id:"a1",t:"a",l:"1",x:10,y:1.5},{id:"a2",t:"a",l:"2",x:18.5,y:10},{id:"a3",t:"a",l:"3",x:10,y:18.5},{id:"a4",t:"a",l:"4",x:1.5,y:10},{id:"b1",t:"b",l:"D",x:9,y:8},{id:"b2",t:"b",l:"D",x:11,y:12}],ball:"a1",focus:["a1","a2","a3","a4"],
+ frames:[
+  {d:1,cap:"Pass around the square. The receiver scans and calls the coach's colour before the ball arrives.",m:{b1:[13.5,6.5],b2:[12,13]},b:"a2"},
+  {d:1,cap:"Split pass between the two defenders: 2 points.",m:{b1:[11.5,8.5],b2:[12.5,11.5]},b:"a4"},
+  {d:1,cap:"Defenders work as a pair: one presses, one blocks the split.",m:{b1:[6,13],b2:[10,15],a3:[9,18.5]},b:"a3"},
+  {d:.8,cap:"Interception! Defenders win the ball…",m:{b2:[13.5,15.5],b1:[8,14]},b:"b2"},
+  {d:.9,cap:"…they try to make 2 passes. The outside players counter-press immediately.",m:{b1:[6,11],a3:[11.5,16],a2:[15,13],a4:[4,10]},b:"b1"},
+  {d:1,cap:"5-second rule: win it back in 5 seconds or swap places.",m:{a4:[5.2,11.4],a3:[7.5,13]},b:"a4"}
+ ]},
+{id:"gate",name:"Gate Escape 1v1",pos:["all","att","def"],theme:"1v1",n:"3 per group",area:"24 × 20 m",time:"12 min",age:"U8 – Adult",
+ coerver:"Moves 1v1: step-over, drag-back, cut. Each attacker picks a move per rep.",ekkono:"Read the defender: attack the gate they leave open.",
+ fixes:["att1v1","def1v1","touch"],
+ fun:"Through any gate = 1 point, through the gate the defender guarded hardest = 2. Defender wins it and dribbles back over the start line = 2.",
+ setup:"Coach serves from one end. Three 3 m gates at the far end. Attacker and defender start 12 m apart.",
+ how:["Coach passes to the attacker.","Defender leaves the gate line and closes down.","Attacker must dribble through one of the three gates.","Swap roles after each rep. 6 reps each."],
+ points:["Attacker: first touch forward, into space","Attack the defender at speed so they have to stop","Sell the fake with your shoulders","Defender: close fast, then slow down and stay on your feet"],
+ prog:["Easier: defender starts on the gate line","Harder: only two gates, 2 m wide","Harder: add a recovering second defender after 3 seconds"],
+ view:{w:24,h:20},marks:[{t:"gate",x1:22,y1:2,x2:22,y2:6,c:"r"},{t:"gate",x1:22,y1:8,x2:22,y2:12,c:"y"},{t:"gate",x1:22,y1:14,x2:22,y2:18,c:"b"},{t:"line",x1:2.5,y1:1,x2:2.5,y2:19}],
+ cast:[{id:"c",t:"c",l:"C",x:1,y:10},{id:"a1",t:"a",l:"A",x:4,y:10},{id:"b1",t:"b",l:"D",x:18,y:10}],ball:"c",focus:["a1"],
+ frames:[
+  {d:.9,cap:"Coach serves. The attacker's first touch goes forward into space.",b:"a1",m:{a1:[5,10]}},
+  {d:1,cap:"Defender closes down. Attacker reads which gate is open.",m:{a1:[9.5,10],b1:[13.5,10]}},
+  {d:.7,cap:"Coerver move: fake towards the bottom gate (step-over)…",m:{a1:[11,12.6],b1:[13.6,12]}},
+  {d:.7,cap:"…then cut away explosively to the open top gate.",m:{a1:[14.5,6],b1:[14.4,9.6]}},
+  {d:1,cap:"Through the gate: 1 point. Swap roles.",m:{a1:[23.5,4],b1:[19,6.5]}}
+ ]},
+{id:"traffic",name:"Traffic Jam",pos:["all"],theme:"Ball mastery",n:"8–16",area:"24 × 24 m",time:"10 min",age:"U6 – U14",
+ coerver:"Ball mastery and moves: the coach calls a move, everyone performs it.",ekkono:"Perception: heads up to find space and spot the 'taxis' coming.",
+ fixes:["panic","touch","weak"],
+ fun:"Taxis score a point for every ball knocked out. Dribblers who survive 60 seconds get a point. Rotate taxis every minute.",
+ setup:"Everyone with a ball inside a box. Two 'taxis' (defenders, in bibs) wait outside.",
+ how:["Everyone dribbles inside the box, avoiding each other.","Coach calls moves: 'Drag-back!', 'Inside cut!', 'Weak foot only!'","On 'Taxi!', two defenders enter and try to knock balls out.","Lose your ball: 5 toe-taps outside, then rejoin."],
+ points:["Heads up: see the space, not just the ball","Shield: body between the taxi and the ball","Change of pace to escape","Use both feet"],
+ prog:["Easier: one taxi, walking pace","Harder: three taxis, smaller box","Harder: taxis who win a ball become dribblers"],
+ view:{w:24,h:24},marks:[{t:"cone",x:0,y:0,c:"o"},{t:"cone",x:24,y:0,c:"o"},{t:"cone",x:0,y:24,c:"o"},{t:"cone",x:24,y:24,c:"o"}],
+ cast:[{id:"a1",t:"a",l:"",x:6,y:6},{id:"a2",t:"a",l:"",x:18,y:6},{id:"a3",t:"a",l:"",x:6,y:18},{id:"a4",t:"a",l:"",x:18,y:18},{id:"z1",t:"b",l:"T",x:-2,y:12,op:.25},{id:"z2",t:"b",l:"T",x:26,y:12,op:.25}],ball:{b1:"a1",b2:"a2",b3:"a3",b4:"a4"},focus:["a1","a2","a3","a4"],
+ frames:[
+  {d:1.2,cap:"Everyone dribbles. Heads up, find space, ball close.",m:{a1:[10,9],a2:[15,4],a3:[9,15],a4:[20,14]}},
+  {d:1.2,cap:"Coach calls 'Drag-back!' Everyone changes direction.",m:{a1:[13,12],a2:[10,5],a3:[5,20],a4:[16,19]}},
+  {d:1,cap:"'Taxi!' Two defenders drive into the box.",m:{z1:[5,16],z2:[16.5,11.5],a1:[12.5,11.2]},fade:{z1:1,z2:1}},
+  {d:1,cap:"Shield: body between the taxi and the ball. A lost ball means 5 toe-taps outside.",m:{z1:[4.8,19.2],z2:[14.4,12.2]},b:{b3:[-2,25]}},
+  {d:1.1,cap:"Escape into space with a change of pace.",m:{a1:[18,8],a3:[-1,22],z1:[8,16],z2:[16,9]}}
+ ]},
+{id:"jockey",name:"Jockey Lanes",pos:["def"],theme:"Defending",n:"2 per lane",area:"30 × 12 m",time:"12 min",age:"U10 – Adult",
+ coerver:"Speed: approach speed and footwork are trained like a skill.",ekkono:"Defensive decision: when to delay, when to tackle (the trigger zone).",
+ fixes:["def1v1","transition"],
+ fun:"Defender scores 1 for stopping the attacker, 2 for winning the ball and dribbling over the far line. Attacker scores by crossing the end line.",
+ setup:"Long channel. Defender on the end line, attacker at the far end with the ball. A shaded 'trigger zone' near the defender's line.",
+ how:["Attacker dribbles at the defender.","Defender sprints to close, then slows down and jockeys.","The defender may only tackle inside the trigger zone.","Win the ball: counter-attack to the far line."],
+ points:["Sprint while the ball rolls, brake when it's at their feet","Low, side-on, on your toes","Show them to the sideline","Tackle when the attacker's touch is heavy"],
+ prog:["Easier: attacker walks","Harder: narrower trigger zone","Harder: attacker can score in a mini goal behind the defender"],
+ view:{w:30,h:12},marks:[{t:"zone",x:5,y:0,w:7,h:12,lab:"TRIGGER ZONE"},{t:"line",x1:0,y1:0,x2:0,y2:12},{t:"cone",x:0,y:0,c:"r"},{t:"cone",x:0,y:12,c:"r"},{t:"cone",x:30,y:0,c:"y"},{t:"cone",x:30,y:12,c:"y"}],
+ cast:[{id:"a1",t:"a",l:"D",x:2,y:6},{id:"b1",t:"b",l:"A",x:28,y:6}],ball:"b1",focus:["a1"],
+ frames:[
+  {d:1.1,cap:"Defender sprints to close the gap while the attacker dribbles.",m:{a1:[14,6],b1:[20,6]}},
+  {d:.9,cap:"Brake! Low stance, side-on, an arm's length away.",m:{a1:[15,6.8],b1:[17,6.3]}},
+  {d:1,cap:"Show the attacker towards the sideline. Never let them cut inside.",m:{a1:[12.5,8.4],b1:[14,9.3]}},
+  {d:.9,cap:"Inside the trigger zone the defender is allowed to tackle…",m:{a1:[9.8,9.4],b1:[10.4,10.4]}},
+  {d:.6,cap:"…heavy touch from the attacker: win it!",b:"a1",m:{a1:[9,9.6]}},
+  {d:1.2,cap:"Counter: dribble over the far line for 2 points.",m:{a1:[29,6],b1:[16,7.5]}}
+ ]},
+{id:"shuffle",name:"Back-Four Shuffle",pos:["def"],theme:"Defending",n:"4 def + 5 att + GK",area:"Half pitch",time:"15 min",age:"U12 – Adult",
+ coerver:"Group play: the defensive unit moves like one player.",ekkono:"Defensive principles: pressure, cover, balance; distances between lines.",
+ fixes:["shape","talk","def1v1"],
+ fun:"Attackers score 1 for passing through the line to a runner. Defenders score 1 for each interception, 3 for keeping it out for 60 seconds.",
+ setup:"Back four plus goalkeeper defend the big goal. Five attackers pass the ball across the pitch in front of them.",
+ how:["Attackers move the ball side to side, quickly.","Defenders slide as a unit with every pass.","When an attacker has time, the line drops; when pressure is on the ball, the line steps up.","Attackers try a through ball when a gap opens."],
+ points:["Move with the ball, not with the attacker","10–15 m between defenders","Nearest defender pressures, others cover diagonally","Talk: 'Slide!', 'Step!', 'Drop!'"],
+ prog:["Easier: attackers pass slowly, 3 touches","Harder: one attacker can dribble into the line","Harder: 6 attackers, 2 runners in behind"],
+ view:{w:68,h:52,tpl:"half"},marks:[],
+ cast:[{id:"g",t:"g",l:"GK",x:34,y:3},{id:"a1",t:"a",l:"LB",x:14,y:18},{id:"a2",t:"a",l:"CB",x:27,y:18},{id:"a3",t:"a",l:"CB",x:41,y:18},{id:"a4",t:"a",l:"RB",x:54,y:18},{id:"b1",t:"b",l:"",x:6,y:30},{id:"b2",t:"b",l:"",x:20,y:34},{id:"b3",t:"b",l:"",x:34,y:36},{id:"b4",t:"b",l:"",x:48,y:34},{id:"b5",t:"b",l:"",x:62,y:30}],ball:"b3",focus:["a1","a2","a3","a4"],
+ frames:[
+  {d:1.3,cap:"Ball goes wide: the fullback pressures, the centre-backs cover, the far fullback tucks in.",b:"b1",m:{a1:[9,25],a2:[19,21],a3:[30,20],a4:[42,20]}},
+  {d:1.1,cap:"Ball comes inside: the nearest centre-back steps up, the fullback recovers into line.",b:"b2",m:{a1:[12,21],a2:[21,25],a3:[31,20.5],a4:[43,19.5]}},
+  {d:1.6,cap:"Switch of play: slide together while the ball is in the air. 'Slide! Slide!'",b:"b4",m:{a1:[22,19],a2:[32,19.5],a3:[42,21],a4:[52,27]}},
+  {d:1,cap:"Keep 10–15 m between defenders. No gaps for a through ball.",b:"b5",m:{a4:[59,25],a3:[48,21],a2:[37,20],a1:[27,20],g:[37,3]}},
+  {d:1,cap:"Compact line = easy interception. 1 point to the defenders.",b:"a3",m:{a3:[49,18],b4:[46,26]}}
+ ]},
+{id:"buildout",name:"Build-Out Under Fire",pos:["def","mid","gk"],theme:"Build-up",n:"GK + 5 v 2 (+1)",area:"Half pitch",time:"15–18 min",age:"U11 – Adult",
+ coerver:"Receiving & passing under pressure: back-foot receiving, passing to the far foot.",ekkono:"Positional superiority: GK + 5 vs 2 pressers, create angles for the free player.",
+ fixes:["buildout","panic","scan"],
+ fun:"Pass or dribble through an end gate = 1 point, through the middle gate = 2. If the pressers win the ball they shoot at the big goal: a goal = 3.",
+ setup:"Keeper, two centre-backs, two fullbacks and a 6 build from the big goal. Two pressers. Three gates across the pitch about 40 m out.",
+ how:["Every rep starts with the keeper.","Pressers try to win the ball and score.","Build-up team scores through the gates.","Add a third presser when it gets easy."],
+ points:["Centre-backs split to the edge of the box","Fullbacks high and wide to stretch the press","The 6 shows between the pressers","Keeper: be the extra player, always an option"],
+ prog:["Easier: pressers walk until the first pass","Harder: 3 pressers","Harder: max 2 touches in your own box"],
+ view:{w:68,h:52,tpl:"half"},marks:[{t:"gate",x1:10,y1:42,x2:18,y2:42,c:"y"},{t:"gate",x1:30,y1:42,x2:38,y2:42,c:"r"},{t:"gate",x1:50,y1:42,x2:58,y2:42,c:"y"}],
+ cast:[{id:"g",t:"g",l:"GK",x:34,y:4},{id:"a1",t:"a",l:"CB",x:27,y:10},{id:"a2",t:"a",l:"CB",x:41,y:10},{id:"a3",t:"a",l:"LB",x:10,y:22},{id:"a4",t:"a",l:"RB",x:58,y:22},{id:"a5",t:"a",l:"6",x:34,y:24},{id:"b1",t:"b",l:"",x:30,y:28},{id:"b2",t:"b",l:"",x:40,y:30}],ball:"g",focus:["a1","a2","a5","g"],
+ frames:[
+  {d:1.2,cap:"Keeper has the ball: centre-backs split wide to the edge of the box.",m:{a1:[16,13],a2:[52,13],a3:[6,26],a4:[62,26],b1:[28,20],b2:[40,22]}},
+  {d:1.1,cap:"Keeper plays to the free centre-back. The presser curves their run to block the way back.",b:"a2",m:{b2:[47,17],b1:[36,14],a5:[38,23]}},
+  {d:1.1,cap:"Centre-back breaks the press with a pass to the fullback, who receives facing forward.",b:"a4",m:{a4:[61,25],b2:[53,19]}},
+  {d:1.1,cap:"Fullback drives into space…",m:{a4:[57,33],a5:[42,31],b1:[40,25]}},
+  {d:1,cap:"…and combines with the 6 inside.",b:"a5",m:{a5:[40,35],b1:[38,28]}},
+  {d:1,cap:"Through the middle gate: 2 points.",m:{a5:[34,43.5],b1:[36,33]}}
+ ]},
+{id:"recover",name:"Recover & Cover",pos:["def","mid"],theme:"Transition",n:"2 v 2 + GK",area:"Half pitch",time:"12–15 min",age:"U11 – Adult",
+ coerver:"Speed: recovery-run sprint mechanics and turning.",ekkono:"Defensive transition: get goal-side, then pressure & cover as a pair.",
+ fixes:["transition","def1v1","shape"],
+ fun:"Defenders get 2 points for getting goal-side and winning the ball, attackers 2 for a goal. A recovery race from behind adds urgency.",
+ setup:"Attacker starts with the ball 5 m ahead of the defender. A second pair waits on the side to join and make it 2v2.",
+ how:["Attacker dribbles at goal; defender recovers from behind.","A second attacker and defender join on the coach's call: 2v2.","Defenders work as presser and cover.","Play until a goal, a win, or the ball goes out."],
+ points:["Recover on the inside line between ball and goal","Get goal-side first, then turn and face","Nearest defender pressures, the other covers at an angle ~5 m behind","When the presser is beaten, cover steps in and they swap jobs"],
+ prog:["Easier: defender starts level","Harder: defender starts 8 m behind","Harder: 3v2 with a third attacker arriving late"],
+ view:{w:68,h:52,tpl:"half"},marks:[],
+ cast:[{id:"g",t:"g",l:"GK",x:34,y:3},{id:"b1",t:"b",l:"",x:34,y:40},{id:"a1",t:"a",l:"D",x:36,y:46},{id:"b2",t:"b",l:"",x:56,y:36},{id:"a2",t:"a",l:"D",x:52,y:26}],ball:"b1",focus:["a1","a2"],
+ frames:[
+  {d:1.3,cap:"Ball lost! Defender sprints back on the inside line between ball and goal.",m:{b1:[34,30],a1:[31,30]}},
+  {d:1,cap:"Get goal-side first, then turn and face the ball.",m:{b1:[35,25],a1:[33.5,21]}},
+  {d:1.1,cap:"2v2: ball goes wide. Nearest defender pressures, the other drops to cover.",b:"b2",m:{b2:[50,24],a2:[47,19],a1:[40,17],b1:[36,23]}},
+  {d:1,cap:"The cover player stays about 5 m behind, ready if the presser is beaten.",m:{b2:[45,20],a2:[43,17],a1:[38.5,14]}},
+  {d:1,cap:"Presser beaten? The cover steps in and wins it. Now they swap roles.",b:"a1",m:{b2:[40,15],a1:[39.5,12.5],a2:[42,15]}}
+ ]},
+{id:"halfturn",name:"Half-Turn Highway",pos:["mid"],theme:"Receiving",n:"4 (3 + 1 defender)",area:"36 × 20 m",time:"12 min",age:"U10 – Adult",
+ coerver:"Receiving & passing: open body, receive across the body with the back foot.",ekkono:"Perception: scan to locate the defender, then turn away from pressure.",
+ fixes:["scan","panic","touch"],
+ fun:"Forward to the far player in 2 touches = 2 points. Had to play back = 0. Defender wins it = defender gets 2 and swaps in.",
+ setup:"Three zones. A player at each end, the midfielder in the middle zone, one defender who can enter the middle zone from either side.",
+ how:["End player passes into the midfielder.","The defender attacks the midfielder from one side.","Midfielder scans, receives on the half-turn and plays forward to the other end.","The ball comes back the other way. Rotate after 90 seconds."],
+ points:["Scan twice before the ball arrives","Open your hips: stand side-on, half-turned","Receive with the back foot, touch away from the defender","Play forward in 2 touches"],
+ prog:["Easier: defender passive","Harder: defender starts closer","Harder: two midfielders + two defenders, 2v2 in the middle"],
+ view:{w:36,h:20},marks:[{t:"line",x1:12,y1:0,x2:12,y2:20},{t:"line",x1:24,y1:0,x2:24,y2:20},{t:"zone",x:12,y:0,w:12,h:20}],
+ cast:[{id:"a1",t:"a",l:"",x:5,y:10},{id:"a2",t:"a",l:"8",x:18,y:12},{id:"a3",t:"a",l:"",x:31,y:10},{id:"b1",t:"b",l:"D",x:14,y:16}],ball:"a1",focus:["a2"],
+ frames:[
+  {d:1,cap:"Before the pass, the midfielder scans: where is the defender?",m:{a2:[18,9],b1:[15,14]}},
+  {d:1,cap:"Pass in. The midfielder receives on the half-turn, hips open.",b:"a2",m:{b1:[16.6,11.3]}},
+  {d:.9,cap:"Defender on the left shoulder, so the first touch goes forward to the right.",m:{a2:[21.5,6.5],b1:[18.5,9.5]}},
+  {d:1,cap:"Forward in 2 touches: 2 points.",b:"a3",m:{a3:[31,8]}},
+  {d:1.1,cap:"Ball comes back. The defender attacks from the other side now.",b:"a2",m:{a2:[18,11],b1:[21,14.5],a3:[31,10]}}
+ ]},
+{id:"thirdman",name:"Third-Man Triangle",pos:["mid","att"],theme:"Movement",n:"4 (3 + 1 defender)",area:"30 × 24 m",time:"12 min",age:"U11 – Adult",
+ coerver:"Group play: combination passing and one-touch lay-offs.",ekkono:"Use the third man: the free player is the one the defender isn't watching.",
+ fixes:["movement","buildout","scan"],
+ fun:"Through the gate via a third-man pass = 3 points. Any other way = 1. Defender intercepts = 2 for the defender.",
+ setup:"A starts with the ball. B is the wall player with a defender near them. C starts wide. Gate at the far end.",
+ how:["A passes into B.","As the ball travels, C starts the run.","B plays first-time into C's path.","C dribbles through the gate. Rotate: A→B, B→C, C→A."],
+ points:["C: run when the ball travels to B, not after","B: one-touch, weight the pass into space","A: pass to B's far foot, away from the defender","Everyone: make a triangle, never a straight line"],
+ prog:["Easier: defender passive","Harder: defender can follow C","Harder: 4v2 with two possible third men"],
+ view:{w:30,h:24},marks:[{t:"gate",x1:29,y1:8,x2:29,y2:16,c:"r"}],
+ cast:[{id:"a1",t:"a",l:"A",x:4,y:12},{id:"a2",t:"a",l:"B",x:14,y:16},{id:"a3",t:"a",l:"C",x:13,y:5},{id:"b1",t:"b",l:"D",x:12,y:13.5}],ball:"a1",focus:["a3","a2"],
+ frames:[
+  {d:1.1,cap:"A plays into B. C sees it: that's the trigger to run.",b:"a2",m:{a3:[18,4.5],b1:[13,14.5]}},
+  {d:1,cap:"B plays first-time into C's path. The defender was watching B; C was free.",b:"a3",m:{a3:[22,8],b1:[15,13]}},
+  {d:1,cap:"C drives through the gate: 3 points.",m:{a3:[29.8,11],b1:[19,11]}},
+  {d:1,cap:"Rotate: A becomes B, B becomes C, C becomes A.",m:{a3:[4,12],a2:[13,5],a1:[14,16],b1:[12,13.5]},fade:{}}
+ ]},
+{id:"zones",name:"Three-Zone Overload",pos:["mid","def","att"],theme:"Possession",n:"4 v 4 + 2 neutrals",area:"40 × 30 m",time:"18 min",age:"U11 – Adult",
+ coerver:"Group play: quick passing combinations with a directional first touch.",ekkono:"Numerical superiority (6v4 with neutrals), playing between lines, transitions.",
+ fixes:["buildout","transition","movement","scan"],
+ fun:"End player to end player = 1 point. A pass that breaks a line = bonus point. Win the ball and score within 5 seconds = 2.",
+ setup:"Two teams of 4 in the middle. Two neutral end players who always play with the team in possession.",
+ how:["Team with the ball plays from one end player to the other.","After a point, attack the other direction.","If the other team wins it, they use the neutrals.","Rotate end players every 3 minutes."],
+ points:["Find players between opponents, not in front of them","Make triangles; avoid straight lines","Receive side-on to play forward","Lose it? Counter-press for 5 seconds"],
+ prog:["Easier: 5v3 inside","Harder: max 2 touches","Harder: one player from each team must stay in each zone"],
+ view:{w:40,h:30},marks:[{t:"line",x1:6,y1:0,x2:6,y2:30},{t:"line",x1:34,y1:0,x2:34,y2:30},{t:"zone",x:0,y:0,w:6,h:30},{t:"zone",x:34,y:0,w:6,h:30}],
+ cast:[{id:"n1",t:"n",l:"N",x:3,y:15},{id:"n2",t:"n",l:"N",x:37,y:15},{id:"a1",t:"a",l:"",x:12,y:8},{id:"a2",t:"a",l:"",x:20,y:21},{id:"a3",t:"a",l:"",x:26,y:10},{id:"a4",t:"a",l:"",x:17,y:4},{id:"b1",t:"b",l:"",x:16,y:12},{id:"b2",t:"b",l:"",x:22,y:15},{id:"b3",t:"b",l:"",x:28,y:19},{id:"b4",t:"b",l:"",x:14,y:22}],ball:"n1",focus:["a1","a2","a3","a4"],
+ frames:[
+  {d:1,cap:"Neutral starts. Orange + 2 neutrals = 6 vs 4: always find the free player.",b:"a1",m:{b1:[14,10]}},
+  {d:1.1,cap:"Find players between the opponents' lines, not in front of them.",b:"a2",m:{a2:[20,20],b2:[21,17.5],b4:[16,21]}},
+  {d:1.1,cap:"A third player opens up. Triangles, never a straight line.",b:"a3",m:{a3:[27,11],b3:[28,14.5],b2:[24,13]}},
+  {d:1,cap:"Reach the far end player: 1 point. Now attack the other way.",b:"n2"},
+  {d:1,cap:"Blue intercepts! Now they play with the neutrals.",b:"b2",m:{b2:[27,8.5],a4:[22,5]}},
+  {d:1,cap:"Orange counter-presses for 5 seconds.",b:"b1",m:{b1:[20,9],a4:[19,7],a1:[17,9.5],a3:[24,9]}}
+ ]},
+{id:"cutfinish",name:"Cut & Finish",pos:["att"],theme:"Finishing",n:"Att + Def + GK",area:"Penalty area + 20 m",time:"12–15 min",age:"U9 – Adult",
+ coerver:"Moves 1v1 & finishing: step-over, scissors, drag-back, then shoot.",ekkono:"Read the defender's feet and body to choose the move and the side.",
+ fixes:["att1v1","finish","weak"],
+ fun:"Goal = 1. Goal with the weaker foot = 2. Goal after a named move called before the rep = 3.",
+ setup:"Attacker 25 m from goal with the ball. One defender at the edge of the area. Goalkeeper in goal.",
+ how:["Attacker calls out a move, then attacks the defender.","Beat the defender with that move.","Finish within 2 touches after the move.","Defender who wins it scores in a mini-goal on the halfway line."],
+ points:["Attack at speed to make the defender stop","Sell the fake: drop the shoulder","Explode away after the move","Shoot early, low and across the keeper"],
+ prog:["Easier: mannequin or passive defender","Harder: defender starts closer","Harder: second defender recovers from behind"],
+ view:{w:68,h:52,tpl:"half"},marks:[],
+ cast:[{id:"g",t:"g",l:"GK",x:34,y:3},{id:"b1",t:"b",l:"D",x:34,y:24},{id:"a1",t:"a",l:"9",x:34,y:42}],ball:"a1",focus:["a1"],
+ frames:[
+  {d:1.1,cap:"Attack the defender at speed. Make them stop and decide.",m:{a1:[34,31],b1:[34,26]}},
+  {d:.7,cap:"Step-over to the right: drop the shoulder, sell it.",m:{a1:[37,27.5],b1:[36.6,25]}},
+  {d:.8,cap:"Explode the other way with the outside of the foot.",m:{a1:[29,22],b1:[35,23]}},
+  {d:.9,cap:"Shoot early, low, across the keeper. Weaker foot = 2 points.",b:[31.2,-.6],m:{g:[33,2.4]}}
+ ]},
+{id:"blindside",name:"Blind-Side Runs",pos:["att"],theme:"Movement",n:"Striker + Mid + Def + GK",area:"Half pitch",time:"12 min",age:"U11 – Adult",
+ coerver:"Finishing: first-time finishes on the run.",ekkono:"Perception & deception: move where the defender can't see you.",
+ fixes:["movement","finish"],
+ fun:"Goal from a blind-side run = 2 points. Offside = minus 1. Defender clears = defender's point.",
+ setup:"Striker starts in front of the centre-back. Midfielder with the ball 30 m from goal. Goalkeeper in goal.",
+ how:["Striker shows short into the defender's eyeline.","When the midfielder lifts their head, the striker curls behind the defender's back.","Midfielder plays into space for the run.","Finish in max 2 touches."],
+ points:["Start in front of the defender, then disappear","Curve the run to stay onside","Run when the passer looks up","Ask for the ball into space, not to feet"],
+ prog:["Easier: defender passive","Harder: add a second centre-back","Harder: midfielder chooses between two strikers"],
+ view:{w:68,h:52,tpl:"half"},marks:[],
+ cast:[{id:"g",t:"g",l:"GK",x:34,y:3},{id:"b1",t:"b",l:"CB",x:32,y:18},{id:"a1",t:"a",l:"9",x:30,y:23},{id:"a2",t:"a",l:"10",x:36,y:40}],ball:"a2",focus:["a1"],
+ frames:[
+  {d:1,cap:"Striker drops into the defender's eyeline. The defender watches the ball.",m:{a1:[28,25],a2:[36,36],b1:[31,19]}},
+  {d:1.1,cap:"The midfielder looks up: striker curls across the defender's back, the blind side.",m:{a1:[37,19.5],a2:[36,34]}},
+  {d:1.1,cap:"Midfielder plays into space, not to feet.",b:"a1",m:{a1:[40,12],b1:[36,14]}},
+  {d:.8,cap:"Finish first-time across the keeper.",b:[30.9,-.6],m:{g:[35,2.5]}}
+ ]},
+{id:"crash",name:"Cross & Crash",pos:["att","mid"],theme:"Finishing",n:"Winger + 3 att + 2 def + GK",area:"Half pitch",time:"15 min",age:"U11 – Adult",
+ coerver:"Finishing and passing: crosses, cut-backs, first-time finishes.",ekkono:"Occupy zones: attack 3 spaces so the winger always has a free option.",
+ fixes:["cross","finish","movement"],
+ fun:"Goal from a cross = 2, from a cut-back = 2, a header = 3. Defenders get 2 for a clearance that reaches the halfway line.",
+ setup:"Winger with the ball on the flank. Three attackers outside the box. Two defenders and a keeper.",
+ how:["Winger drives towards the byline.","The attackers time runs into near post, far post and cut-back spot.","Winger picks the free zone.","Rotate roles every 3 reps; swap flanks."],
+ points:["Arrive late and at speed","One player per zone","Winger: head up before delivering","Cut-back: pass along the ground behind the defenders"],
+ prog:["Easier: no defenders","Harder: 3 defenders","Harder: winger has a 1v1 before the cross"],
+ view:{w:68,h:52,tpl:"half"},marks:[],
+ cast:[{id:"g",t:"g",l:"GK",x:34,y:3},{id:"b1",t:"b",l:"",x:36,y:11},{id:"b2",t:"b",l:"",x:30,y:12},{id:"a1",t:"a",l:"W",x:60,y:32},{id:"a2",t:"a",l:"9",x:38,y:24},{id:"a3",t:"a",l:"11",x:28,y:26},{id:"a4",t:"a",l:"8",x:34,y:32}],ball:"a1",focus:["a1","a2","a3","a4"],
+ frames:[
+  {d:1.2,cap:"Winger drives to the byline. Attackers hold their runs: arrive, don't wait.",m:{a1:[62,14],a2:[39,18],a3:[29,20],a4:[37,26]}},
+  {d:1,cap:"Three zones: near post, far post and the cut-back spot.",m:{a2:[42,6],a3:[27,6],a4:[40,14],b1:[39,6],b2:[30,7]}},
+  {d:.9,cap:"Winger looks up and picks the free zone: the cut-back.",b:"a4",m:{a1:[62,12]}},
+  {d:.8,cap:"First-time finish. Rotate roles every 3 reps.",b:[32,-.6],m:{g:[36,2.5]}}
+ ]},
+{id:"twovone",name:"2v1 Decision Lab",pos:["att","mid","all"],theme:"1v1",n:"3 per group",area:"30 × 20 m",time:"12 min",age:"U8 – Adult",
+ coerver:"Moves 1v1 and passing: a fake pass is also a move.",ekkono:"Perception-decision: read the defender. Committed to the ball? Pass. Blocking the pass? Dribble.",
+ fixes:["att1v1","movement","finish"],
+ fun:"Goal = 1. Goal where the defender was fooled by a fake pass = 2. Defender wins it and dribbles out = 2.",
+ setup:"Two attackers start on the end line with one ball. One defender guards a mini-goal at the other end.",
+ how:["Attackers go at the defender together.","The ball carrier reads the defender.","Defender comes to the ball → pass. Defender blocks the pass → dribble.","Finish in the mini-goal. Swap roles."],
+ points:["Dribble straight at the defender to fix them","Partner: keep width, stay level or slightly behind","Pass at the last moment","Fake pass, then go"],
+ prog:["Easier: defender starts on the goal line","Harder: second defender recovers after 3 seconds","Harder: 3v2"],
+ view:{w:30,h:20},marks:[{t:"goal",x:30,y:10,w:4,v:"right"},{t:"line",x1:1,y1:0,x2:1,y2:20}],
+ cast:[{id:"a1",t:"a",l:"A",x:3,y:6},{id:"a2",t:"a",l:"B",x:3,y:14},{id:"b1",t:"b",l:"D",x:22,y:10}],ball:"a1",focus:["a1","a2"],
+ frames:[
+  {d:1.2,cap:"Attack the defender with the ball. Partner keeps width.",m:{a1:[12,7.5],a2:[12,14.5],b1:[17,9.5]}},
+  {d:.8,cap:"Read it: the defender steps to the ball…",m:{a1:[13.5,8],a2:[14,15],b1:[14.8,8.6]}},
+  {d:.9,cap:"…so pass! Now it's 1v0.",b:"a2",m:{a2:[17,14]}},
+  {d:1.1,cap:"Finish in the mini-goal. Next rep: if the defender blocks the pass, dribble.",b:[30.6,11],m:{a2:[24,12.5],b1:[19,11]}}
+ ]},
+{id:"sweeper",name:"Sweeper-Keeper Starts",pos:["gk","def"],theme:"Build-up",n:"GK + 2 CB + 2 att + server",area:"Half pitch",time:"12–15 min",age:"U11 – Adult",
+ coerver:"Receiving & passing for keepers: first touch away from pressure, both feet.",ekkono:"Keeper as the extra outfield player; reading space behind the line.",
+ fixes:["buildout","panic"],
+ fun:"Keeper: clean pass to a centre-back = 1, line-breaking pass = 2, successful sweep outside the box = 2. Strikers: win the ball = 2.",
+ setup:"Server near halfway, two centre-backs, keeper in goal, one pressing striker and one runner.",
+ how:["Server plays a back-pass to the keeper; the striker presses.","Keeper plays out to the free side.","Next ball: server plays over the defence; keeper sweeps it.","Outside the box, the keeper must use their feet."],
+ points:["Open your body before the ball arrives","First touch away from the presser","Read the long ball early: start moving on the pass","Outside the box: clear with feet or control and pass"],
+ prog:["Easier: striker passive","Harder: two pressers","Harder: keeper must use the weaker foot"],
+ view:{w:68,h:52,tpl:"half"},marks:[],
+ cast:[{id:"g",t:"g",l:"GK",x:34,y:4},{id:"a1",t:"a",l:"CB",x:22,y:13},{id:"a2",t:"a",l:"CB",x:46,y:13},{id:"c",t:"c",l:"S",x:34,y:34},{id:"b1",t:"b",l:"",x:36,y:24},{id:"b2",t:"b",l:"",x:44,y:38}],ball:"c",focus:["g"],
+ frames:[
+  {d:1.2,cap:"Back-pass to the keeper. The striker sprints at them.",b:"g",m:{g:[34,6],b1:[35,13]}},
+  {d:.8,cap:"Keeper's first touch goes away from the striker, onto the open side.",m:{g:[30.5,6.6],b1:[34,9]}},
+  {d:1,cap:"Pass to the side the striker can't cover.",b:"a1",m:{a1:[16,15]}},
+  {d:.9,cap:"Reset: ball back to the server.",b:"c",m:{a1:[22,13],b1:[38,24],g:[34,6]}},
+  {d:1.5,cap:"Ball over the top! The keeper reads it early and sweeps outside the box.",b:"g",m:{g:[31,19],b2:[34,23]}}
+ ]}
+];
+const D=Object.fromEntries(DRILLS.map(d=>[d.id,d]));
+const THEMES=["All skills",...new Set(DRILLS.map(d=>d.theme))];
+
+/* ---------------- ANIMATION ENGINE ---------------- */
+const boards=new Set();
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+const ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+const lerp=(a,b,p)=>[a[0]+(b[0]-a[0])*p,a[1]+(b[1]-a[1])*p];
+function normBall(b){if(b===undefined)return {};if(typeof b==="string"||Array.isArray(b))return {b1:b};return b}
+
+function drawPitch(svg,d){
+  const {w,h,tpl}=d.view, u=Math.max(w,h)/50, pad=3*u;
+  svg.setAttribute("viewBox",`${-pad} ${-pad} ${w+2*pad} ${h+2*pad}`);
+  const defs=el("defs",{},svg);
+  const mk=el("marker",{id:"ah-"+d.id,viewBox:"0 0 10 10",refX:"8",refY:"5",markerWidth:"5",markerHeight:"5",orient:"auto-start-reverse"},defs);
+  el("path",{d:"M0,0 L10,5 L0,10 z",fill:"rgba(255,255,255,.75)"},mk);
+  const mk2=el("marker",{id:"ab-"+d.id,viewBox:"0 0 10 10",refX:"8",refY:"5",markerWidth:"4",markerHeight:"4",orient:"auto-start-reverse"},defs);
+  el("path",{d:"M0,0 L10,5 L0,10 z",fill:"#ffb38f"},mk2);
+  el("rect",{x:-pad,y:-pad,width:w+2*pad,height:h+2*pad,fill:"#256c44"},svg);
+  const n=tpl==="half"?8:6, sw=(w+2*pad)/n;
+  for(let i=0;i<n;i+=2) el("rect",{x:-pad+i*sw,y:-pad,width:sw,height:h+2*pad,fill:"#2b7a4e"},svg);
+  const L={fill:"none",stroke:"rgba(240,250,243,.85)","stroke-width":.22*u};
+  if(tpl==="half"){
+    el("rect",{x:0,y:0,width:w,height:h,...L},svg);
+    el("rect",{x:13.84,y:0,width:40.32,height:16.5,...L},svg);
+    el("rect",{x:24.84,y:0,width:18.32,height:5.5,...L},svg);
+    el("circle",{cx:34,cy:11,r:.35,fill:"rgba(240,250,243,.9)"},svg);
+    el("path",{d:"M26.69 16.5 A9.15 9.15 0 0 0 41.31 16.5",...L},svg);
+    el("path",{d:"M24.85 52 A9.15 9.15 0 0 1 43.15 52",...L},svg);
+    el("rect",{x:30.34,y:-1.8,width:7.32,height:1.8,fill:"rgba(255,255,255,.18)",stroke:"rgba(240,250,243,.95)","stroke-width":.25*u},svg);
+  } else {
+    el("rect",{x:0,y:0,width:w,height:h,...L,"stroke-dasharray":`${u*.9} ${u*.6}`,stroke:"rgba(240,250,243,.5)"},svg);
+  }
+  for(const m of d.marks||[]){
+    if(m.t==="zone"){el("rect",{x:m.x,y:m.y,width:m.w,height:m.h,fill:"rgba(255,255,255,.09)"},svg);
+      if(m.lab){const t=el("text",{x:m.x+m.w/2,y:m.y+1.6*u,"text-anchor":"middle","font-size":.95*u,fill:"rgba(255,255,255,.7)","font-family":"JetBrains Mono, monospace","letter-spacing":".1"},svg);t.textContent=m.lab}}
+    if(m.t==="line") el("line",{x1:m.x1,y1:m.y1,x2:m.x2,y2:m.y2,stroke:"rgba(240,250,243,.6)","stroke-width":.2*u,"stroke-dasharray":`${u*.7} ${u*.5}`},svg);
+    if(m.t==="gate"){el("line",{x1:m.x1,y1:m.y1,x2:m.x2,y2:m.y2,stroke:CONE[m.c],"stroke-width":.18*u,"stroke-opacity":.55},svg);cone(svg,m.x1,m.y1,m.c,u);cone(svg,m.x2,m.y2,m.c,u)}
+    if(m.t==="cone") cone(svg,m.x,m.y,m.c,u);
+    if(m.t==="goal"){const g=m.v==="right"?{x:m.x,y:m.y-m.w/2,width:1.2*u,height:m.w}:{x:m.x-m.w/2,y:m.y-1.2*u,width:m.w,height:1.2*u};
+      el("rect",{...g,fill:"rgba(255,255,255,.2)",stroke:"#fff","stroke-width":.25*u},svg)}
+  }
+  return u;
+}
+function cone(svg,x,y,c,u){const s=.75*u;el("path",{d:`M${x-s} ${y+s*.6} L${x} ${y-s} L${x+s} ${y+s*.6} Z`,fill:CONE[c],stroke:"rgba(0,0,0,.35)","stroke-width":.08*u},svg)}
+
+function makeBoard(host,d,opt={}){
+  host.innerHTML="";
+  const wrap=document.createElement("div");wrap.className="board";host.appendChild(wrap);
+  const svg=el("svg",{role:"img","aria-label":`Animated diagram: ${d.name}`});wrap.appendChild(svg);
+  const u=drawPitch(svg,d);
+  const R=1.25*u;
+  // states
+  const s0={pos:{},op:{},balls:normBall(d.ball)};
+  d.cast.forEach(p=>{s0.pos[p.id]=[p.x,p.y];s0.op[p.id]=p.op??1});
+  const states=[s0];
+  d.frames.forEach(f=>{const p=states[states.length-1];const s={pos:{...p.pos},op:{...p.op},balls:{...p.balls}};
+    Object.assign(s.pos,f.m||{});Object.assign(s.op,f.fade||{});Object.assign(s.balls,normBall(f.b));states.push(s)});
+  const win=[{start:0,d:0,len:opt.intro??1.1}];let T=win[0].len;
+  d.frames.forEach(f=>{const len=f.d+(f.h??.55);win.push({start:T,d:f.d,len});T+=len});
+  T+=.6;
+  // layers
+  const gArrows=el("g",{},svg), gPlayers=el("g",{},svg), gBalls=el("g",{},svg);
+  const nodes={};
+  d.cast.forEach(p=>{const g=el("g",{},gPlayers);const c=TEAM[p.t];
+    if((d.focus||[]).includes(p.id)) el("circle",{r:R*1.55,fill:"none",stroke:"#ffd2bd","stroke-width":.22*u,class:"ring"},g);
+    el("circle",{r:R,fill:c.f,stroke:"rgba(0,0,0,.35)","stroke-width":.15*u},g);
+    if(p.l){const t=el("text",{"text-anchor":"middle","dominant-baseline":"central","font-size":(p.l.length>1?.95:1.15)*u,"font-weight":"700",fill:c.t,"font-family":"Barlow Condensed, Arial Narrow, sans-serif"},g);t.textContent=p.l}
+    nodes[p.id]=g});
+  const ballNodes={};
+  const bkeys=new Set();states.forEach(s=>Object.keys(s.balls).forEach(k=>bkeys.add(k)));
+  bkeys.forEach(k=>{const g=el("g",{},gBalls);el("circle",{r:.62*u,fill:"#fff",stroke:"#111","stroke-width":.14*u},g);el("circle",{r:.22*u,fill:"#111"},g);ballNodes[k]=g});
+  const off=[R*.8,R*.75];
+  const resolve=(v,pos)=>typeof v==="string"?[pos[v][0]+off[0],pos[v][1]+off[1]]:v;
+
+  let cap=null,stepsEl=null,playBtn=null;
+  if(!opt.mini){
+    cap=document.createElement("div");cap.className="cap";cap.setAttribute("aria-live","polite");wrap.appendChild(cap);
+    stepsEl=document.createElement("div");stepsEl.className="steps";wrap.appendChild(stepsEl);
+    win.forEach((w,i)=>{const b=document.createElement("button");b.type="button";b.setAttribute("aria-label",i?`Step ${i}`:"Setup");b.onclick=()=>{st.playing=false;st.t=i?w.start+w.d:0;sync()};stepsEl.appendChild(b)});
+    const c=document.createElement("div");c.className="ctrls";wrap.appendChild(c);
+    const btn=(txt,lab,fn)=>{const b=document.createElement("button");b.type="button";b.textContent=txt;b.setAttribute("aria-label",lab);b.onclick=fn;c.appendChild(b);return b};
+    btn("⟲","Restart",()=>{st.t=0;st.playing=true;sync()});
+    btn("◀","Previous step",()=>{const i=idx(st.t);const j=Math.max(0,(st.t>win[i].start+win[i].d+.01)?i-1:i-1);st.playing=false;st.t=j?win[j].start+win[j].d:0;sync()});
+    playBtn=btn("Pause","Play or pause",()=>{st.playing=!st.playing;if(st.t>=T-.01)st.t=0;sync()});playBtn.classList.add("play");
+    btn("▶","Next step",()=>{const i=idx(st.t);const j=Math.min(win.length-1,i+1);st.playing=false;st.t=win[j].start+win[j].d;sync()});
+    const sp=document.createElement("div");sp.className="spd";c.appendChild(sp);
+    [.5,1,1.5].forEach(v=>{const b=document.createElement("button");b.type="button";b.textContent=v+"×";b.setAttribute("aria-pressed",v===1);b.onclick=()=>{st.speed=v;[...sp.children].forEach(x=>x.setAttribute("aria-pressed",x===b))};sp.appendChild(b)});
+    const lg=document.createElement("div");lg.className="legend";
+    const tl=new Set(d.cast.map(p=>p.t));
+    lg.innerHTML=[["a","Developing"],["b","Opponent"],["n","Neutral"],["g","Goalkeeper"],["c","Coach / server"]].filter(x=>tl.has(x[0])).map(x=>`<span><i style="background:${TEAM[x[0]].f};border:1px solid rgba(0,0,0,.3)"></i>${x[1]}</span>`).join("")+`<span>▭ dashed = run · orange = ball</span>`;
+    wrap.appendChild(lg);
+  }
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const st={t:0,playing:!reduce,speed:1,last:-1,lastIdx:-1};
+  if(reduce)st.t=win[1].start+win[1].d;
+  function idx(t){let i=0;for(let k=0;k<win.length;k++)if(t>=win[k].start)i=k;return i}
+  function sync(){if(playBtn)playBtn.textContent=st.playing?"Pause":"Play";st.lastIdx=-1;render()}
+  function render(){
+    const t=Math.min(st.t,T), i=idx(t), w=win[i];
+    const p=i===0?1:Math.min(1,(t-w.start)/w.d), e=ease(p);
+    const A=states[Math.max(0,i-1)], B=states[i];
+    const pos={};
+    for(const id in B.pos){pos[id]=i===0?B.pos[id]:lerp(A.pos[id],B.pos[id],e);
+      const op=i===0?B.op[id]:A.op[id]+(B.op[id]-A.op[id])*e;
+      nodes[id].setAttribute("transform",`translate(${pos[id][0].toFixed(2)} ${pos[id][1].toFixed(2)})`);nodes[id].setAttribute("opacity",op)}
+    for(const k in ballNodes){const a=A.balls[k],b=B.balls[k];let bp;
+      if(b===undefined){ballNodes[k].setAttribute("opacity",0);continue}
+      ballNodes[k].setAttribute("opacity",1);
+      if(i===0||JSON.stringify(a)===JSON.stringify(b)) bp=resolve(b,pos);
+      else bp=lerp(resolve(a,A.pos),resolve(b,B.pos),e);
+      ballNodes[k].setAttribute("transform",`translate(${bp[0].toFixed(2)} ${bp[1].toFixed(2)})`)}
+    if(i!==st.lastIdx){st.lastIdx=i;
+      gArrows.innerHTML="";
+      if(i>0){
+        for(const id in B.pos){const a=A.pos[id],b=B.pos[id];const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy);
+          if(L>1.5*u&&B.op[id]>.5){const k=(L-R*1.1)/L;el("line",{x1:a[0],y1:a[1],x2:a[0]+dx*k,y2:a[1]+dy*k,stroke:"rgba(255,255,255,.7)","stroke-width":.2*u,"stroke-dasharray":`${u*.6} ${u*.45}`,"marker-end":`url(#ah-${d.id})`},gArrows)}}
+        for(const k in B.balls){const a=A.balls[k],b=B.balls[k];if(a===undefined||JSON.stringify(a)===JSON.stringify(b))continue;
+          const s=resolve(a,A.pos),f=resolve(b,B.pos);el("line",{x1:s[0],y1:s[1],x2:f[0],y2:f[1],stroke:"#ffb38f","stroke-width":.3*u,"stroke-linecap":"round","marker-end":`url(#ab-${d.id})`},gArrows)}
+      }
+      if(cap){const txt=i===0?(d.setup||""):d.frames[i-1].cap;cap.innerHTML=`<span class="n">${i===0?"SETUP":i+"/"+(win.length-1)}</span><span>${esc(txt)}</span>`}
+      if(stepsEl)[...stepsEl.children].forEach((b,k)=>{b.className=k===i?"on":k<i?"done":""});
+    }
+  }
+  const api={host,tick(dt){if(!host.isConnected){boards.delete(api);return}if(!host.offsetParent)return;if(st.playing){st.t+=dt*st.speed;if(st.t>=T)st.t=0}render()}};
+  boards.add(api);render();
+  return api;
+}
+let lastTs=0;
+function loop(ts){const dt=lastTs?Math.min(.05,(ts-lastTs)/1000):0;lastTs=ts;boards.forEach(b=>b.tick(dt));requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+
+function thumb(d){
+  const svg=document.createElementNS(NS,"svg");svg.setAttribute("class","thumb");svg.setAttribute("aria-hidden","true");
+  const u=drawPitch(svg,{...d,id:d.id+"-t"});
+  d.cast.forEach(p=>el("circle",{cx:p.x,cy:p.y,r:1.7*u,fill:TEAM[p.t].f},svg));
+  return svg;
+}
+
+/* ---------------- LICENSES ---------------- */
+const LIC=[
+ {k:"D",name:"D License",tag:"Coach the player in the game",uefa:"≈ UEFA C",len:"About 3 months",
+  who:"Coaches of youth teams (roughly U12 and up) playing 9v9 or 11v11, and adult amateur teams.",
+  before:["Complete the free Introduction to Grassroots Coaching module","Finish the Grassroots courses US Soccer requires, including an in-person 9v9 or 11v11 course","Have a team you coach during the whole course: you will run and film real sessions","Create your Learning Center profile and pass any required safety training (e.g. SafeSport)"],
+  format:"Blended: online learning plus in-person or virtual meetings, with coaching tasks between meetings.",
+  assess:["Plan and run a Play–Practice–Play session that fixes one real game problem","Coach in the moment: freeze, question, show, restart. Short and clear","Watch your team play and identify the key problem","Write an Individual Development Plan for one player","Reflect honestly on your coaching after each task"],
+  know:["The 4 moments of the game","Play–Practice–Play session design","Coaching methods: guided discovery, Q&A, command, freeze","Player-centred, age-appropriate development","Principles of play: width, depth, penetration, pressure, cover, compactness"],
+  tips:["Pick ONE game problem and make every activity solve it","Your practice must look like the game: goals, direction, opponents","Talk less: 3 interventions that land beat 20 that don't","Film yourself. Assessors care how you react to what happens, not just your plan"],
+  check:["Intro to Grassroots module done","Required Grassroots courses done","Registered for a D course","Filmed and reviewed my first session","Individual Development Plan written","Practised the freeze-question-restart routine"],
+  drills:["rondo","gate","mirror","twovone"]},
+ {k:"C",name:"C License",tag:"Coach the team in the game",uefa:"≈ UEFA B",len:"About 6–9 months",
+  who:"Coaches of competitive youth (club, high school) and adult teams playing 11v11.",
+  before:["Hold the D License (check the minimum time between licenses)","Be the coach of an 11v11 team during the course","Complete the prerequisite online modules"],
+  format:"Blended: in-person meetings, online modules and assessed tasks with your own team.",
+  assess:["Training that develops a team idea, not only individual skills","Coaching the team during games: team talks, half-time, adjustments","Analysing your team in the 4 moments and linking it to training","Leading people: players, parents, assistants","Planning a training week around the next game"],
+  know:["Team organisation in each moment: shape, lines, distances","A simple game model and playing style","The weekly plan (microcycle) and training load","Basic game analysis with video","Leadership and communication"],
+  tips:["Show a clear thread: game problem → training week → next game","Use the same words every session ('slide', 'step', 'show')","Know every player's role in every moment","Half-time: max 3 points, one of them positive"],
+  check:["D License held for the required time","Coaching an 11v11 team","Wrote my team's 1-page playing style","Planned a full training week around a game","Clipped and analysed one full game","Practised a 3-point half-time talk"],
+  drills:["shuffle","buildout","zones","recover"]},
+ {k:"B",name:"B License",tag:"Own a playing style",uefa:"≈ UEFA A (rough)",len:"About 1 year",
+  who:"Coaches in high-level youth (academies, top club leagues), college or semi-pro teams.",
+  before:["Hold the C License","Coach at a suitable competitive level for the whole course","Apply and be selected: places are limited"],
+  format:"Selective. In-person meetings, mentor visits and assessed tasks in your real coaching environment.",
+  assess:["Your game model: principles and sub-principles for each moment","Unit coaching: back four, midfield, front line","Season and block planning (periodization)","Video analysis of your own team and an opponent","Coaching under pressure in competitive games"],
+  know:["Game model design and a hierarchy of principles","Positional play and unit training","Periodization and session load","Opponent scouting and match plans","Long-term player development pathways"],
+  tips:["Your game model should fit on one page, and your sessions should prove it","Train units: GK + back four, midfield, front three","Use clips weekly: 3 good, 3 to improve","Ask your mentor for feedback early and often"],
+  check:["C License held","Coaching at the required level","Game model on one page","Unit session for the back four filmed","Opponent analysis presentation ready","Season plan with training blocks"],
+  drills:["shuffle","buildout","halfturn","thirdman","crash"]},
+ {k:"A",name:"A License",tag:"Lead an elite environment",uefa:"≈ UEFA A / Elite Youth A",len:"About 1–1.5 years",
+  who:"A-Youth: academy and elite youth coaches. A-Senior: coaches in college, professional and elite senior teams.",
+  before:["Hold the B License","Work in a qualifying elite environment","Application, interview and selection"],
+  format:"Highly selective. In-person residencies, club visits and mentor assessments in your workplace.",
+  assess:["Long-term planning: a season or a multi-year academy curriculum","Leading staff: assistants, GK coach, analyst, performance staff","Match preparation and in-game management at elite level","Developing elite players individually","Presenting and defending your methodology"],
+  know:["Advanced periodization and sports-science basics","Data and performance analysis","Talent identification and curricula (A-Youth)","Squad management and competition strategy (A-Senior)","Building a high-performance culture"],
+  tips:["Think like a head of department: systems, not sessions","Delegate to staff and show how you lead them","Bring data, but explain it in football language","Have a clear story: who you are as a coach and why"],
+  check:["B License held","In a qualifying elite role","Academy curriculum or season plan written","Staff roles and meeting rhythm defined","Methodology presentation rehearsed","Individual plans for key players"],
+  drills:["zones","buildout","sweeper"]},
+ {k:"Pro",name:"Pro License",tag:"Run a club's football",uefa:"≈ UEFA Pro",len:"About 1+ year",
+  who:"Head coaches and first-team staff in professional leagues.",
+  before:["Hold the A-Senior License (or an accepted equivalent)","Work as, or be close to becoming, a head coach at a professional club","Selection by the federation; small cohorts"],
+  format:"Small cohort. Residencies, international study visits, leadership modules and workplace assessment.",
+  assess:["Leading a professional organisation and staff","Sporting strategy: recruitment, budget, data","Media, stakeholders and crisis management","High-level in-game decisions","A personal leadership project"],
+  know:["Organisational leadership and culture","Recruitment and squad planning","Media and communication","Performance departments and data","Self-management and wellbeing under pressure"],
+  tips:["Show how your football idea connects to the whole club","Prepare for media like you prepare for games","Build a network: study visits are part of the learning","Take care of your own energy; the job is long"],
+  check:["A-Senior License held","In or near a pro head-coach role","Club football philosophy document","Media training done","Study visit planned","Leadership project chosen"],
+  drills:["zones","shuffle","buildout"]}
+];
+
+function renderLadder(sel){
+  const L=$("#ladder");L.innerHTML="";
+  LIC.forEach(l=>{const done=store.get("chk-"+l.k,[]);const pct=Math.round(done.length/l.check.length*100);
+    const b=document.createElement("button");b.className="rung";b.type="button";b.setAttribute("role","tab");b.setAttribute("aria-selected",l.k===sel);
+    b.innerHTML=`<span class="lvl">${l.k}</span><span class="tl">${esc(l.tag)}</span><span class="uefa">${esc(l.uefa)}</span><span class="bar" title="${pct}% of checklist"><i style="width:${pct}%"></i></span>`;
+    b.onclick=()=>{store.set("lic",l.k);renderLadder(l.k);renderLic(l.k)};L.appendChild(b)});
+}
+function renderLic(k){
+  const l=LIC.find(x=>x.k===k);const done=store.get("chk-"+k,[]);
+  const li=a=>a.map(x=>`<li>${esc(x)}</li>`).join("");
+  $("#licDetail").innerHTML=`<div class="lic">
+   <div class="card span-12"><div class="lic-head"><span class="big">${l.k}</span><div style="display:flex;flex-direction:column;gap:8px;min-width:0"><h3>${esc(l.name)} · ${esc(l.tag)}</h3><div class="facts"><span class="chip">${esc(l.len)}</span><span class="chip">${esc(l.uefa)}</span></div></div></div><p>${esc(l.who)}</p><p style="color:var(--muted)">${esc(l.format)}</p></div>
+   <div class="card span-6"><h4>Before you enroll</h4><ul>${li(l.before)}</ul></div>
+   <div class="card span-6"><h4>What assessors look for</h4><ul>${li(l.assess)}</ul></div>
+   <div class="card span-6"><h4>Knowledge to master</h4><ul>${li(l.know)}</ul></div>
+   <div class="card span-6"><h4>How to pass</h4><ul>${li(l.tips)}</ul></div>
+   <div class="card span-8"><h4>Your checklist <span style="text-transform:none;letter-spacing:0">(saved in this browser)</span></h4><div class="check">${l.check.map((c,i)=>`<label for="chk-${k}-${i}"><input type="checkbox" id="chk-${k}-${i}" data-i="${i}" ${done.includes(i)?"checked":""}><span>${esc(c)}</span></label>`).join("")}</div></div>
+   <div class="card span-4"><h4>Train it with Pitchcraft</h4><p>Drills that match what this level assesses:</p><div class="links">${l.drills.map(id=>`<a href="#drill-${id}">${esc(D[id].name)}</a>`).join("")}</div><div class="links"><a href="#session">Build a session →</a></div></div>
+  </div>`;
+  $("#licDetail").querySelectorAll("input[type=checkbox]").forEach(cb=>cb.onchange=()=>{
+    const cur=new Set(store.get("chk-"+k,[]));const i=+cb.dataset.i;cb.checked?cur.add(i):cur.delete(i);store.set("chk-"+k,[...cur]);renderLadder(k)});
+}
+
+/* ---------------- METHOD ---------------- */
+const PYR=[
+ {n:"Group play",c:"#7a3fd0",w:34,txt:"Small-sided games and positional games where all skills come together. Pitchcraft: Three-Zone Overload, Back-Four Shuffle.",dr:["zones","shuffle"]},
+ {n:"Finishing",c:"#c2362a",w:46,txt:"Scoring under pressure: first-time finishes, 1v1 with the keeper, weak foot. Pitchcraft: Cut & Finish, Cross & Crash.",dr:["cutfinish","crash"]},
+ {n:"Speed",c:"#d9601c",w:58,txt:"Speed with the ball, speed of reaction and change of pace. Pitchcraft: Jockey Lanes, Recover & Cover.",dr:["jockey","recover"]},
+ {n:"Moves (1v1)",c:"#c99a06",w:70,txt:"A personal set of moves to beat a defender and to escape pressure. Pitchcraft: Gate Escape, 2v1 Decision Lab.",dr:["gate","twovone"]},
+ {n:"Receiving & passing",c:"#178a62",w:84,txt:"First touch, passing to the right foot, receiving on the half-turn. Pitchcraft: Half-Turn Highway, Scan & Strike Rondo.",dr:["halfturn","rondo"]},
+ {n:"Ball mastery",c:"#1f5fbf",w:100,txt:"The base: thousands of touches with all surfaces of both feet. Pitchcraft: Mirror Mastery, Traffic Jam.",dr:["mirror","traffic"]}
+];
+function renderPyr(sel=5){
+  const host=$("#pyr");host.innerHTML="";
+  PYR.forEach((p,i)=>{const b=document.createElement("button");b.type="button";b.textContent=p.n;b.style.width=p.w+"%";b.style.background=p.c;b.style.animationDelay=(5-i)*.08+"s";b.setAttribute("aria-pressed",i===sel);
+    b.onclick=()=>{[...host.children].forEach(x=>x.setAttribute("aria-pressed",x===b));info(i)};host.appendChild(b)});
+  function info(i){const p=PYR[i];$("#pyrInfo").innerHTML=`<b style="font-family:var(--font-display);font-size:20px;text-transform:uppercase">${esc(p.n)}</b><p style="margin-top:4px">${esc(p.txt)}</p><div class="links" style="margin-top:8px">${p.dr.map(id=>`<a href="#drill-${id}">${esc(D[id].name)}</a>`).join("")}</div>`}
+  info(sel);
+}
+
+/* ---------------- DRILL LIBRARY ---------------- */
+let fPos=store.get("fpos","all"), fTheme="All skills", curDrill=null, detailBoard=null;
+function renderFilters(){
+  $("#fPos").innerHTML="";$("#fTheme").innerHTML="";
+  Object.entries(POS).forEach(([k,v])=>{const b=document.createElement("button");b.type="button";b.textContent=v;b.setAttribute("aria-pressed",k===fPos);b.onclick=()=>{fPos=k;store.set("fpos",k);renderFilters();renderList()};$("#fPos").appendChild(b)});
+  THEMES.forEach(t=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.setAttribute("aria-pressed",t===fTheme);b.onclick=()=>{fTheme=t;renderFilters();renderList()};$("#fTheme").appendChild(b)});
+}
+const posChips=d=>d.pos.map(p=>`<span class="chip ${p}">${POSSHORT[p]}</span>`).join("");
+function renderList(){
+  const list=$("#dlist");list.innerHTML="";
+  const items=DRILLS.filter(d=>(fPos==="all"||d.pos.includes(fPos))&&(fTheme==="All skills"||d.theme===fTheme));
+  if(!items.length){list.innerHTML=`<p class="note">No drills match both filters. Try "All skills".</p>`;return}
+  items.forEach(d=>{const b=document.createElement("button");b.type="button";b.className="ditem";b.setAttribute("aria-current",d.id===curDrill);
+    b.appendChild(thumb(d));const t=document.createElement("div");t.style.minWidth="0";
+    t.innerHTML=`<b>${esc(d.name)}</b><div class="meta"><span class="chip">${esc(d.theme)}</span>${posChips(d)}</div>`;b.appendChild(t);
+    b.onclick=()=>{location.hash="drill-"+d.id};list.appendChild(b)});
+}
+function showDrill(id,scroll){
+  const d=D[id]||DRILLS[0];curDrill=d.id;
+  [...$("#dlist").children].forEach(b=>{if(b.classList.contains("ditem"))b.setAttribute("aria-current",b.querySelector("b").textContent===d.name)});
+  const li=a=>a.map(x=>`<li>${esc(x)}</li>`).join("");
+  $("#detail").innerHTML=`<div style="display:flex;flex-direction:column;gap:8px"><div class="meta" style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip">${esc(d.theme)}</span>${posChips(d)}</div><h3>${esc(d.name)}</h3></div>
+   <div id="dboard"></div>
+   <div class="dfacts"><div><small>Players</small><b>${esc(d.n)}</b></div><div><small>Area</small><b>${esc(d.area)}</b></div><div><small>Time</small><b>${esc(d.time)}</b></div><div><small>Age</small><b>${esc(d.age)}</b></div></div>
+   <div class="fun"><b>Why players love it:</b> ${esc(d.fun)}</div>
+   <div class="roots"><div><small>Coerver root</small>${esc(d.coerver)}</div><div><small>Ekkono root</small>${esc(d.ekkono)}</div></div>
+   <div class="dcols"><div class="card"><h4>How it works</h4><ol class="how">${li(d.how)}</ol></div><div class="card"><h4>Coaching points</h4><ul>${li(d.points)}</ul></div></div>
+   <div class="dcols"><div class="card"><h4>Make it easier / harder</h4><ul>${li(d.prog)}</ul></div><div class="card"><h4>Fixes these problems</h4><div class="links">${d.fixes.map(f=>`<a href="#fix-${f}">${esc(P[f].name)}</a>`).join("")}</div></div></div>`;
+  detailBoard=makeBoard($("#dboard"),d);
+  if(scroll&&matchMedia("(max-width:960px)").matches)$("#detail").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ---------------- FIX ---------------- */
+let curProb=PROBLEMS[0].id;
+function renderFix(){
+  const pl=$("#plist");pl.innerHTML="";
+  PROBLEMS.forEach(p=>{const n=DRILLS.filter(d=>d.fixes.includes(p.id)).length;const b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed",p.id===curProb);
+    b.innerHTML=`<span>${esc(p.name)}</span><small>${n} drill${n>1?"s":""}</small>`;b.onclick=()=>{location.hash="fix-"+p.id};pl.appendChild(b)});
+  const p=P[curProb];const ds=DRILLS.filter(d=>d.fixes.includes(p.id));
+  $("#pdetail").innerHTML=`<h4>The problem</h4><h3>${esc(p.name)}</h3>
+   <div><h4 style="margin-bottom:4px">Why it happens</h4><p>${esc(p.cause)}</p></div>
+   <div><h4 style="margin-bottom:4px">What to coach</h4><ul>${p.coach.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+   <div class="fun"><b>Pitchcraft bonus rule for your games:</b> ${esc(p.bonus)}</div>
+   <h4>Drills that fix it</h4>
+   <div class="rec">${ds.map(d=>`<button type="button" data-d="${d.id}"><span class="meta" style="display:flex;gap:6px;flex-wrap:wrap">${posChips(d)}</span><b>${esc(d.name)}</b><span>${esc(d.theme)} · ${esc(d.time)}</span></button>`).join("")}</div>
+   <div class="links"><button type="button" id="toSession">Build a full session for this problem →</button></div>`;
+  $("#pdetail").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{location.hash="drill-"+b.dataset.d});
+  $("#toSession").onclick=()=>{$("#sProb").value=p.id;location.hash="session"};
+}
+
+/* ---------------- SESSION BUILDER ---------------- */
+function initSession(){
+  $("#sPos").innerHTML=Object.entries(POS).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+  $("#sProb").innerHTML=PROBLEMS.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join("");
+  ["sPos","sProb","sMin"].forEach(id=>$("#"+id).onchange=renderSession);
+}
+function renderSession(){
+  const pos=$("#sPos").value, prob=$("#sProb").value, min=+$("#sMin").value, p=P[prob];
+  const fits=d=>pos==="all"||d.pos.includes(pos)||d.pos.includes("all");
+  const score=d=>(d.fixes.includes(prob)?2:0)+(pos!=="all"&&d.pos.includes(pos)?1:0);
+  const mastery=["mirror","traffic","gate","rondo"].map(id=>D[id]).sort((a,b)=>score(b)-score(a))[0];
+  const pool=DRILLS.filter(d=>d.id!==mastery.id&&fits(d)).sort((a,b)=>score(b)-score(a));
+  const main1=pool[0]||D.rondo, main2=pool.find(d=>d.id!==main1.id&&d.theme!==main1.theme)||pool[1]||D.zones;
+  const f=min/75, r=x=>Math.max(5,Math.round(x*f/5)*5);
+  let t=[r(12),r(12),r(17),r(14)];let last=min-t.reduce((a,b)=>a+b,0);
+  const blocks=[
+   {ph:"Play",name:"Arrival game: 4v4 to mini-goals",txt:"Players join the game as they arrive. No coaching yet: watch for the problem ("+p.name.toLowerCase()+").",m:t[0],c:"var(--mid)"},
+   {ph:"Practice · Mastery (Coerver)",name:mastery.name,txt:mastery.fun,m:t[1],c:"var(--def)",id:mastery.id},
+   {ph:"Practice · Situation (Ekkono)",name:main1.name,txt:"Main teaching activity. Coach: "+p.coach.slice(0,2).join("; ")+".",m:t[2],c:"var(--accent)",id:main1.id},
+   {ph:"Practice · Game-like",name:main2.name,txt:"Same problem, closer to the real game: more players, direction, transitions.",m:t[3],c:"var(--gk)",id:main2.id},
+   {ph:"Play",name:"Final game with the Pitchcraft bonus",txt:p.bonus+". Keep stoppages short; praise the behaviour when it shows up.",m:last,c:"var(--mid)"}
+  ];
+  $("#tbar").innerHTML=blocks.map(b=>`<i style="flex:${b.m};background:${b.c}"></i>`).join("");
+  $("#timeline").innerHTML=blocks.map(b=>`<div class="blk"><div class="min">${b.m}<small>min</small></div><div><span class="ph" style="color:${b.c}">${esc(b.ph)}</span><b>${esc(b.name)}</b><p>${esc(b.txt)}</p></div>${b.id?`<div class="links"><a href="#drill-${b.id}">Watch animation</a></div>`:"<div></div>"}</div>`).join("");
+}
+
+/* ---------------- ROUTER ---------------- */
+const VIEWS=["home","license","method","drills","fix","session"];
+function route(){
+  let h=location.hash.slice(1)||"home", view=h, arg=null;
+  if(h.startsWith("drill-")){view="drills";arg=h.slice(6)}
+  if(h.startsWith("fix-")){view="fix";arg=h.slice(4)}
+  if(!VIEWS.includes(view))view="home";
+  VIEWS.forEach(v=>$("#v-"+v).hidden=v!==view);
+  document.querySelectorAll(".tabs a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+view?"page":"false"));
+  if(view==="drills"){if(arg&&D[arg]&&fPos!=="all"&&!D[arg].pos.includes(fPos)){fPos="all";renderFilters()}renderList();showDrill(arg||curDrill||DRILLS[0].id,!!arg)}
+  if(view==="fix"){if(arg&&P[arg])curProb=arg;renderFix()}
+  if(view==="session")renderSession();
+  if(!arg)window.scrollTo(0,0);
+}
+
+/* ---------------- INIT ---------------- */
+makeBoard($("#heroBoard"),D.rondo,{intro:.6});
+renderLadder(store.get("lic","D"));renderLic(store.get("lic","D"));
+renderPyr();renderFilters();initSession();
+window.addEventListener("hashchange",route);route();
+})();
+</script>
