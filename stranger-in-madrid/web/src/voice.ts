@@ -14,7 +14,11 @@ function loadVoices() {
   const norm = (l: string) => l.replace("_", "-").toLowerCase();
   let v = all.filter((x) => norm(x.lang) === "es-es");
   if (!v.length) v = all.filter((x) => norm(x.lang).startsWith("es"));
-  es = v.sort((a, b) => a.name.localeCompare(b.name));
+  // Prefer the free high-quality voices: Edge "Natural/Online", Apple "Enhanced/Premium", Google voices.
+  const rank = (x: SpeechSynthesisVoice) => (/natural|neural|online/i.test(x.name) ? 0 : /premium|enhanced|mejorad/i.test(x.name) ? 1 : /google/i.test(x.name) ? 2 : 3);
+  const best = Math.min(...v.map(rank));
+  const good = v.filter((x) => rank(x) === best);
+  es = (good.length ? good : v).sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export function initVoices(): Promise<void> {
@@ -31,7 +35,7 @@ export function initVoices(): Promise<void> {
   });
 }
 
-export const voiceSummary = () => ({ count: es.length, names: es.map((v) => v.name) });
+export const voiceSummary = () => ({ count: es.length, names: es.map((v) => v.name), natural: es.some((v) => /natural|neural|online|premium|enhanced|google/i.test(v.name)) });
 export const setCharacters = (c: Record<string, Character>) => (chars = c);
 export const setSpeed = (f: number) => (speed = f);
 
