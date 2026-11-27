@@ -471,10 +471,38 @@ function locationBits(loc: Location | null | undefined) {
   return [h("strong", { text: loc?.name_ar ?? "" }), h("span", { class: "loc-es", dir: "ltr", lang: "es", text: loc?.name ?? "" })];
 }
 
+function showError(where: string, e: unknown) {
+  const msg = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
+  console.error(where, e);
+  const box = h("div", { class: "banner warn errbox" }, ar("صار خطأ. انسخ هذا النص وأرسله لي:", "strong"), h("pre", { dir: "ltr", text: `${where} — ${msg}\n${navigator.userAgent}` }), btn("رجوع للرئيسية", () => endSession(), "btn ghost"));
+  document.querySelector(".errbox")?.remove();
+  (S?.body ?? root).prepend(box);
+}
+window.addEventListener("error", (e) => showError("page", e.error ?? e.message));
+window.addEventListener("unhandledrejection", (e) => {
+  if (!(e.reason instanceof Exit)) showError("promise", e.reason);
+});
+
 async function runSession() {
-  // Called from the Start tap: unlock audio + speech inside the gesture.
-  sound.unlockAudio();
-  unlockSpeech();
+  try {
+    await startSession();
+  } catch (e) {
+    if (!(e instanceof Exit)) showError("start", e);
+  }
+}
+
+async function startSession() {
+  // Called from the Start tap: unlock audio + speech inside the gesture (each may be refused; keep going).
+  try {
+    sound.unlockAudio();
+  } catch (e) {
+    console.warn("audio", e);
+  }
+  try {
+    unlockSpeech();
+  } catch (e) {
+    console.warn("speech", e);
+  }
   const st = store.settings();
   sound.setNoise(st.noise);
   setSpeed(st.voiceSpeed);
@@ -524,10 +552,7 @@ async function runSession() {
     S.body.append(ar(S.attempt.success_line ?? ""), ar(store.storageMode === "cloud" ? "تقدّمك محفوظ في حسابك." : "تقدّمك محفوظ في هذا المتصفح.", "muted"));
     S.foot.append(btn("رجوع للرئيسية", () => endSession()));
   } catch (e) {
-    if (!(e instanceof Exit)) {
-      console.error(e);
-      endSession();
-    }
+    if (!(e instanceof Exit)) showError(`phase ${phase}`, e);
   }
 }
 
@@ -566,7 +591,10 @@ function renderHome() {
         es(episode.title, "es title"),
         ar(episode.mission_ar ?? episode.mission),
         h("ol", { class: "steps", dir: "rtl" }, ...["تذكّر", "الممر", "استمع", "بمساعدة", "لحالك + مفاجأة", "الخلاصة"].map((s) => h("li", { text: s }))),
-        btn("ابدأ الحلقة · ~٢٠ دقيقة", () => void runSession(), "btn primary"),
+        btn("ابدأ الحلقة · ~٢٠ دقيقة", (e) => {
+          (e.currentTarget as HTMLButtonElement).textContent = "نجهّز…";
+          void runSession();
+        }, "btn primary"),
       ),
       h("section", { class: "stats" }, h("div", {}, h("b", { text: String(store.streakDays()) }), ar("أيام متتالية", "muted")), h("div", {}, h("b", { text: String(store.allLearnerChunks().filter((c) => c.state === "transferred").length) }), ar("تقدّم حقيقي", "muted")), last?.success_line ? h("div", { class: "wide" }, ar("آخر نجاح", "muted"), ar(last.success_line)) : null),
       h("ul", { class: "checks" }, ...checks.map((c) => h("li", { class: c.ok ? "ok" : "no", dir: "rtl", text: c.text }))),

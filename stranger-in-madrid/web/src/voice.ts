@@ -55,10 +55,11 @@ export function speak(text: string, speaker: string, opts: { slow?: boolean } = 
   if (!text.trim()) return Promise.resolve();
   if (!es.length && caps.tts) {
     duck(true);
-    return caps.tts
-      .speak(text, { voice: CLAUDE_VOICES[(c?.tts.voiceIndex ?? 0) % 4], language: "es", rate: Math.min(1.5, Math.max(0.7, (c?.tts.rate ?? 1) * speed * (opts.slow ? 0.75 : 1))) })
-      .catch(() => undefined)
-      .finally(() => duck(false));
+    const said = Promise.resolve()
+      .then(() => caps.tts.speak(text, { voice: CLAUDE_VOICES[(c?.tts.voiceIndex ?? 0) % 4], language: "es", rate: Math.min(1.5, Math.max(0.7, (c?.tts.rate ?? 1) * speed * (opts.slow ? 0.75 : 1))) }))
+      .catch(() => undefined);
+    // Never let a silent voice freeze the scene.
+    return Promise.race([said, new Promise((r) => setTimeout(r, 2500 + text.length * 160))]).then(() => duck(false));
   }
   if (typeof speechSynthesis === "undefined") return Promise.resolve();
   return new Promise((resolve) => {
@@ -79,7 +80,11 @@ export function speak(text: string, speaker: string, opts: { slow?: boolean } = 
     u.onend = done;
     u.onerror = done;
     duck(true);
-    speechSynthesis.speak(u);
+    try {
+      speechSynthesis.speak(u);
+    } catch {
+      done();
+    }
     // Safety net: some browsers never fire onend.
     setTimeout(done, 1500 + text.length * 140);
   });
