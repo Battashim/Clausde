@@ -38,6 +38,15 @@ Sergio», played end to end.
   session start. Every turn is logged (raw STT text, confidence, response time) and mirrored to
   `server/data/turns.jsonl`.
 
+## Just use it (no install)
+
+The web edition is a single page hosted on claude.ai: https://claude.ai/artifact/YJHyJ51gwcvXonYjSGApoh
+It plays the same episode with the same content, prompt and guards. Claude runs on the viewer's own
+claude.ai account, so it needs no server and no API key. Voices come from the browser's es-ES speech,
+the microphone uses claude.ai dictation in Spanish, the sound is synthesized in the page, and progress
+is saved in the artifact's private per-person store. Rebuild it with `npm run build:web`, which writes
+`web/dist/stranger-in-madrid.html`.
+
 ## Run it
 
 ```bash

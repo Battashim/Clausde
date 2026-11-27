@@ -1,16 +1,21 @@
 {
   "name": "stranger-in-madrid",
   "private": true,
-  "workspaces": ["shared", "server"],
+  "workspaces": [
+    "shared",
+    "server"
+  ],
   "scripts": {
     "test": "NODE_ENV=test vitest run",
-    "typecheck": "tsc -p shared && tsc -p server",
+    "typecheck": "tsc -p shared && tsc -p server && tsc -p web",
     "server": "npm --workspace server run dev",
-    "server:mock": "npm --workspace server run dev:mock"
+    "server:mock": "npm --workspace server run dev:mock",
+    "build:web": "node tools/buildWeb.mjs"
   },
   "devDependencies": {
     "typescript": "~5.9.3",
     "vitest": "^5.1.2",
-    "@types/node": "^24.0.0"
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.28.2"
   }
 }
