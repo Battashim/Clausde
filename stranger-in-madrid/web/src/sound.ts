@@ -196,13 +196,17 @@ export function duck(on: boolean) {
   applyLevel();
 }
 
+/** Synthesized effects that sound natural enough; the rest (crowd, café noises) play only with the background on. */
+const ALWAYS_OK = new Set(["whistle", "ball_kick"]);
+
 export function playSfx(name: string | null | undefined) {
   if (!ctx || !sfxGain || !name) return;
+  if (noise === "off" && !ALWAYS_OK.has(name)) return;
   const b = buffer(name);
   if (!b) return;
   const s = ctx.createBufferSource();
   s.buffer = b;
-  sfxGain.gain.value = noise === "off" ? 0.5 : 0.8;
+  sfxGain.gain.value = noise === "off" ? 0.35 : 0.6;
   s.connect(sfxGain);
   s.start();
 }

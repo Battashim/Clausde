@@ -649,6 +649,7 @@ function renderSettings() {
       choiceRow("subs", st.subtitles, [["off", "بدون"], ["street", "شارع"], ["street_meaning", "شارع + معنى"]], (v) => store.saveSettings({ subtitles: v })),
       ar("الضجة (صعوبة السماع)", "h3"),
       choiceRow("noise", st.noise, [["off", "بدون"], ["light", "خفيفة"], ["real", "حقيقية"]], (v) => store.saveSettings({ noise: v })),
+      ar("الصوت الخلفي مصنوع بالكمبيوتر وممكن يطلع آلي — خلّه «بدون» لو أزعجك.", "muted"),
       ar("سرعة الأصوات", "h3"),
       choiceRow("speed", st.voiceSpeed, [[0.8, "أبطأ"], [1, "عادي"], [1.15, "شارع"]], (v) => store.saveSettings({ voiceSpeed: v })),
       h("label", { class: "check", for: "skip-corridor", dir: "rtl" }, skip, " تخطَّ الممر دايماً"),

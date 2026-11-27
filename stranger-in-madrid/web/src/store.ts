@@ -50,6 +50,8 @@ export interface TurnLog {
 
 interface Model {
   v: 1;
+  /** Set once the synthesized background was switched off by default (it sounded robotic). */
+  soundV2?: boolean;
   seeded: boolean;
   chunks: Record<string, LearnerChunk>;
   errors: { tag: ErrorTag; wrong: string; right: string; count: number; last_seen: string }[];
@@ -60,7 +62,7 @@ interface Model {
 
 const DEFAULT_SETTINGS: Settings = {
   subtitles: "street_meaning",
-  noise: "light",
+  noise: "off",
   voiceSpeed: 1,
   skipCorridor: false,
   lifeFacts: ["Es de Omán y habla árabe del Golfo.", "Tiene hijos.", "Es madridista.", "Conoce a Toby, el perro de Doña Carmen."],
@@ -87,6 +89,13 @@ function lsWrite() {
   }
 }
 
+function migrate() {
+  if (!model.soundV2) {
+    model.settings.noise = "off";
+    model.soundV2 = true;
+  }
+}
+
 export async function loadModel() {
   const local = lsRead();
   if (local) model = { ...model, ...local, settings: { ...DEFAULT_SETTINGS, ...local.settings } };
@@ -104,6 +113,7 @@ export async function loadModel() {
   } catch {
     storageMode = "browser";
   }
+  migrate();
 }
 
 // One write at a time; coalesce bursts.
