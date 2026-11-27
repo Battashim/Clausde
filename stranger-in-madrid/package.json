@@ -1,0 +1,16 @@
+{
+  "name": "stranger-in-madrid",
+  "private": true,
+  "workspaces": ["shared", "server"],
+  "scripts": {
+    "test": "NODE_ENV=test vitest run",
+    "typecheck": "tsc -p shared && tsc -p server",
+    "server": "npm --workspace server run dev",
+    "server:mock": "npm --workspace server run dev:mock"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vitest": "^5.1.2",
+    "@types/node": "^24.0.0"
+  }
+}

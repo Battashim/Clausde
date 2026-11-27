@@ -1,0 +1,248 @@
+[
+  {
+    "id": "siete_contra_siete", "introduced_in": "s1e6", "frequency_band": "common",
+    "es_written": "Siete contra siete", "meaning_ar": "سبعة ضد سبعة", "meaning_en": "Seven against seven / 7-a-side",
+    "street_spelling": "sietekontrasiete", "sound_ar": "سيِتِكُنترا**سيِ**تِ",
+    "forms": ["contra"],
+    "examples": [
+      { "es": "Vale, siete contra siete.", "street": "bale sietekontrasiete", "ar": "زين، سبعة ضد سبعة." },
+      { "es": "¿Hacemos un siete contra siete?", "street": "acemos un sietekontrasiete", "ar": "نسوي سبعة ضد سبعة؟" }
+    ],
+    "notes_ar": "contra = ضد. تقدر تقول cinco contra cinco، tres contra tres…"
+  },
+  {
+    "id": "que_te_pasa", "introduced_in": "s1e6", "frequency_band": "core",
+    "es_written": "¿Qué te pasa?", "meaning_ar": "شو فيك؟ / شبلاك؟", "meaning_en": "What's wrong? What's up with you?",
+    "street_spelling": "ketepasa", "sound_ar": "كِتِ**پا**سا",
+    "forms": ["pasa", "pasa?"],
+    "examples": [
+      { "es": "Iker, ¿qué te pasa?", "street": "iker ketepasa", "ar": "إيكر، شو فيك؟" },
+      { "es": "¿Qué te pasa, tío? ¿Estás cansao?", "street": "ketepasa tío estakansao", "ar": "شبلاك يا خوي؟ تعبان؟" }
+    ],
+    "notes_ar": "te = لك (أنت). لواحد كبير بالأدب: ¿Qué le pasa?"
+  },
+  {
+    "id": "tranqui", "introduced_in": "s1e6", "frequency_band": "core",
+    "es_written": "Tranqui", "meaning_ar": "روّق / ولا يهمك", "meaning_en": "Relax / easy / don't worry",
+    "street_spelling": "tranki", "sound_ar": "**تْران**كي",
+    "forms": ["tranquilo", "tranquila"],
+    "examples": [
+      { "es": "Tranqui, Iker.", "street": "tranki iker", "ar": "روّق يا إيكر." },
+      { "es": "Tranqui, tío, no pasa nada.", "street": "tranki tío nopasana", "ar": "روّق يا خوي، ما صار شي." }
+    ],
+    "notes_ar": "مختصر tranquilo. في الشارع الكل يقول tranqui."
+  },
+  {
+    "id": "en_serio", "introduced_in": "s1e6", "frequency_band": "core",
+    "es_written": "¿En serio?", "meaning_ar": "صدق؟ / والله؟", "meaning_en": "Really? Seriously?",
+    "street_spelling": "enserio", "sound_ar": "إنْ**سِ**ريُ",
+    "forms": ["serio"],
+    "examples": [
+      { "es": "¿En serio, míster?", "street": "enserio mister", "ar": "صدق يا كوتش؟" },
+      { "es": "En serio. Juegas mazo bien.", "street": "enserio juegamazobien", "ar": "والله. تلعب زين وايد." }
+    ],
+    "notes_ar": "بسؤال = صدق؟ بدون سؤال = والله، أتكلم جد."
+  },
+  {
+    "id": "al_campo", "introduced_in": "s1e6", "frequency_band": "common",
+    "es_written": "¡Al campo!", "meaning_ar": "على الملعب! / ادخل الملعب!", "meaning_en": "Onto the pitch!",
+    "street_spelling": "alkampo", "sound_ar": "ال**كام**پُ",
+    "forms": ["campo"],
+    "examples": [
+      { "es": "¡Venga, al campo!", "street": "benga alkampo", "ar": "يلا، على الملعب!" },
+      { "es": "Chicos, todos al campo.", "street": "chikos tosalkampo", "ar": "يا شباب، كلكم على الملعب." }
+    ]
+  },
+
+  {
+    "id": "venga_chicos", "introduced_in": "s1e5", "frequency_band": "core",
+    "es_written": "¡Venga, chicos!", "meaning_ar": "يلا يا شباب!", "meaning_en": "Come on, guys!",
+    "street_spelling": "bengachikos", "sound_ar": "**بِن**گاتشيكُس",
+    "examples": [{ "es": "¡Venga, chicos, rápido!", "street": "bengachikos rrápido", "ar": "يلا يا شباب، بسرعة!" }],
+    "recall_prompt": { "speaker": "ramirez", "es": "Los chicos están parados. ¿Qué les dices?", "street": "loschikos estamparaos keledises",
+      "meaning_ar": "الشباب واقفين. شو تقول لهم؟", "sound_ar": "لُستشيكُس إسْتامپا**راوس** كِلِس**دي**ثِس", "expect": ["¡Venga, chicos!", "Venga chicos"] }
+  },
+  {
+    "id": "muevete", "introduced_in": "s1e5", "frequency_band": "core",
+    "es_written": "¡Muévete!", "meaning_ar": "تحرّك!", "meaning_en": "Move!",
+    "street_spelling": "muebete", "sound_ar": "**موِ**بِتِ",
+    "forms": ["muevo", "mueve", "moverse", "muevete"],
+    "examples": [{ "es": "¡Muévete, Mario!", "street": "muebete mario", "ar": "تحرّك يا ماريو!" }],
+    "recall_prompt": { "speaker": "ramirez", "es": "Mario está parado. ¿Qué le dices?", "street": "mario estáparao keledises",
+      "meaning_ar": "ماريو واقف. شو تقول له؟", "sound_ar": "ماريُ إسْتاپا**راو** كِلِ**دي**ثِس", "expect": ["¡Muévete!", "Muévete Mario"] }
+  },
+  {
+    "id": "pasalo_otra_vez", "introduced_in": "s1e5", "frequency_band": "core",
+    "es_written": "Pásalo otra vez", "meaning_ar": "مرّرها مرة ثانية", "meaning_en": "Pass it again",
+    "street_spelling": "pasalotrabez", "sound_ar": "**پا**سالُتْرا**بِث**",
+    "forms": ["pasa", "pasalo", "pase", "otra", "vez"],
+    "examples": [{ "es": "¡Pásalo otra vez, Mario!", "street": "pasalotrabez mario", "ar": "مرّرها مرة ثانية يا ماريو!" }],
+    "recall_prompt": { "speaker": "ramirez", "es": "Mario no pasa nunca. ¿Qué le dices?", "street": "mario nopasa nunka keledises",
+      "meaning_ar": "ماريو أبد ما يمرّر. شو تقول له؟", "sound_ar": "ماريُ نُ**پا**سا **نون**كا كِلِ**دي**ثِس", "expect": ["Pásalo otra vez", "Pásalo"] }
+  },
+  {
+    "id": "muy_bien", "introduced_in": "s1e5", "frequency_band": "core",
+    "es_written": "¡Muy bien!", "meaning_ar": "زين وايد! / ممتاز!", "meaning_en": "Very good! Well done!",
+    "street_spelling": "muibien", "sound_ar": "موي**بيِن**",
+    "examples": [{ "es": "¡Muy bien, Iker!", "street": "muibien iker", "ar": "ممتاز يا إيكر!" }],
+    "notes_ar": "لا تقول «Es muy bien». قل بس: ¡Muy bien!"
+  },
+  {
+    "id": "que_tal", "introduced_in": "s1e1", "frequency_band": "core",
+    "es_written": "¿Qué tal?", "meaning_ar": "شحالك؟ / كيف؟", "meaning_en": "How's it going?",
+    "street_spelling": "ketal", "sound_ar": "كِ**تال**",
+    "forms": ["tal"],
+    "examples": [{ "es": "¿Qué tal hoy?", "street": "ketaloy", "ar": "كيف اليوم؟" }]
+  },
+  {
+    "id": "pues_a_ver", "introduced_in": "s1e1", "frequency_band": "core",
+    "es_written": "Pues… a ver…", "meaning_ar": "يعني… خلني أشوف…", "meaning_en": "Well… let's see…",
+    "street_spelling": "pues aber", "sound_ar": "پوِس ا**بِر**",
+    "forms": ["pues", "ver"],
+    "examples": [{ "es": "Pues… a ver… siete contra siete.", "street": "pues aber sietekontrasiete", "ar": "يعني… خلني أشوف… سبعة ضد سبعة." }],
+    "notes_ar": "عدّة ضد التجمّد: تكسب وقت وأنت تفكر. مو غلط أبد."
+  },
+  {
+    "id": "me_lo_repites", "introduced_in": "s1e1", "frequency_band": "core",
+    "es_written": "¿Me lo repites?", "meaning_ar": "تعيدها لي؟", "meaning_en": "Can you repeat it?",
+    "street_spelling": "melorrepites", "sound_ar": "مِلُرِّ**پي**تِس",
+    "forms": ["repites", "repite"],
+    "examples": [{ "es": "Perdona, ¿me lo repites?", "street": "perdona melorrepites", "ar": "عفواً، تعيدها لي؟" }]
+  },
+  {
+    "id": "no_se_como_se_dice", "introduced_in": "s1e1", "frequency_band": "core",
+    "es_written": "No sé cómo se dice…", "meaning_ar": "ما أعرف كيف تنقال…", "meaning_en": "I don't know how to say…",
+    "street_spelling": "nosekomosedize", "sound_ar": "نُسِ**كُ**مُسِ**دي**ثِ",
+    "forms": ["se", "dice", "sé"],
+    "examples": [{ "es": "No sé cómo se dice… ¿«caño»?", "street": "nosekomosedize kaño", "ar": "ما أعرف كيف تنقال… «كانيو»؟" }]
+  },
+  {
+    "id": "se_dice", "introduced_in": "s1e1", "frequency_band": "core",
+    "es_written": "Se dice…", "meaning_ar": "الصح تقول… / تنقال…", "meaning_en": "You say… / It's said…",
+    "street_spelling": "sedize", "sound_ar": "سِ**دي**ثِ",
+    "forms": ["dice"],
+    "examples": [{ "es": "Dani, se dice «¡muy bien!».", "street": "dani sedize muibien", "ar": "داني، الصح تقول «ممتاز!»." }]
+  },
+  {
+    "id": "un_momento", "introduced_in": "s1e1", "frequency_band": "core",
+    "es_written": "Un momento", "meaning_ar": "لحظة", "meaning_en": "One moment",
+    "street_spelling": "unmomento", "sound_ar": "اُنْمُ**مِن**تُ",
+    "forms": ["momento"],
+    "examples": [{ "es": "Un momento, chicos.", "street": "unmomento chikos", "ar": "لحظة يا شباب." }]
+  },
+  {
+    "id": "estoy_cansado", "introduced_in": "s1e2", "frequency_band": "core",
+    "es_written": "Estoy cansado", "meaning_ar": "أنا تعبان", "meaning_en": "I'm tired",
+    "street_spelling": "estoikansao", "sound_ar": "إسْتُيْكان**ساو**",
+    "forms": ["cansao", "cansada", "cansados", "estas cansado", "un poco"],
+    "examples": [{ "es": "Bien, pero estoy un poco cansao.", "street": "bien peroestoiumpoko kansao", "ar": "زين، بس شوي تعبان." }],
+    "notes_ar": "estoy = كيف حالك الحين. soy = منو أنت."
+  },
+  {
+    "id": "estoy_nervioso", "introduced_in": "s1e2", "frequency_band": "common",
+    "es_written": "Estoy nervioso", "meaning_ar": "أنا متوتر", "meaning_en": "I'm nervous",
+    "street_spelling": "estoinerbioso", "sound_ar": "إسْتُيْنِر**بيُ**سُ",
+    "forms": ["nerviosa", "nerviosos", "estas nervioso"],
+    "examples": [{ "es": "Es que estoy nervioso.", "street": "eskestoinerbioso", "ar": "السالفة إني متوتر." }]
+  },
+  {
+    "id": "es_que", "introduced_in": "s1e4", "frequency_band": "core",
+    "es_written": "Es que…", "meaning_ar": "السالفة إن… / لأن…", "meaning_en": "It's just that…",
+    "street_spelling": "eske", "sound_ar": "**إس**كِ",
+    "examples": [{ "es": "Es que estoy cansao.", "street": "eskestoikansao", "ar": "السالفة إني تعبان." }]
+  },
+  {
+    "id": "mazo", "introduced_in": "s1e4", "frequency_band": "common",
+    "es_written": "mazo", "meaning_ar": "وايد (كلمة شوارع مدريد)", "meaning_en": "loads / really (Madrid slang)",
+    "street_spelling": "mazo", "sound_ar": "**ما**ثُ",
+    "examples": [{ "es": "Me mola mazo.", "street": "memolamazo", "ar": "يعجبني وايد." }]
+  },
+  {
+    "id": "juegas_bien", "introduced_in": "s1e5", "frequency_band": "core",
+    "es_written": "Juegas bien", "meaning_ar": "تلعب زين", "meaning_en": "You play well",
+    "street_spelling": "juegabien", "sound_ar": "**خوِ**غابيِن",
+    "forms": ["juego", "juega", "jugamos", "juegan", "jugar", "juegas"],
+    "examples": [{ "es": "Tú juegas mazo bien.", "street": "tujuegamazobien", "ar": "أنت تلعب زين وايد." }]
+  },
+  {
+    "id": "mira", "introduced_in": "s1e3", "frequency_band": "core",
+    "es_written": "Mira…", "meaning_ar": "شوف… / طالع…", "meaning_en": "Look…",
+    "street_spelling": "mira", "sound_ar": "**مي**را",
+    "forms": ["mirad"],
+    "examples": [{ "es": "Míster, mira a Iker.", "street": "mister miraiker", "ar": "كوتش، شوف إيكر." }]
+  },
+  {
+    "id": "partido", "introduced_in": "s1e5", "frequency_band": "core",
+    "es_written": "un partido", "meaning_ar": "ماتش / مباراة", "meaning_en": "a match",
+    "street_spelling": "umpartío", "sound_ar": "اُمْپار**تيو**",
+    "forms": ["partidos", "partio"],
+    "examples": [{ "es": "¡Porfa, partido!", "street": "porfa partío", "ar": "الله يخليك، ماتش!" }]
+  },
+  {
+    "id": "hacer_equipos", "introduced_in": "s1e5", "frequency_band": "common",
+    "es_written": "hacer equipos", "meaning_ar": "نقسم فرق", "meaning_en": "to make teams",
+    "street_spelling": "azerekipos", "sound_ar": "اثِرِ**كي**پُس",
+    "forms": ["hacemos", "hago", "haces", "equipo", "equipos", "los equipos"],
+    "examples": [{ "es": "¿Cómo hacemos los equipos?", "street": "komoazemos losekipos", "ar": "كيف نقسم الفرق؟" }]
+  },
+  {
+    "id": "le_dije", "introduced_in": "s1e5", "frequency_band": "core",
+    "es_written": "Le dije…", "meaning_ar": "قلت له…", "meaning_en": "I told him/her…",
+    "street_spelling": "ledije", "sound_ar": "لِ**دي**خِ",
+    "forms": ["les", "dije", "dijiste", "me dijo", "dijo"],
+    "examples": [
+      { "es": "Le dije: «Tranqui, Iker».", "street": "ledije tranki iker", "ar": "قلت له: «روّق يا إيكر»." },
+      { "es": "Les dije: «¡Venga, chicos!».", "street": "lesdije bengachikos", "ar": "قلت لهم: «يلا يا شباب!»." }
+    ],
+    "notes_ar": "le = له/لها. les = لهم."
+  },
+  {
+    "id": "hoy_he", "introduced_in": "s1e3", "frequency_band": "core",
+    "es_written": "Hoy he…", "meaning_ar": "اليوم (سويت)…", "meaning_en": "Today I have…",
+    "street_spelling": "oye", "sound_ar": "**اُي**إِ",
+    "forms": ["hoy", "he", "has", "entrenado", "jugado", "hablado", "estado"],
+    "examples": [{ "es": "Hoy he entrenado a los chicos.", "street": "oyentrenao aloschikos", "ar": "اليوم درّبت الشباب." }]
+  },
+  {
+    "id": "me_pones", "introduced_in": "s1e4", "frequency_band": "core",
+    "es_written": "¿Me pones…?", "meaning_ar": "عطني… (بالقهوة)", "meaning_en": "Can I have…? (ordering)",
+    "street_spelling": "mepones", "sound_ar": "مِ**پُ**نِس",
+    "forms": ["un", "cafe", "cafe con leche", "agua"],
+    "examples": [{ "es": "¿Me pones un café con leche?", "street": "mepones unkafekonleche", "ar": "عطني قهوة بحليب؟" }],
+    "recall_prompt": { "speaker": "paco", "es": "¡Hombre, crack! ¿Qué te pongo?", "street": "ombre krak ketepongo",
+      "meaning_ar": "هلا يا بطل! شو أجيب لك؟", "sound_ar": "**اُم**برِ كْراك كِتِ**پُن**گُ", "expect": ["¿Me pones un café?", "Me pones un café con leche"] }
+  },
+  {
+    "id": "tengo_que", "introduced_in": "s1e3", "frequency_band": "core",
+    "es_written": "Tengo que…", "meaning_ar": "لازم…", "meaning_en": "I have to…",
+    "street_spelling": "tengoke", "sound_ar": "**تِن**گُكِ",
+    "forms": ["tienes que", "ir", "entrenar", "irme"],
+    "examples": [{ "es": "Tengo que ir al club.", "street": "tengokeiralklub", "ar": "لازم أروح النادي." }],
+    "recall_prompt": { "speaker": "carmen", "es": "Hijo, ¿ya te vas? ¿Adónde vas?", "street": "ijo yatebas adondebas",
+      "meaning_ar": "يا ولدي، بتروح خلاص؟ وين رايح؟", "sound_ar": "**ي**خُ ياتِ**باس** ادُنْدِ**باس**", "expect": ["Tengo que ir al club", "Tengo que ir"] }
+  },
+  {
+    "id": "voy_a", "introduced_in": "s1e3", "frequency_band": "core",
+    "es_written": "Voy a…", "meaning_ar": "بـ… (راح أسوي)", "meaning_en": "I'm going to…",
+    "street_spelling": "boya", "sound_ar": "**بُي**ا",
+    "forms": ["vas a", "va a", "vamos a"],
+    "examples": [{ "es": "Voy a entrenar con los chicos.", "street": "boyentrenar konloschikos", "ar": "بدرّب مع الشباب." }]
+  },
+  {
+    "id": "me_da_igual", "introduced_in": "s1e5", "frequency_band": "core",
+    "es_written": "Me da igual", "meaning_ar": "عادي عندي / ما تفرق", "meaning_en": "I don't mind",
+    "street_spelling": "medaigual", "sound_ar": "مِدايْ**گوال**",
+    "examples": [{ "es": "¿Rojo o azul? Me da igual.", "street": "rrojoazul medaigual", "ar": "أحمر ولا أزرق؟ ما تفرق." }]
+  },
+  {
+    "id": "tengo_ganas_de", "introduced_in": "s1e4", "frequency_band": "core",
+    "es_written": "Tengo ganas de…", "meaning_ar": "ودّي… / متحمس لـ…", "meaning_en": "I feel like… / I can't wait to…",
+    "street_spelling": "tengoganade", "sound_ar": "**تِن**گُ**غا**ناذِ",
+    "forms": ["ganas", "ver", "verte", "jugar"],
+    "examples": [
+      { "es": "Tengo ganas de verte.", "street": "tengoganadeberte", "ar": "مشتاق أشوفك" },
+      { "es": "¡Tengo unas ganas de ver el partido!", "street": "tengounasganadeberelpartido", "ar": "تايق أشوف الماتش" }
+    ],
+    "notes_ar": "للطلب في القهوة لا تستخدمها: قل ¿Me pones…?"
+  }
+]

@@ -1,0 +1,78 @@
+{
+  "episode_id": "s1e6",
+  "generated_by": "seed",
+  "generated_at": "2026-11-27T00:00:00Z",
+  "corridor": [
+    [
+      { "es": "Siete contra siete", "street": "sietekontrasiete", "sound_ar": "سيِتِكُنترا**سيِ**تِ", "meaning_ar": "سبعة ضد سبعة" },
+      { "es": "Vale. Siete contra siete.", "street": "bale sietekontrasiete", "sound_ar": "**با**لِ سيِتِكُنترا**سيِ**تِ", "meaning_ar": "زين. سبعة ضد سبعة." }
+    ],
+    [
+      { "es": "¿Qué te pasa?", "street": "ketepasa", "sound_ar": "كِتِ**پا**سا", "meaning_ar": "شو فيك؟" },
+      { "es": "Iker, ¿qué te pasa?", "street": "iker ketepasa", "sound_ar": "**إي**كِر كِتِ**پا**سا", "meaning_ar": "إيكر، شو فيك؟" }
+    ],
+    [
+      { "es": "Tranqui", "street": "tranki", "sound_ar": "**تْران**كي", "meaning_ar": "روّق" },
+      { "es": "Tranqui, Iker.", "street": "tranki iker", "sound_ar": "**تْران**كي **إي**كِر", "meaning_ar": "روّق يا إيكر." },
+      { "es": "Juegas bien", "street": "juegabien", "sound_ar": "**خوِ**غابيِن", "meaning_ar": "تلعب زين" },
+      { "es": "Tú juegas mazo bien", "street": "tujuegamazobien", "sound_ar": "توخوِغاماثُ**بيِن**", "meaning_ar": "أنت تلعب زين وايد" },
+      { "es": "Tranqui, Iker. Tú juegas mazo bien.", "street": "tranki iker tujuegamazobien", "sound_ar": "**تْران**كي **إي**كِر توخوِغاماثُ**بيِن**", "meaning_ar": "روّق يا إيكر. أنت تلعب زين وايد." }
+    ],
+    [
+      { "es": "¡Al campo!", "street": "alkampo", "sound_ar": "ال**كام**پُ", "meaning_ar": "على الملعب!" },
+      { "es": "¡Venga, al campo!", "street": "benga alkampo", "sound_ar": "**بِن**گا ال**كام**پُ", "meaning_ar": "يلا، على الملعب!" },
+      { "es": "En serio. ¡Venga, al campo!", "street": "enserio benga alkampo", "sound_ar": "إنْ**سِ**ريُ **بِن**گا ال**كام**پُ", "meaning_ar": "والله. يلا، على الملعب!" }
+    ]
+  ],
+  "lines": [
+    { "speaker": "sergio", "es": "¡Míster, porfa, partido! ¿Siete contra siete?", "street": "mister porfa partío! sietekontrasiete?",
+      "meaning_ar": "كوتش، الله يخليك، ماتش! سبعة ضد سبعة؟", "meaning_en": "Coach, please, a match! Seven against seven?",
+      "sound_ar": "**ميس**تِر **پور**فا پار**تيو**! سيِتِكُنترا**سيِ**تِ؟", "new_chunk_ids": ["siete_contra_siete"], "sfx": "whistle" },
+    { "speaker": "alvaro", "es": "Míster, ¿cómo hacemos los equipos?", "street": "mister, komoazemos losekipos?",
+      "meaning_ar": "كوتش، كيف نقسم الفرق؟", "meaning_en": "Coach, how do we make the teams?",
+      "sound_ar": "**ميس**تِر كُمُاثِمُس لُسِ**كي**پُس؟", "new_chunk_ids": [], "sfx": null },
+    { "speaker": "you", "es": "Vale. Siete contra siete. ¡Venga, chicos!", "street": "bale. sietekontrasiete. bengachikos!",
+      "meaning_ar": "زين. سبعة ضد سبعة. يلا يا شباب!", "meaning_en": "OK. Seven against seven. Come on, guys!",
+      "sound_ar": "**با**لِ. سيِتِكُنترا**سيِ**تِ. **بِن**گاتشيكُس!", "new_chunk_ids": [], "sfx": null,
+      "accept": ["Vale. Siete contra siete. ¡Venga, chicos!", "Siete contra siete", "Vale, siete contra siete"] },
+    { "speaker": "dani", "es": "Es muy bien, míster.", "street": "esmuibien mister",
+      "meaning_ar": "(غلط!) «هو زين وايد»، كوتش.", "meaning_en": "(wrong!) “It is very good”, coach.",
+      "sound_ar": "إسْموي**بيِن** **ميس**تِر", "new_chunk_ids": [], "sfx": null,
+      "trap": { "wrong": "Es muy bien", "right": "¡Muy bien!" } },
+    { "speaker": "you", "es": "Dani, se dice «¡muy bien!».", "street": "dani, sedize muibien!",
+      "meaning_ar": "داني، الصح تقول «ممتاز!».", "meaning_en": "Dani, you say “muy bien!”.",
+      "sound_ar": "**دا**ني سِ**دي**ثِ موي**بيِن**", "new_chunk_ids": [], "sfx": null,
+      "accept": ["Dani, se dice muy bien", "Se dice muy bien", "Muy bien, Dani"] },
+    { "speaker": "dani", "es": "Vale, vale… ¡Muy bien, míster!", "street": "bale bale… muibien mister!",
+      "meaning_ar": "طيب طيب… ممتاز يا كوتش!", "meaning_en": "OK, OK… Very good, coach!",
+      "sound_ar": "**با**لِ **با**لِ… موي**بيِن** **ميس**تِر!", "new_chunk_ids": [], "sfx": "whistle" },
+    { "speaker": "alvaro", "es": "Míster… mira a Iker.", "street": "mister… miraiker",
+      "meaning_ar": "كوتش… شوف إيكر.", "meaning_en": "Coach… look at Iker.",
+      "sound_ar": "**ميس**تِر… ميرا**إي**كِر", "new_chunk_ids": [], "sfx": "ball_kick" },
+    { "speaker": "you", "es": "Iker, ¿qué te pasa?", "street": "iker, ketepasa?",
+      "meaning_ar": "إيكر، شو فيك؟", "meaning_en": "Iker, what's wrong?",
+      "sound_ar": "**إي**كِر، كِتِ**پا**سا؟", "new_chunk_ids": ["que_te_pasa"], "sfx": null,
+      "accept": ["Iker, ¿qué te pasa?", "¿Qué te pasa?"] },
+    { "speaker": "iker", "es": "Na', míster… es que estoy nervioso.", "street": "na mister… eskestoinerbioso",
+      "meaning_ar": "ولا شي يا كوتش… السالفة إني متوتر.", "meaning_en": "Nothing, coach… it's just that I'm nervous.",
+      "sound_ar": "نا **ميس**تِر… إسْكِسْتُيْنِر**بيُ**سُ", "new_chunk_ids": [], "sfx": null },
+    { "speaker": "you", "es": "Tranqui, Iker. Tú juegas mazo bien.", "street": "tranki, iker. tujuegamazobien",
+      "meaning_ar": "روّق يا إيكر. أنت تلعب زين وايد.", "meaning_en": "Relax, Iker. You play really well.",
+      "sound_ar": "**تْران**كي **إي**كِر. توخوِغاماثُ**بيِن**", "new_chunk_ids": ["tranqui"], "sfx": null,
+      "accept": ["Tranqui, Iker. Tú juegas mazo bien.", "Tranqui, Iker. Juegas mazo bien", "Tranqui, juegas muy bien"] },
+    { "speaker": "iker", "es": "¿En serio?", "street": "enserio?",
+      "meaning_ar": "صدق؟", "meaning_en": "Really?",
+      "sound_ar": "إنْ**سِ**ريُ؟", "new_chunk_ids": ["en_serio"], "sfx": null },
+    { "speaker": "you", "es": "En serio. ¡Venga, al campo!", "street": "enserio. benga, alkampo!",
+      "meaning_ar": "والله. يلا، على الملعب!", "meaning_en": "Seriously. Come on, onto the pitch!",
+      "sound_ar": "إنْ**سِ**ريُ. **بِن**گا ال**كام**پُ!", "new_chunk_ids": ["al_campo"], "sfx": null,
+      "accept": ["En serio. ¡Venga, al campo!", "En serio, al campo", "¡Venga, al campo!"] },
+    { "speaker": "dani", "es": "¡Uuuh! ¡Qué caño, Iker!", "street": "uuuh! kekaño iker!",
+      "meaning_ar": "أوووه! يا سلام على الكوبري يا إيكر!", "meaning_en": "Ooooh! What a nutmeg, Iker!",
+      "sound_ar": "أووو! كِ**كا**نْيُ **إي**كِر!", "new_chunk_ids": [], "sfx": "kids_uuuh" },
+    { "speaker": "ramirez", "es": "Bien.", "street": "bien.",
+      "meaning_ar": "زين.", "meaning_en": "Good.",
+      "sound_ar": "**بيِن**", "new_chunk_ids": [], "sfx": "whistle" }
+  ],
+  "cards": []
+}

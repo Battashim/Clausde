@@ -1,0 +1,6 @@
+{
+  "club_pitch": { "id": "club_pitch", "name": "Campo del CF Las Encinas", "name_ar": "ملعب نادي لاس إنثيناس",
+    "ambience": "pitch_ambience", "sfx": ["whistle", "ball_kick", "kids_uuuh"] },
+  "pacos_cafe": { "id": "pacos_cafe", "name": "Bar de Paco", "name_ar": "قهوة باكو",
+    "ambience": "cafe_ambience", "sfx": ["espresso_machine", "spoon", "door_bell"] }
+}

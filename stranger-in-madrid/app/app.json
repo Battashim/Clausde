@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "Stranger in Madrid",
+    "slug": "stranger-in-madrid",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "com.strangerinmadrid.app",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.strangerinmadrid.app",
+      "permissions": ["android.permission.RECORD_AUDIO"]
+    },
+    "plugins": [
+      "expo-sqlite",
+      ["expo-audio", { "microphonePermission": "El micrófono se usa para hablar con los personajes (mantén pulsado para hablar)." }],
+      ["expo-speech-recognition", {
+        "microphonePermission": "El micrófono se usa para hablar con los personajes (mantén pulsado para hablar).",
+        "speechRecognitionPermission": "El reconocimiento de voz convierte tu español en texto para el entrenador.",
+        "androidSpeechServicePackages": ["com.google.android.googlequicksearchbox", "com.google.android.as"]
+      }]
+    ]
+  }
+}

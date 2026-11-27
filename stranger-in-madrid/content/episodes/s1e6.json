@@ -1,0 +1,29 @@
+{
+  "id": "s1e6",
+  "season": 1,
+  "n": 6,
+  "title": "El partido de Sergio",
+  "location": "club_pitch",
+  "characters": ["alvaro", "sergio", "dani", "iker", "ramirez"],
+  "mission": "Organise a 7-a-side match and get shy Iker to play.",
+  "mission_ar": "نظّم ماتش سبعة ضد سبعة، وخلّ إيكر الخجول يلعب.",
+  "mission_type": "lead",
+  "target_chunks": ["siete_contra_siete", "que_te_pasa", "tranqui", "en_serio", "al_campo"],
+  "known_chunks_required": ["venga_chicos", "muevete", "pasalo_otra_vez", "muy_bien"],
+  "outline": [
+    "Sergio insists on a match; Álvaro asks how to make teams.",
+    "Learner sets 7 vs 7.",
+    "Trap: Dani says «Es muy bien, míster» — learner corrects him.",
+    "Match starts; Iker stands still, looking at the ground.",
+    "Learner: «Iker, ¿qué te pasa?» — Iker: «Na', míster… es que estoy nervioso.»",
+    "Learner encourages him: «Tranqui, Iker. Tú juegas mazo bien.» — «¿En serio?» — «En serio. ¡Venga, al campo!»"
+  ],
+  "twists_pass3": [
+    "Iker says he's tired instead of nervous.",
+    "Ramírez interrupts: «¿Por qué está parado ese chico?» — learner must explain.",
+    "Sergio wants to swap teams."
+  ],
+  "debrief_question": "¿Qué le dijiste a Iker?",
+  "bad_joke": null,
+  "minors_present": true
+}
