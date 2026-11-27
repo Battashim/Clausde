@@ -99,13 +99,18 @@ function migrate() {
 export async function loadModel() {
   const local = lsRead();
   if (local) model = { ...model, ...local, settings: { ...DEFAULT_SETTINGS, ...local.settings } };
+  model.chunks ??= {};
+  model.errors ??= [];
+  model.catchBox ??= [];
+  model.attempts ??= [];
   try {
     const id = caps.db && caps.user ? await caps.user.id() : null;
     if (id) {
       userDir = `data/users/${id}`;
       const snap = await caps.db.collection(userDir).doc("learner").get();
       if (snap.exists) {
-        const remote = snap.data() as Model;
+        // The store hands back frozen objects: work on a plain, editable copy.
+        const remote = JSON.parse(JSON.stringify(snap.data())) as Model;
         model = { ...model, ...remote, settings: { ...DEFAULT_SETTINGS, ...remote.settings } };
       }
       storageMode = "cloud";
