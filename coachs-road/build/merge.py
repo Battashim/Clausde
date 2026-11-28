@@ -1,6 +1,6 @@
 import re, sys
 S='/tmp/claude-0/-home-user-Clausde/2d228f61-562f-5a74-9a4c-5c84ecfb8309/scratchpad/merge/'
-CR=open('/root/.claude/projects/-home-user-Clausde/2d228f61-562f-5a74-9a4c-5c84ecfb8309/tool-results/artifact-75d8671a-1795871938-e0ef.html').read()
+CR=open('/root/.claude/projects/-home-user-Clausde/2d228f61-562f-5a74-9a4c-5c84ecfb8309/tool-results/artifact-75d8671a-1795872088-378b.html').read()
 PC=open('/home/user/Clausde/pitchcraft/index.html').read()
 BS=open(S+'bodyshape.js').read()
 
@@ -92,7 +92,7 @@ j=j.replace('var(--line)','var(--rule)')
 j=re.sub(r'(font-family:var\(--font-display\)[^"]*?);text-transform:uppercase',r'\1',j)
 j=j.replace('text-transform:uppercase;letter-spacing:.03em','')
 j=one(j,'const VIEWS=["home","license","exam","method","drills","fix","session","space"];\nlet curView="home";','const VIEWS=["course","license","exam","method","drills","fix","session","space"];\nlet curView="course";')
-j=one(j,'let h=location.hash.slice(1)||"home", view=h, arg=null;','let h=location.hash.slice(1)||"course", view=h, arg=null;\n  if(/^level-\\d+$/.test(h)||h==="top"){view="course";arg=h}\n  if(h==="measure")view="space";')
+j=one(j,'let h=location.hash.slice(1)||"home", view=h, arg=null;','let h=location.hash.slice(1)||"course", view=h, arg=null;\n  if(/^level-\\d+$/.test(h)||h==="top"){view="course";arg=h}\n  if(h==="measure")view="space";\n  {const t=document.getElementById(h);if(t&&document.getElementById("v-course").contains(t)&&h!=="v-course"){view="course";arg=h}}')
 j=one(j,'if(!VIEWS.includes(view))view="home";','if(!VIEWS.includes(view))view="course";')
 j=one(j,'VIEWS.forEach(v=>$("#v-"+v).hidden=v!==view);','VIEWS.forEach(v=>$("#v-"+v).hidden=v!==view);$("#tools").hidden=view==="course";')
 j=one(j,'document.querySelectorAll(".tabs a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+view?"page":"false"));','document.querySelectorAll(".appbar a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+view?"page":"false"));\n  if(view==="course"&&arg){const t=document.getElementById(arg==="top"?"v-course":arg);if(t)requestAnimationFrame(()=>t.scrollIntoView());}')
@@ -122,8 +122,8 @@ alias='''  --surface-2:#E8EEE8; --def:#2f6fdc; --mid:#0f8a6a; --att:#c8361f; --g
 '''
 c=one(c,'  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;\n}','  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;\n'+alias+'}')
 darkx='  --surface-2:#1E2A23; --def:#6a9cff; --mid:#3cc9a0; --att:#ff7a52; --gk:#b78cff; --all:#9DAEA2;\n'
-c=one(c,"  --gold:#F0BF4C; --gold-soft:#33291A; --them:#EDEAE0; --them-ink:#1C2A44; color-scheme:dark}}","  --gold:#F0BF4C; --gold-soft:#33291A; --them:#EDEAE0; --them-ink:#1C2A44;\n"+darkx+"  color-scheme:dark}}")
-c=one(c,"  --gold:#F0BF4C; --gold-soft:#33291A; --them:#EDEAE0; --them-ink:#1C2A44; color-scheme:dark}\n\n","  --gold:#F0BF4C; --gold-soft:#33291A; --them:#EDEAE0; --them-ink:#1C2A44;\n"+darkx+"  color-scheme:dark}\n\n")
+c=one(c,"  --gold:#F0BF4C; --gold-soft:#33291A; --blue:#7FA2F5; --blue-soft:#18223A; --them:#EDEAE0; --them-ink:#1C2A44; color-scheme:dark}}","  --gold:#F0BF4C; --gold-soft:#33291A; --blue:#7FA2F5; --blue-soft:#18223A; --them:#EDEAE0; --them-ink:#1C2A44;\n"+darkx+"  color-scheme:dark}}")
+c=one(c,"  --gold:#F0BF4C; --gold-soft:#33291A; --blue:#7FA2F5; --blue-soft:#18223A; --them:#EDEAE0; --them-ink:#1C2A44; color-scheme:dark}\n\n","  --gold:#F0BF4C; --gold-soft:#33291A; --blue:#7FA2F5; --blue-soft:#18223A; --them:#EDEAE0; --them-ink:#1C2A44;\n"+darkx+"  color-scheme:dark}\n\n")
 c=one(c,'.road{position:sticky;top:env(safe-area-inset-top,0px);','.road{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--appbar-h));')
 c=one(c,'.level{padding-block:56px;border-bottom:1px solid var(--rule);scroll-margin-top:64px}','.level{padding-block:56px;border-bottom:1px solid var(--rule);scroll-margin-top:calc(var(--appbar-h) + 64px)}')
 c=one(c,'.board{position:sticky;top:76px;','.board{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--appbar-h) + 72px);')
@@ -153,6 +153,7 @@ a{color:var(--red)}
 .tools span{font-size:.92rem;color:var(--muted)}
 .tools small{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
 .xlink{display:inline-block;margin-top:6px;font-weight:700}
+#v-course [id]{scroll-margin-top:calc(var(--appbar-h) + 76px)}
 .form select,.form input{min-width:0;max-width:100%}
 .space .form{grid-template-columns:minmax(0,1fr)}
 @media (max-width:620px){.form{grid-template-columns:minmax(0,1fr)}}
@@ -257,6 +258,12 @@ assert nsub==1
 s=s.replace('<a href="#measure" class="mlink">Size it for your players →</a>','<a href="#space" class="mlink">Size it for your players →</a>')
 s=s.replace('</script>','</script>',1)
 
+# Fàbregas: the course now has 'The Fàbregas file' (Level 4). Keep only the drill roots in the method page.
+h,nsub=re.subn(r'(<h4>Influence 3 · Cesc Fàbregas</h4>\n    <h3>)[^<]*(</h3>\n)    <p>.*?</p>\n    <div class="prin">.*?</div>\n    </div>\n',r'\1Brave possession, trained in drills\2    <p>His career, his teachers and his 8 principles are in <a href="#fabregas-file">The Fàbregas file (Level 4)</a>. Here are the animated drills that train that style.</p>\n',h,flags=re.S)
+assert nsub==1,nsub
+x=x.replace('href="#measure"','href="#space"')
+x=one(x,'<p style="margin-top:10px"><a href="#space" class="mlink">Size these drills for your players →</a></p>','<p style="margin-top:10px"><a href="#space" class="mlink">Size these drills for your players →</a> · <a href="#drill-hunt" class="mlink">Animated: Five-Second Hunt →</a> · <a href="#drill-zones" class="mlink">Animated: Three-Zone Overload →</a> · <a href="#drill-invbox" class="mlink">Animated: Inverted Fullback Box →</a></p>')
+s=s.replace('href="#measure"','href="#space"')
 fonts=cr_head_links  # title + meta + CR fonts
 doc=fonts+c+'\n'+appbar+x+'\n'+h+'\n'+s+'\n<script>\n'+j+'</script>\n<script>\n'+BS+'</script>\n'
 doc=doc.replace("<title>The Coach's Road</title>","<title>The Coach's Road</title>")

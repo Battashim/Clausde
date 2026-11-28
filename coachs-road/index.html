@@ -9,7 +9,7 @@
   --paper:#F2F5F1; --panel:#FFFFFF; --ink:#16231B; --muted:#56655B; --rule:#D5DED6;
   --pitch:#2A6B45; --pitch-2:#25603E; --line:rgba(255,255,255,.78);
   --red:#C8102E; --red-soft:#F7DDE1; --green:#0B7A3E; --green-soft:#DCEFE3;
-  --gold:#E2A92B; --gold-soft:#FBF0D6; --them:#F4F1E8; --them-ink:#1C2A44;
+  --gold:#E2A92B; --gold-soft:#FBF0D6; --blue:#1D4ED8; --blue-soft:#E3EAFB; --them:#F4F1E8; --them-ink:#1C2A44;
   --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -21,14 +21,14 @@
   --paper:#0F1712; --panel:#17221B; --ink:#E5ECE6; --muted:#9DAEA2; --rule:#2A3A2F;
   --pitch:#1F5536; --pitch-2:#1B4D31; --line:rgba(255,255,255,.7);
   --red:#F0566C; --red-soft:#3A1B21; --green:#4CC284; --green-soft:#16301F;
-  --gold:#F0BF4C; --gold-soft:#33291A; --them:#EDEAE0; --them-ink:#1C2A44;
+  --gold:#F0BF4C; --gold-soft:#33291A; --blue:#7FA2F5; --blue-soft:#18223A; --them:#EDEAE0; --them-ink:#1C2A44;
   --surface-2:#1E2A23; --def:#6a9cff; --mid:#3cc9a0; --att:#ff7a52; --gk:#b78cff; --all:#9DAEA2;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#0F1712; --panel:#17221B; --ink:#E5ECE6; --muted:#9DAEA2; --rule:#2A3A2F;
   --pitch:#1F5536; --pitch-2:#1B4D31; --line:rgba(255,255,255,.7);
   --red:#F0566C; --red-soft:#3A1B21; --green:#4CC284; --green-soft:#16301F;
-  --gold:#F0BF4C; --gold-soft:#33291A; --them:#EDEAE0; --them-ink:#1C2A44;
+  --gold:#F0BF4C; --gold-soft:#33291A; --blue:#7FA2F5; --blue-soft:#18223A; --them:#EDEAE0; --them-ink:#1C2A44;
   --surface-2:#1E2A23; --def:#6a9cff; --mid:#3cc9a0; --att:#ff7a52; --gk:#b78cff; --all:#9DAEA2;
   color-scheme:dark}
 
@@ -180,6 +180,20 @@ table.vs{width:100%;border-collapse:collapse;min-width:620px;font-size:.95rem}
 .calc-out b{display:block;font-family:var(--display);font-size:1.5rem;line-height:1.1;font-variant-numeric:tabular-nums}
 .calc-out small{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .calc-out .wide{grid-column:1/-1;font-size:.95rem}
+.cesc{border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:.98rem}
+.cesc .eyebrow{color:var(--blue);font-weight:700;margin-bottom:4px}
+.cfile{margin-top:48px;display:grid;gap:14px}
+.cfile .sub{font-size:1.25rem;margin-top:18px}
+.eras{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.era{flex:none;border:1px solid var(--rule);background:var(--panel);border-radius:12px;padding:8px 12px;cursor:pointer;text-align:left;line-height:1.25}
+.era small{display:block;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.era[aria-selected="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.era[aria-selected="true"] small{color:rgba(255,255,255,.8)}
+.era-card{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.era-card div{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:14px 16px}
+.era-card div:last-child{background:var(--blue-soft);border-color:transparent}
+.era-card b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:4px}
+.preset{justify-self:start}
 .funrules{margin:0;padding-left:22px;display:grid;gap:6px}
 .inventor{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:16px;align-items:start}
 @media (max-width:700px){.inventor{grid-template-columns:minmax(0,1fr)}}
@@ -484,6 +498,7 @@ a{color:var(--red)}
 .tools span{font-size:.92rem;color:var(--muted)}
 .tools small{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
 .xlink{display:inline-block;margin-top:6px;font-weight:700}
+#v-course [id]{scroll-margin-top:calc(var(--appbar-h) + 76px)}
 .form select,.form input{min-width:0;max-width:100%}
 .space .form{grid-template-columns:minmax(0,1fr)}
 @media (max-width:620px){.form{grid-template-columns:minmax(0,1fr)}}
@@ -574,6 +589,7 @@ a{color:var(--red)}
           <div class="hat"><b>Student</b>Watches matches, studies, takes courses. A coach never stops learning.</div>
         </div>
 
+        <div class="cesc"><p class="eyebrow">Fàbregas lens</p>Fàbregas played as a midfielder, the position that sees the most of the pitch. Think like a midfielder: always know where everyone is, even behind you.</div>
         <ul class="ideas">
           <li><span class="cw">Coach word: positions</span><h4>Four kinds of players</h4><p><b>Goalkeeper</b> stops goals. <b>Defenders</b> protect our goal. <b>Midfielders</b> connect defence and attack and run the most. <b>Forwards</b> score. Shirt numbers often tell you the job: 1 = goalkeeper, 2–5 = defenders, 6 and 8 = midfielders, 10 = the creative player, 7 and 11 = wingers, 9 = the striker.</p></li>
           <li><span class="cw">Coach word: formation</span><h4>A formation is where players stand</h4><p>We count from the back, and never count the goalkeeper. <b>4-4-2</b> means 4 defenders, 4 midfielders, 2 forwards. The numbers always add up to 10.</p></li>
@@ -606,6 +622,7 @@ a{color:var(--red)}
       <div class="text">
         <p class="goal">You'll be able to: watch any match and say what is really happening, not just where the ball is.</p>
         <div class="kid"><p class="eyebrow">Like you're 6</p>Football is a big game of tag with a ball. When <b>we</b> have the ball, we want the field to feel <b>big</b>, so there's lots of room to run. When <b>they</b> have it, we want the field to feel <b>small</b>, so they have nowhere to go. The game keeps flipping between big and small, again and again.</div>
+        <div class="cesc"><p class="eyebrow">Fàbregas lens</p>At Barcelona's academy, La Masia, Fàbregas learned to watch spaces, not the ball. His first question is always: "Where is the free player?"</div>
         <ul class="ideas">
           <li><span class="cw">Coach word: the 4 moments</span><h4>Every second is one of 4 moments</h4><p>1. We have the ball. 2. We just lost it. 3. They have the ball. 4. We just won it. Great coaches have a plan for every moment, not only for attacking.</p></li>
           <li><span class="cw">Coach word: thirds, lanes, half-spaces</span><h4>The pitch is a map</h4><p>Cut it into 3 slices across and 5 streets long-ways. The two "half-spaces" are the streets between the wing and the middle. Defenders get confused there.</p></li>
@@ -661,6 +678,7 @@ a{color:var(--red)}
       <div class="text">
         <p class="goal">You'll be able to: explain why the ball moves, and teach players where to stand so they are always free.</p>
         <div class="kid"><p class="eyebrow">Like you're 6</p>You and your friends pass a toy while your little brother tries to grab it. If you all stand in a bunch, he grabs it. If you spread out and always stand where he can't reach, he never gets it. Standing in the right place is called <b>positional play</b>. It's the heart of how Fàbregas thinks.</div>
+        <div class="cesc"><p class="eyebrow">Fàbregas lens</p>This level is the heart of his football. He grew up doing rondos almost every day at La Masia and learned positional play under Guardiola. Every position has a reason.</div>
         <ul class="ideas">
           <li><span class="cw">Coach word: support angles</span><h4>Always make triangles</h4><p>Never stand in a straight line with the ball and a defender. Make a triangle so the player with the ball has 2 friends to pass to.</p></li>
           <li><span class="cw">Coach word: width & depth</span><h4>Stretch the pitch</h4><p>Some players hold the side lines (width). One stays high behind their defenders (depth). The opponent has to stretch too, and holes appear in the middle.</p></li>
@@ -689,6 +707,7 @@ a{color:var(--red)}
       <div class="text">
         <p class="goal">You'll be able to: organise a team that is hard to play through and wins the ball back fast.</p>
         <div class="kid"><p class="eyebrow">Like you're 6</p>When they have the ball, our team is one big blanket. If someone pulls one corner, the whole blanket moves, so there are never any holes. And when we lose the ball, we're like bees: the closest bees buzz straight back at it.</div>
+        <div class="cesc"><p class="eyebrow">Fàbregas lens</p>Fàbregas teams defend forward: a high back line and an instant counter-press, so the opponent has to play in a tiny space far from our goal.</div>
         <ul class="ideas">
           <li><span class="cw">Coach word: compactness</span><h4>Short and narrow</h4><p>Keep about 30–35 metres from your last defender to your striker, and slide as one group toward the ball side. The far side can wait.</p></li>
           <li><span class="cw">Coach word: counter-pressing (gegenpressing)</span><h4>The 5-second rule</h4><p>When we lose the ball, the nearest 3 players attack it at once. The other team is messy right then. If it doesn't work in about 5 seconds, drop back into shape.</p></li>
@@ -717,6 +736,7 @@ a{color:var(--red)}
       <div class="text">
         <p class="goal">You'll be able to: describe how your team plays in all 4 moments, and borrow the best of two modern coaches.</p>
         <div class="kid"><p class="eyebrow">Like you're 6</p>A game model is your team's <b>recipe</b>. When everyone knows the recipe, nobody has to stop and think "what do I do now?". Fàbregas's recipe: keep the ball and be clever. Gasperini's recipe: everybody chases a partner and never stops running. Two very different recipes, and both taste great.</div>
+        <div class="cesc"><p class="eyebrow">Fàbregas lens</p>Fàbregas built his model by mixing his teachers: Barcelona's positional play, Wenger's freedom, Mourinho and Conte's structure. See "The Fàbregas file" below.</div>
         <ul class="ideas">
           <li><span class="cw">Coach word: structure vs formation</span><h4>A formation is only a photo</h4><p>"4-3-3" is where players start. Look at the shape <b>with</b> the ball (often 3-2-5 or 2-3-5) and <b>without</b> it (often 4-4-2). The shape changes; the principles stay.</p></li>
           <li><span class="cw">Coach word: positional play (Fàbregas)</span><h4>Bait, beat the line, find the free man</h4><p>Short passes from the goalkeeper, centre-backs who wait for the striker to come before passing, midfielders who turn between lines, and wingers left 1 vs 1.</p></li>
@@ -731,7 +751,7 @@ a{color:var(--red)}
           <label><input type="checkbox" id="c4c" data-key="4c"> I wrote my own recipe below for all 4 moments</label>
         </div>
       </div>
-      <div class="board" data-scenes="fabregasBuild,gasperiniMan,restDefence"></div>
+      <div class="board" data-scenes="fabregasBuild,fabregasAttack,fabregasPress,gasperiniMan,restDefence"></div>
     </div>
 
     <div class="compare">
@@ -757,6 +777,33 @@ a{color:var(--red)}
         <label for="m3">3 · They have the ball<textarea id="m3" data-model="m3" placeholder="e.g. 4-4-2 mid block. Press on the side-line trigger. Stay 30 m short."></textarea></label>
         <label for="m4">4 · We just won it<textarea id="m4" data-model="m4" placeholder="e.g. First look forward: can we pass behind? If not, keep it and rebuild."></textarea></label>
       </div>
+      <div class="cfile" id="fabregas-file">
+        <p class="eyebrow">Deep dive</p>
+        <h3 class="section-title" style="margin-top:4px">The Fàbregas file</h3>
+        <div class="kid"><p class="eyebrow">Like you're 6</p>Fàbregas is like a cook who worked in 5 great kitchens. In each kitchen he learned one secret. Now he has his own restaurant (Como), and his recipe mixes all 5 secrets. Tap each kitchen to see what he learned and what you can copy.</div>
+        <div class="eras" id="eras" role="tablist" aria-label="Fàbregas career"></div>
+        <div class="era-card" id="eraCard" aria-live="polite"></div>
+
+        <h4 class="sub">His 8 principles, explained simply</h4>
+        <div class="levers">
+          <div class="lever"><span class="cw">1 · Goalkeeper first</span><h4>The goalkeeper is the first attacker</h4><p class="kidline">Attacks start with the keeper's feet. That gives us one extra player when they press.</p></div>
+          <div class="lever"><span class="cw">2 · Bait</span><h4>Invite the press, then pass past it</h4><p class="kidline">Hold the ball until a defender comes. When he jumps, the space behind him opens.</p></div>
+          <div class="lever"><span class="cw">3 · More of us</span><h4>Be more players behind their first line</h4><p class="kidline">3 + 2 or 2 + 3 at the back against their 2 strikers. Always one free player.</p></div>
+          <div class="lever"><span class="cw">4 · Fluid roles</span><h4>Players move, spaces stay filled</h4><p class="kidline">Full-backs step into midfield, the 8s push forward. Positions change but every important space has someone in it.</p></div>
+          <div class="lever"><span class="cw">5 · Between lines</span><h4>Find the free player between lines</h4><p class="kidline">Midfielders wait in the holes, body open, ready to turn. The third man arrives free.</p></div>
+          <div class="lever"><span class="cw">6 · Width & 1v1</span><h4>Wingers wide, then isolated</h4><p class="kidline">Wingers stay on the side line so they get the ball alone against one defender.</p></div>
+          <div class="lever"><span class="cw">7 · Defend forward</span><h4>High line, instant counter-press</h4><p class="kidline">When we lose it, hunt it right away. The whole team steps up, so the pitch stays small.</p></div>
+          <div class="lever"><span class="cw">8 · Trust youth</span><h4>Young, technical, brave players get chances</h4><p class="kidline">Wenger's lesson. Pick players for their brain and feet, not only their size.</p></div>
+        </div>
+
+        <h4 class="sub">Train like Fàbregas: 3 sessions to start</h4>
+        <div class="levers">
+          <div class="lever"><span class="cw">Warm-up · 15 min</span><h4>Rondo + hunt</h4><p class="kidline">5 v 2 in a small square. When the 2 defenders win it, they must get it out of the square; the 5 have 5 seconds to hunt it back. Teaches keeping the ball and reacting instantly.</p></div>
+          <div class="lever"><span class="cw">Main · 20 min</span><h4>4 v 4 + 3 magicians</h4><p class="kidline">4 v 4 in the middle, 3 jokers (one at each end, one in the middle) always play for the team with the ball. Point for getting it end to end through the middle joker. Teaches the free man and third-man passes.</p></div>
+          <div class="lever"><span class="cw">Phase · 20 min</span><h4>Build-up against the press</h4><p class="kidline">Goalkeeper + 4 defenders + 2 midfielders against 5 pressers. Score by dribbling over the halfway line. The pressers score in the big goal. Teaches bait, 3 + 2, and courage on the ball.</p></div>
+        </div>
+        <p style="margin-top:10px"><a href="#space" class="mlink">Size these drills for your players →</a> · <a href="#drill-hunt" class="mlink">Animated: Five-Second Hunt →</a> · <a href="#drill-zones" class="mlink">Animated: Three-Zone Overload →</a> · <a href="#drill-invbox" class="mlink">Animated: Inverted Fullback Box →</a></p>
+      </div>
     </div>
   </div>
 </section>
@@ -769,6 +816,7 @@ a{color:var(--red)}
       <div class="text">
         <p class="goal">You'll be able to: plan a session and a week that teach your game model through games.</p>
         <div class="kid"><p class="eyebrow">Like you're 6</p>You don't learn to ride a bike by listening to a talk about bikes. You ride, and you wobble, and you get better. Football is the same. Players learn by playing <b>games with special rules</b> that make the lesson happen by itself.</div>
+        <div class="cesc"><p class="eyebrow">Fàbregas lens</p>In the Fàbregas way, almost every exercise has a ball: rondos, positional games, and build-up against a press. Players get fit by playing, not by running laps.</div>
         <ul class="ideas">
           <li><span class="cw">Coach word: constraints-led approach</span><h4>Change the rules, change the lesson</h4><p>Want more switching play? Put 2 goals on each side. Want faster passing? 2 touches max. Want counter-pressing? Bonus point for winning it back in 5 seconds.</p></li>
           <li><span class="cw">Coach word: guided discovery</span><h4>Ask, don't tell</h4><p>"Where was the free player?" teaches more than "Pass to him!". Players who find the answer themselves remember it in matches.</p></li>
@@ -808,6 +856,7 @@ a{color:var(--red)}
       <div class="text">
         <p class="goal">You'll be able to: plan what each age group needs, and fix the gaps between a young Omani player and a European academy player.</p>
         <div class="kid"><p class="eyebrow">Like you're 6</p>Growing a footballer is like growing a palm tree. You can't pull it to make it taller. You give it water every day, sunshine, and time, and you give the right thing at the right age. Europe's secret isn't magic. It is <b>lots of good football, every week, for about 10 years</b>, with good coaches the whole way.</div>
+        <div class="cesc"><p class="eyebrow">Fàbregas lens</p>Arsène Wenger gave Fàbregas his Arsenal debut at 16 and made him captain at 21. The lesson for Oman: trust talented young players early with real responsibility.</div>
         <ul class="ideas">
           <li><span class="cw">Coach word: long-term player development</span><h4>The right thing at the right age</h4><p>Young kids need fun and touches. Pre-teens need skill. Teenagers need understanding and strength. Young adults need hard competition. Skipping a stage leaves a hole that shows later.</p></li>
           <li><span class="cw">Coach word: relative age effect</span><h4>Don't pick only the big kids</h4><p>In almost every country, kids born early in the year get picked more because they're older and bigger, not better. Many late-born or late-growing kids become the best players. Keep them.</p></li>
@@ -876,6 +925,7 @@ a{color:var(--red)}
       <div class="text">
         <p class="goal">You'll be able to: plan your licences, your weekly study habits, and how you lead people.</p>
         <div class="kid"><p class="eyebrow">Like you're 6</p>Being a great coach is like being a great teacher and a great captain at the same time. You keep learning every week, you explain things simply, and people trust you because you're fair and you care about them.</div>
+        <div class="cesc"><p class="eyebrow">Fàbregas lens</p>Fàbregas started small: he coached Como's youth team first, then the first team, while finishing his coaching licences. Start where you are, with the players you have.</div>
         <ul class="ideas">
           <li><span class="cw">Coach word: licensing pathway</span><h4>Climb the AFC ladder</h4><p>In Oman, courses run through the Oman Football Association under the AFC Coaching Convention. Check current entry rules and dates with the OFA before you apply.</p></li>
           <li><span class="cw">Coach word: match analysis</span><h4>Two matches a week, with a pen</h4><p>One top European match and one of your own team. Use the 5 questions from Level 1. Pause, draw, write.</p></li>
@@ -920,6 +970,7 @@ a{color:var(--red)}
       <div class="text">
         <p class="goal">You'll be able to: design your own training games, coach in your own way, and explain your method on one card.</p>
         <div class="kid"><p class="eyebrow">Like you're 6</p>Kids don't learn football because a grown-up talks. They learn because they're <b>playing a game they love</b> and the game secretly teaches them. Your job is to be a <b>game inventor</b>. A pirate game can teach pressing. A falcon game can teach when to attack. If they're laughing and trying hard, they're learning.</div>
+        <div class="cesc"><p class="eyebrow">Fàbregas lens</p>Nobody gave Fàbregas a style. He collected the best ideas from every coach he played for and made them his own. Do the same: borrow from him, then make it yours.</div>
         <ul class="ideas">
           <li><span class="cw">Coach word: coaching philosophy</span><h4>Your style has 4 layers</h4><p><b>Why</b>: your values (what kind of people you build). <b>What</b>: your game model (Levels 1–4). <b>How</b>: the way you teach (Level 5). <b>Games</b>: your signature activities. Change one layer and your style changes.</p></li>
           <li><span class="cw">Coach word: game-based learning</span><h4>Hide the lesson inside the game</h4><p>Every game has a secret lesson. "Sharks and minnows" secretly teaches dribbling with your head up. "Four goals" secretly teaches switching play. The kids just think they're playing.</p></li>
@@ -967,6 +1018,7 @@ a{color:var(--red)}
     </div>
 
     <h3 class="section-title">My coaching style card <span class="eyebrow" style="font-family:var(--mono);font-size:12px;vertical-align:middle">saved in this browser</span></h3>
+    <button class="cbtn preset" id="presetCesc" type="button">Start from the Fàbregas way</button>
     <div class="builder">
       <div class="b-steps">
         <fieldset><legend>1 · Why: pick your 3 values</legend><div class="chips" id="valChips"></div></fieldset>
@@ -1104,16 +1156,8 @@ a{color:var(--red)}
   </div>
   <div class="card">
     <h4>Influence 3 · Cesc Fàbregas</h4>
-    <h3>Brave possession, played between the lines</h3>
-    <p>As a player, Fàbregas was a playmaker for Arsenal, Barcelona and Chelsea, known for scanning and the final pass. As a coach (head coach of Como since 2024) his teams are known for building from the keeper, controlling the ball, and winning it back fast. We took six ideas from that style.</p>
-    <div class="prin">
-      <div><b>Brave build-up</b><span>The keeper and centre-backs play through the press. Long balls are a choice, not an escape.</span></div>
-      <div><b>Inside to go outside</b><span>Fullbacks step into midfield to create a box, which frees the winger.</span></div>
-      <div><b>Live in the pocket</b><span>8s and 10s receive between the opponent's lines, half-turned, facing goal.</span></div>
-      <div><b>Scan like a playmaker</b><span>Look before the ball arrives so the next pass is already decided.</span></div>
-      <div><b>5-second hunt</b><span>Lose it, win it back immediately, before the opponent can counter.</span></div>
-      <div><b>Trust young players</b><span>Technical, brave young players get minutes and responsibility.</span></div>
-    </div>
+    <h3>Brave possession, trained in drills</h3>
+    <p>His career, his teachers and his 8 principles are in <a href="#fabregas-file">The Fàbregas file (Level 4)</a>. Here are the animated drills that train that style.</p>
     <div class="links"><a href="#drill-invbox">Inverted Fullback Box</a><a href="#drill-pocket">Pocket Hunter</a><a href="#drill-hunt">Five-Second Hunt</a><a href="#drill-killer">Killer Pass Lab</a></div>
   </div>
   <div class="sec-head"><span class="eyebrow">Our creation</span><h2 style="font-size:clamp(26px,4vw,36px)">4 Pitchcraft rules</h2></div>
@@ -1355,6 +1399,32 @@ pressTrap:{ name:'Pressing trap', frames:[
   arr:[['press','u11','t2'],['run','u9',[89,19]],['press','u8','t8'],['press','u3','t7'],['press','u10','t6']], z:[{c:[84,8],r:11,l:'TRAP'}]},
  {d:800, cap:'The side line is our extra defender. No way out: ball won 20 metres from their goal.', p:{b:[81,9.5],t2:[86,5]}}
 ]},
+fabregasAttack:{ name:'Fàbregas: 2-3-5 attack', frames:[
+ {d:0, cap:'On paper we play 4-3-3. Watch what happens to the shape when we have the ball.',
+  p:{u1:[8,34],u3:[30,10],u5:[24,26],u4:[24,42],u2:[30,58],u6:[40,34],u8:[52,22],u10:[52,46],u11:[68,8],u9:[74,34],u7:[68,60],
+     t1:[101,34],t2:[90,12],t5:[92,28],t4:[92,40],t3:[90,56],t7:[80,14],t8:[80,28],t6:[80,40],t11:[80,56],t9:[66,30],t10:[66,40],b:[25.8,42]}},
+ {d:1900, cap:'It becomes 2-3-5. The full-backs step inside next to the 6. The 8 and 10 push up into the half-spaces. Wingers stay wide.',
+  p:{u1:[20,34],u5:[40,24],u4:[40,44],u3:[52,24],u6:[54,34],u2:[52,44],u11:[82,4],u8:[83,21],u9:[87,34],u10:[83,47],u7:[82,64],b:[41.8,44]},
+  arr:[['run','u3',[52,24]],['run','u2',[52,44]],['run','u8',[83,21]],['run','u10',[83,47]]],
+  z:[{x:36,y:18,w:8,h:32,l:'2'},{x:48,y:18,w:10,h:32,l:'3'},{x:78,y:1,w:12,h:66,l:'5'}]},
+ {d:900, cap:'5 attackers against 4 defenders: they can\'t cover all 5 lanes. One of ours is always free.', p:{b:[50.2,44]}, arr:[['pass','b','u2']],
+  z:[{x:78,y:1,w:12,h:66,l:'5 v 4'}]},
+ {d:1000, cap:'The pass into the half-space. A defender has to step out to him, and that opens a gap behind.', p:{b:[81.4,47],t4:[87,44]}, arr:[['pass','b','u10'],['press','t4','u10']]},
+ {d:1100, cap:'Through the gap! This is how Fàbregas\'s Como wants to create chances.', p:{u9:[95,38],b:[96,38.6]}, arr:[['run','u9',[95,38]],['pass',[81.4,47],[96,38.6]]]},
+ {d:300, cap:'And look behind: 2 + 3 stayed home. That\'s the rest defence, ready if we lose the ball.', p:{}, z:[{x:36,y:18,w:22,h:32,l:'REST DEFENCE'}]}
+]},
+fabregasPress:{ name:'Fàbregas: high line', frames:[
+ {d:0, cap:'We are attacking in their half...',
+  p:{u1:[22,34],u5:[42,24],u4:[42,44],u3:[52,24],u6:[54,34],u2:[52,44],u11:[82,4],u8:[80,22],u9:[87,34],u10:[83,47],u7:[82,64],
+     t1:[101,34],t2:[90,12],t5:[92,28],t4:[92,40],t3:[90,56],t7:[78,14],t8:[78,25],t6:[80,40],t11:[80,56],t9:[62,30],t10:[64,42],b:[81.6,22]}},
+ {d:700, cap:'...and lose the ball. Lose it, hunt it!', p:{b:[79.5,25.5]}, arr:[['pass','b','t8']]},
+ {d:1300, cap:'The nearest players hunt the ball. Everyone else steps forward too, even the defenders. The team stays short.',
+  p:{u8:[78,23],u11:[77,13],u9:[83,28],u6:[72,30],u3:[66,22],u5:[56,26],u4:[56,42],u2:[62,44],u1:[34,34],u10:[78,40]},
+  arr:[['press','u8','t8'],['press','u11','t8'],['press','u9','t8'],['run','u5',[56,26]],['run','u4',[56,42]]], z:[{c:[78,25],r:8}]},
+ {d:1000, cap:'They kick it long to escape. But their striker is behind our high line: offside! Flag up.',
+  p:{t9:[50,30],b:[50.5,31.5]}, arr:[['pass',[79.5,25.5],[50.5,31.5]]], z:[{x:0,y:0,w:56,h:68,l:'OFFSIDE AREA'}]},
+ {d:300, cap:'High line + instant press: the opponent plays in a tiny space, far from our goal. Brave, and everyone must move together.', p:{}}
+]},
 fabregasBuild:{ name:'Fàbregas: build-up', frames:[
  {d:0, cap:'Fàbregas idea 1 · The ball is our home. Even the goalkeeper plays. We start short and brave.',
   p:{u1:[3,34],u5:[9,18],u4:[9,50],u6:[22,30],u8:[24,40],u3:[30,6],u2:[30,62],u10:[46,24],u11:[54,5],u7:[54,63],u9:[66,34],
@@ -1577,6 +1647,8 @@ const LIB=[
  {n:'Hunters (5 seconds)',age:'9–adult',lv:'Level 3',story:'Lose the ball? Hunters have 5 seconds to catch it back for a bonus.',secret:'Counter-pressing.'},
  {n:'Dhow race',age:'10–adult',lv:'Level 4',story:'Sail the ball through 3 harbours (zones) to reach the goal, while pirates press.',secret:'Build-up and beating the press, Fàbregas style.'},
  {n:'Superhero joker',age:'6–14',lv:'Level 2',story:'One superhero in a cape always plays for the team with the ball.',secret:'Numerical superiority, finding the free player.'},
+ {n:'4 v 4 + 3 magicians',age:'10–adult',lv:'Level 2 · Fàbregas',story:'3 magicians (jokers) always help the team with the ball. Get it from one end magician to the other through the middle one.',secret:'The free player between lines, third-man passes.'},
+ {n:'Rondo + hunt',age:'9–adult',lv:'Level 3 · Fàbregas',story:'5 v 2 rondo. When the 2 win it, they must escape the square; the 5 have 5 seconds to hunt it back.',secret:'Keep the ball, react instantly when you lose it.'},
  {n:'Partner chase',age:'9–adult',lv:'Level 4',story:'Everyone gets a secret partner to follow. Lose your partner, lose a point.',secret:'Man-to-man duels, Gasperini style.'}
 ];
 document.getElementById('library').innerHTML=LIB.map(g=>`<div class="lever"><span class="cw">${g.lv} · age ${g.age}</span><h4>${g.n}</h4><p class="kidline">${g.story}</p><p style="font-size:.9rem"><b>Secret lesson:</b> ${g.secret}</p></div>`).join('');
@@ -1642,6 +1714,27 @@ function renderStyle(){
 chipRow(document.getElementById('valChips'),VALUES,'values');
 chipRow(document.getElementById('gameChips'),LIB.map(g=>g.n),'games');
 renderStyle();
+document.getElementById('presetCesc').onclick=()=>{
+  st.values=['Brave','Creativity','Curiosity']; st.games=['Treasure rondo','4 v 4 + 3 magicians','Rondo + hunt'];
+  [15,15,20,25,55].forEach((v,k)=>sl[k].value=v); if(!nameIn.value) nameIn.value='My Fàbregas Way';
+  chipRow(document.getElementById('valChips'),VALUES,'values'); chipRow(document.getElementById('gameChips'),LIB.map(g=>g.n),'games'); renderStyle();
+};
+
+/* ---------- Fàbregas file ---------- */
+const ERAS=[
+ {y:'1997–2003',n:'La Masia',w:'Barcelona\'s academy, from age 10. Rondos almost every day, technique and thinking before strength. His youth team also had Messi and Piqué.',l:'Small, clever players can beat big ones if they think faster. The ball is everything.',c:'Rondos in every session. Judge kids on decisions and touch, not size.'},
+ {y:'2003–2011',n:'Arsenal · Wenger',w:'He moved to London at 16. Arsène Wenger gave him his debut at 16 and made him captain at 21.',l:'Trust young players with real responsibility. Give creative players freedom to play forward fast.',c:'Give your best young players big roles early. Let them try things and make mistakes.'},
+ {y:'2008–2012',n:'Spain',w:'Won Euro 2008, the 2010 World Cup (he made the pass for Iniesta\'s winning goal in the final) and Euro 2012.',l:'Keeping the ball means controlling the game. The team is the star.',c:'Teach the whole team to stay calm on the ball. Celebrate the pass before the goal.'},
+ {y:'2011–2014',n:'Barcelona · Guardiola',w:'Back at Barcelona, he played for Pep Guardiola, sometimes even as a "false 9".',l:'Positional play: every player stands in a place for a reason. Win the ball back in seconds after losing it.',c:'Use zones and positional games in training. Teach the 5-second counter-press.'},
+ {y:'2014–2019',n:'Chelsea · Mourinho & Conte',w:'Won the Premier League twice, with José Mourinho (2015) and Antonio Conte (2017).',l:'Structure and defending matter as much as beautiful passing. Detailed training and a winning mentality.',c:'Have a clear defensive plan. Rehearse patterns until they are automatic. Compete in training.'},
+ {y:'2022–now',n:'Como · the coach',w:'Finished his playing career at Como, coached the youth team, then the first team. Como reached Serie A in 2024.',l:'Mix all the secrets into one identity, and build a club around young technical players.',c:'Write your game model, use it from the youngest team to the oldest, and stay patient.'}
+];
+const erasBox=document.getElementById('eras'), eraCard=document.getElementById('eraCard');
+function showEra(k){ const E=ERAS[k];
+  eraCard.innerHTML=`<div><b>What happened</b>${E.w}</div><div><b>What he learned</b>${E.l}</div><div><b>What you copy</b>${E.c}</div>`;
+  erasBox.querySelectorAll('.era').forEach((b,j)=>b.setAttribute('aria-selected',j===k)); }
+ERAS.forEach((E,k)=>{ const b=document.createElement('button'); b.className='era'; b.setAttribute('role','tab'); b.innerHTML=`<small>${E.y}</small>${E.n}`; b.onclick=()=>showEra(k); erasBox.appendChild(b); });
+showEra(0);
 
 /* ---------- Progress + road ---------- */
 const stops=document.getElementById('stops');
@@ -2896,6 +2989,7 @@ function route(){
   let h=location.hash.slice(1)||"course", view=h, arg=null;
   if(/^level-\d+$/.test(h)||h==="top"){view="course";arg=h}
   if(h==="measure")view="space";
+  {const t=document.getElementById(h);if(t&&document.getElementById("v-course").contains(t)&&h!=="v-course"){view="course";arg=h}}
   if(h.startsWith("drill-")){view="drills";arg=h.slice(6)}
   if(h.startsWith("fix-")){view="fix";arg=h.slice(4)}
   if(h.startsWith("exam-")){view="exam";arg=h.slice(5)}
