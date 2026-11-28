@@ -505,6 +505,38 @@ a{color:var(--red)}
 @media (max-width:960px){.lib,.fix,.method-grid,.space{grid-template-columns:minmax(0,1fr)}}
 .fun b,.card b{overflow-wrap:anywhere}
 
+
+/* Foundations */
+.fnd{display:flex;flex-direction:column;gap:18px}
+.lbl-key{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:.85rem;color:var(--muted)}
+.lbl{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:5px;padding:2px 6px;margin-right:4px;vertical-align:1px;white-space:nowrap}
+.lbl.res{background:var(--green-soft);color:var(--green)}.lbl.gen{background:var(--blue-soft,#E3EAFB);color:var(--blue,#1D4ED8)}.lbl.our{background:var(--gold-soft);color:#7A5600}
+:root[data-theme="dark"] .lbl.our{color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbl.our{color:var(--gold)}}
+.fnd-card{gap:12px}
+.fnd-head{display:flex;gap:14px;align-items:center}
+.fnd-n{font-family:var(--display);font-weight:800;font-size:3rem;line-height:.8;color:var(--red)}
+.fnd-card ul{display:flex;flex-direction:column;gap:8px}
+.src{font-size:.82rem;color:var(--muted);border-top:1px dashed var(--rule);padding-top:8px}
+.cl-grid{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:14px;align-items:start}
+.cl-ctrl{display:flex;flex-direction:column;gap:8px}
+.cl-ctrl select{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);width:100%;min-width:0}
+.cl-out{display:grid;gap:8px}
+.cl-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;background:var(--paper);border-radius:10px;padding:10px 12px}
+.cl-row b{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.cl-row.no{background:var(--red-soft)}.cl-row.no span{text-decoration:line-through;text-decoration-color:var(--red)}
+.cl-row.ask{background:var(--green-soft)}.cl-row.ask span{font-weight:700}
+.fn-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:start}
+.fn-table table{width:100%}
+.sc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.sc-box{background:var(--paper);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.sc-box svg{width:100%;height:auto;border-radius:10px;display:block}
+.sc-bar{position:relative;height:12px;border-radius:6px;background:var(--rule);overflow:visible}
+.sc-bar i{display:block;height:100%;border-radius:6px;background:var(--red)}
+.sc-bar b{position:absolute;top:-4px;width:2px;height:20px;background:var(--ink)}
+table.ft{min-width:620px}.ft input{width:44px;font:inherit;padding:4px;border:1px solid var(--rule);border-radius:6px;background:var(--panel);color:var(--ink);text-align:center}
+.ft td,.ft th{padding:6px 6px!important;text-align:center!important}
+@media (max-width:760px){.cl-grid,.fn-grid,.sc-grid{grid-template-columns:minmax(0,1fr)}.cl-row{grid-template-columns:minmax(0,1fr)}}
 /* Body shape in the 4 moments */
 .bshape{margin-top:44px;display:grid;gap:14px}
 .bs-tabs{display:flex;gap:6px;flex-wrap:wrap}
@@ -564,7 +596,7 @@ a{color:var(--red)}
     <div class="tools">
       <a href="#license"><small>US Soccer D → Pro</small><b>License path</b><span>What each course assesses and how to pass it.</span></a>
       <a href="#exam"><small>Your assessor</small><b>Exam room</b><span>Get tested level by level. Pass at 100% to unlock the next one.</span></a>
-      <a href="#drills"><small>21 animated drills</small><b>Drill library</b><span>For defenders, midfielders, attackers and keepers.</span></a>
+      <a href="#drills"><small>22 animated drills</small><b>Drill library</b><span>For defenders, midfielders, attackers and keepers.</span></a>
       <a href="#fix"><small>Problem → drill</small><b>Fix a problem</b><span>What you saw in the game, why it happens, and what fixes it.</span></a>
       <a href="#session"><small>Play – Practice – Play</small><b>Session builder</b><span>A full timed session for any problem.</span></a>
       <a href="#space"><small>Steps & headcount</small><b>Pitch planner</b><span>Measure with your feet. Size any drill for your group.</span></a>
@@ -1150,18 +1182,113 @@ a{color:var(--red)}
     <h2>The Pitchcraft method</h2>
     <p class="lede">Coerver gives players the ball skills. Ekkono teaches them when and why to use those skills. Fàbregas gives the team a brave, possession-first style. Pitchcraft puts both into every drill and makes it competitive, so players enjoy it and keep coming back.</p>
   </div>
+  <div class="fnd" id="foundations">
+    <div class="sec-head"><span class="eyebrow">Our foundations · built in this order</span><h2 style="font-size:clamp(26px,4vw,36px)">How we teach, proven in research</h2>
+      <p class="lede">Our method is our own: our stories, names and scoring. But how players learn in it comes from real, published football and sport science. Every statement below carries a label so you always know what it is.</p>
+      <div class="lbl-key"><span class="lbl res">Research</span> published study or official federation source <span class="lbl gen">Football principle</span> widely used, not from one study <span class="lbl our">Our design</span> created for this method</div>
+    </div>
+
+    <!-- 1 · CONSTRAINTS-LED APPROACH -->
+    <div class="card fnd-card" id="cla">
+      <div class="fnd-head"><span class="fnd-n">1</span><div><h4>Foundation 1 · How we teach</h4><h3>The constraints-led approach</h3></div></div>
+      <p><span class="lbl res">Research</span> Comes from <b>ecological dynamics</b>, a theory of how people learn movement skills. It has been applied in high-level youth football. Its four key principles:</p>
+      <div class="prin">
+        <div><b>Real game information</b><span>Practice must contain what players see in matches: opponents, team-mates, goals and direction. Coaches call this <i>representative learning design</i>.</span></div>
+        <div><b>Change the conditions</b><span>Change the space, the rules, the equipment or the players, and the problem changes. Players find the solution themselves.</span></div>
+        <div><b>Repetition without repetition</b><span>Repeat the same idea in slightly different situations each time, instead of the same drill again and again.</span></div>
+        <div><b>Outside focus</b><span>Point attention at the outcome ("get it to the free side") rather than body parts ("bend your ankle").</span></div>
+      </div>
+      <p class="note"><span class="lbl gen">Football principle</span> The 4 STEP buttons from <a href="#level-8">Level 8</a> (Space, Task, Equipment, People) are exactly these constraints. <span class="lbl our">Our design</span> The lab below turns them into ready-made fixes.</p>
+      <h4 style="margin-top:6px">Constraint lab · pick a problem, pick a button</h4>
+      <div class="cl-grid">
+        <div class="cl-ctrl">
+          <label for="clProb" class="wc">What did you see?</label>
+          <select id="clProb"></select>
+          <div class="fgroup" id="clLever" aria-label="Which button do you press"></div>
+        </div>
+        <div class="cl-out" id="clOut" aria-live="polite"></div>
+      </div>
+      <p class="src">Sources: <a href="https://journals.sagepub.com/doi/10.1177/17479541211002335" target="_blank" rel="noopener">Sullivan, Woods, Vaughan &amp; Davids 2021, youth football learning framework</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7427670" target="_blank" rel="noopener">Nonlinear pedagogy principles (PMC)</a> · <a href="https://shura.shu.ac.uk/26919/3/Davids_DevelopingPlayersTactical%28AM%29.pdf" target="_blank" rel="noopener">Davids et al., developing players' tactical skills</a></p>
+    </div>
+
+    <!-- 2 · FUNINO -->
+    <div class="card fnd-card" id="funino">
+      <div class="fnd-head"><span class="fnd-n">2</span><div><h4>Foundation 2 · Our main game for ages 6–12</h4><h3>Funino: 3 v 3 on four goals</h3></div></div>
+      <div class="fn-grid">
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+          <p><span class="lbl res">Research</span> Created by the German coach <b>Horst Wein</b> to develop game intelligence in children.</p>
+          <ul>
+            <li><span class="lbl res">Rules</span> 3 v 3, no goalkeepers. Each team attacks <b>two mini-goals</b>, placed far apart on the end line.</li>
+            <li><span class="lbl res">Rules</span> Goals count only from inside the <b>shooting zone</b>, usually about 6 m from the end line (shorter for the youngest).</li>
+            <li><span class="lbl res">Federation</span> Germany's federation (DFB) made new children's formats based on Funino compulsory for U6–U11 from the <b>2024/25</b> season.</li>
+            <li><span class="lbl gen">Why it works</span> Few players means many touches. Two goals means a real decision every attack: which goal is open?</li>
+          </ul>
+          <div class="links"><a href="#drill-funino">Watch the animated Funino drill →</a><a href="#space">Size it for your players →</a></div>
+        </div>
+        <div class="vs-wrap fn-table">
+          <table class="vs" style="min-width:0">
+            <thead><tr><th>Age</th><th>Format</th><th>Pitch (guide)</th></tr></thead>
+            <tbody>
+              <tr><th>U6–U7</th><td>2 v 2 or 3 v 3, four mini-goals</td><td>about 16 × 20 m up to 28 × 22 m</td></tr>
+              <tr><th>U8–U9</th><td>3 v 3 Funino, or 5 v 5</td><td>about 25 × 32 m</td></tr>
+              <tr><th>U10–U12</th><td>Funino in training, 5 v 5 to 7 v 7 in matches</td><td>about 25 × 32 m</td></tr>
+            </tbody>
+          </table>
+          <p class="wc" style="padding:8px 12px">Sizes vary between sources and federations. Use them as a starting point and adjust with the Pitch planner.</p>
+        </div>
+      </div>
+      <p class="note"><span class="lbl our">Our design</span> Our rotation rule: every 3 minutes one player from each team swaps out and does 20 ball-mastery touches. Nobody waits more than one game.</p>
+      <p class="src">Sources: <a href="https://www.fifatrainingcentre.com/en/practice/training-perspectives/designing-games-for-development/3v3-funino-developing-game-intelligence-and-decision-making.php" target="_blank" rel="noopener">FIFA Training Centre: 3v3 Funino</a> · <a href="https://trainingground.guru/articles/germany-revolutionises-foundation-age-formats" target="_blank" rel="noopener">Training Ground Guru: Germany's new foundation formats</a> · <a href="https://assets.dfb.de/uploads/000/236/239/original_Booklet_-_Spielformen_im_Kinderfu%C3%9Fball.pdf?1616499665" target="_blank" rel="noopener">DFB booklet: game forms in children's football (German)</a></p>
+    </div>
+
+    <!-- 3 · SCANNING -->
+    <div class="card fnd-card" id="scanning">
+      <div class="fnd-head"><span class="fnd-n">3</span><div><h4>Foundation 3 · A habit we measure</h4><h3>Scanning: look before you receive</h3></div></div>
+      <ul>
+        <li><span class="lbl res">Research</span> Norwegian researcher <b>Geir Jordet</b> studied Premier League midfielders and forwards (2013, 118 players, 1,279 game situations). Players who scanned more completed more passes.</li>
+        <li><span class="lbl res">Research</span> Top scanners looked around about <b>0.6 times per second</b> before receiving (Lampard 0.62, Gerrard 0.61).</li>
+        <li><span class="lbl res">Research</span> A later study (2020) found scanning has a <b>small but positive</b> effect on performance. It helps; it is not magic.</li>
+        <li><span class="lbl gen">Football principle</span> A <b>scan</b> is a quick head movement to look away from the ball, to see team-mates, opponents and space. It happens <i>before</i> the ball arrives.</li>
+      </ul>
+      <div class="sc-grid">
+        <div class="sc-box">
+          <h4>Practise counting scans</h4>
+          <p class="wc">Watch the player marked YOU. Count each time the head turns away from the ball before it arrives.</p>
+          <svg id="scSvg" viewBox="0 0 300 180" role="img" aria-label="Animated player scanning before receiving"></svg>
+          <div class="row"><button class="btn" type="button" id="scNew">New example</button><button class="btn primary" type="button" id="scShow">Show answer</button></div>
+          <p id="scAns" class="wc" aria-live="polite"></p>
+        </div>
+        <div class="sc-box">
+          <h4>Scan rate calculator</h4>
+          <form class="form" onsubmit="return false" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">
+            <label for="scN">Scans counted<input id="scN" type="number" min="0" max="20" value="2"></label>
+            <label for="scS">Seconds before receiving<input id="scS" type="number" min="1" max="15" value="4"></label>
+          </form>
+          <div id="scRate" style="display:flex;flex-direction:column;gap:6px"></div>
+        </div>
+      </div>
+      <h4 style="margin-top:6px">Field test · week 1 vs week 4 <span class="lbl our">Our design</span></h4>
+      <p class="wc">Pick one player. In a game, count their scans in the 4 seconds before 10 receptions. Do it again after 4 weeks of scanning drills. Saved in this browser.</p>
+      <div class="vs-wrap"><table class="vs ft" id="ftTable"></table></div>
+      <p id="ftOut" style="font-weight:700"></p>
+      <div class="links"><a href="#drill-rondo">Train it: Scan &amp; Strike Rondo →</a><a href="#drill-halfturn">Half-Turn Highway →</a><a href="#drill-pocket">Pocket Hunter →</a><a href="#bodyshape">How to stand when you scan (Level 1) →</a></div>
+      <p class="src">Sources: <a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2020.553813/text" target="_blank" rel="noopener">Jordet et al. 2020, Frontiers in Psychology</a> · <a href="https://www.skysports.com/football/news/11096/11119387/what-gave-xavi-hernandez-and-andrea-pirlo-an-edge-on-the-rest-the-secret-to-his-vision" target="_blank" rel="noopener">Sky Sports: Jordet on scanning (Lampard, Gerrard figures)</a> · <a href="https://www.skysports.com/football/news/12341305/kevin-de-bruyne-is-a-master-at-scanning-geir-jordet-on-the-science-behind-the-importance-of-vision-and-perception-in-football" target="_blank" rel="noopener">Sky Sports: Jordet on De Bruyne</a></p>
+    </div>
+  </div>
+
+  <div class="sec-head"><span class="eyebrow">Our influences</span><h2 style="font-size:clamp(26px,4vw,36px)">Where our drills come from</h2></div>
   <div class="method-grid">
     <div class="card">
       <h4>Influence 1 · Coerver Coaching</h4>
       <h3>The player development pyramid</h3>
-      <p>Skills are built from the bottom up. Tap a level to see how Pitchcraft trains it.</p>
+      <p><span class="lbl res">School's own model</span> The six-level pyramid is Coerver Coaching's player development model. <span class="lbl our">Our design</span> The drills linked to each level are ours. Tap a level.</p>
       <div class="pyr" id="pyr"></div>
       <div class="pyr-info" id="pyrInfo"></div>
     </div>
     <div class="card">
       <h4>Influence 2 · Ekkono Method</h4>
       <h3>Game intelligence first</h3>
-      <p>Technique always serves a decision. Players learn to perceive, decide and then execute, in situations that look like the real game.</p>
+      <p><span class="lbl res">School's idea</span> Ekkono teaches football intelligence through real game situations, with the coach guiding by questions. <span class="lbl gen">Football principle</span> Perceive → decide → execute and the types of superiority below are shared by many modern schools, not only Ekkono.</p>
       <div class="prin">
         <div><b>Perceive</b><span>Scan before the ball arrives: teammates, opponents, space.</span></div>
         <div><b>Decide</b><span>Pass, dribble, shoot, hold. The coach asks questions instead of giving answers.</span></div>
@@ -2076,6 +2203,25 @@ const DRILLS=[
   {d:.9,cap:"Reset: ball back to the server.",b:"c",m:{a1:[22,13],b1:[38,24],g:[34,6]}},
   {d:1.5,cap:"Ball over the top! The keeper reads it early and sweeps outside the box.",b:"g",m:{g:[31,19],b2:[34,23]}}
  ]},
+{id:"funino",name:"Funino 3v3",pos:["all","att","mid"],theme:"Game intelligence",n:"6 (3 v 3) per pitch",area:"32 × 25 m",time:"20–30 min",age:"U6 – U12",
+ coerver:"Ball mastery and 1v1 moves happen naturally: few players, many touches.",ekkono:"Perception-decision: two goals to attack means a real choice every attack.",
+ fab:"Switching the play and finding the free side, learned by playing.",
+ fixes:["scan","movement","att1v1","talk"],
+ fun:"It's a real match every minute. Goal = 1. Goal after switching to the other goal = 2. Rotate one player every 3 minutes so nobody waits long.",
+ setup:"3 v 3, no goalkeepers. Two mini-goals on each end line, far apart. A shooting zone about 6 m from each end line (shorter for the youngest). Based on Horst Wein's Funino.",
+ how:["Each team attacks the two goals on the opposite end line.","Goals only count when the shot is taken inside the shooting zone.","Restart with a dribble-in from your own end line after a goal or when the ball goes out.","Every 3 minutes one player per team swaps out and does 20 ball-mastery touches."],
+ points:["Look up: which goal is less defended?","Make the pitch big: one wide, one deep, one supporting","Defenders: protect the goal nearest the ball, then shift together","Celebrate the decision, not only the goal"],
+ prog:["Easier: 3 v 2, or bigger goals","Harder: 2 touches max in the shooting zone","Harder: a goal counts only after all 3 players touched the ball"],
+ view:{w:32,h:25},marks:[{t:"zone",x:26,y:0,w:6,h:25,lab:"ZONE"},{t:"zone",x:0,y:0,w:6,h:25},{t:"line",x1:6,y1:0,x2:6,y2:25},{t:"line",x1:26,y1:0,x2:26,y2:25},{t:"goal",x:32,y:4,w:3,v:"right"},{t:"goal",x:32,y:21,w:3,v:"right"},{t:"goal",x:-.9,y:4,w:3,v:"right"},{t:"goal",x:-.9,y:21,w:3,v:"right"}],
+ cast:[{id:"a1",t:"a",l:"",x:8,y:8},{id:"a2",t:"a",l:"",x:12,y:17},{id:"a3",t:"a",l:"",x:15,y:12},{id:"b1",t:"b",l:"",x:22,y:8},{id:"b2",t:"b",l:"",x:24,y:17},{id:"b3",t:"b",l:"",x:20,y:13}],ball:"a1",focus:["a1","a2","a3"],
+ frames:[
+  {d:1.2,cap:"Red attacks the two goals on the right. Blue shifts to protect the top goal, where the ball is.",m:{a1:[11,7],b1:[24,6],b2:[25,11],b3:[20,9]}},
+  {d:1,cap:"Look up: the top goal is blocked, so the bottom goal is open.",b:"a3",m:{a3:[16,12],b3:[19,11]}},
+  {d:1.2,cap:"Switch the play to the open side.",b:"a2",m:{a2:[21,19],b2:[25,14]}},
+  {d:1,cap:"Dribble into the shooting zone. Goals only count from inside it.",m:{a2:[27.5,20],b2:[27,16.5]}},
+  {d:.8,cap:"Goal! Nobody said 'switch it'. The two goals taught them to look for the free side.",b:[32.8,21]}
+ ]}
+,
 {id:"invbox",name:"Inverted Fullback Box",pos:["def","mid"],theme:"Build-up",n:"GK + 6 v 3",area:"Half pitch",time:"15 min",age:"U12 – Adult",
  coerver:"Receiving & passing: the inverted fullback receives on the half-turn in traffic.",ekkono:"Positional superiority: a 3-2 box creates free players between the pressers.",
  fab:"Inside to go outside: the fullback steps into midfield so the build-up has an extra central player, then the ball is switched to the free winger.",
@@ -2898,7 +3044,7 @@ const PURPOSE=[
  {id:"game",name:"Game-realistic / tactical (shape, transitions)",m2:180,ratio:1.5,ex:"8v8 to big goals"}
 ];
 const AGE=[{id:"y",name:"U6 – U9",f:.5},{id:"m",name:"U10 – U13",f:.75},{id:"o",name:"U14 – Adult",f:1}];
-const SCALE={mirror:{type:"area",base:12},rondo:{type:"station",base:6},gate:{type:"station",base:3},traffic:{type:"area",base:10},jockey:{type:"station",base:2},halfturn:{type:"station",base:4},thirdman:{type:"station",base:4},zones:{type:"area",base:10},twovone:{type:"station",base:3},pocket:{type:"station",base:7},hunt:{type:"area",base:8}};
+const SCALE={mirror:{type:"area",base:12},rondo:{type:"station",base:6},gate:{type:"station",base:3},traffic:{type:"area",base:10},jockey:{type:"station",base:2},halfturn:{type:"station",base:4},thirdman:{type:"station",base:4},zones:{type:"area",base:10},twovone:{type:"station",base:3},pocket:{type:"station",base:7},hunt:{type:"area",base:8},funino:{type:"station",base:6}};
 const dimsOf=d=>{const m=String(d.area).match(/(\d+)\s*×\s*(\d+)\s*m/);return m?[+m[1],+m[2]]:/half pitch/i.test(d.area)?[52.5,68]:null};
 const fmt=x=>(Math.round(x*2)/2).toString();
 
@@ -3328,5 +3474,135 @@ function tick(now){const dt=Math.min(64,now-(S.last||now));S.last=now;
   requestAnimationFrame(tick);}
 if('IntersectionObserver' in window) new IntersectionObserver(es=>es.forEach(e=>S.visible=e.isIntersecting),{threshold:.2}).observe(root); else S.visible=true;
 build(); requestAnimationFrame(tick);
+})();
+</script>
+<script>
+/* ---------- Foundations: constraint lab, scanning trainer, field test ---------- */
+(function(){
+const $=id=>document.getElementById(id);
+if(!$('foundations')) return;
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+const store={get(k,d){try{const v=localStorage.getItem('fnd:'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('fnd:'+k,JSON.stringify(v))}catch(e){}}};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* 1 · Constraint lab. Every entry: change, what you should see, instead of saying, ask. */
+const LEVERS=[['S','Space'],['T','Task (rules)'],['E','Equipment'],['P','People']];
+const LAB=[
+ {p:'They never switch the play',drill:'funino',
+  S:['Make the pitch 10 m wider, same length.','Players start using the far side because it is now too far to defend.','"Switch it!"','"Which side had more space?"'],
+  T:['A goal only counts if the ball has been on both halves of the pitch (left and right) in that attack.','Players look for the far side before shooting.','"Use the whole pitch."','"How did you make the defenders move?"'],
+  E:['Play with two goals on each end line (Funino).','When one goal is blocked, players attack the other one.','"Go the other way."','"Which goal was open, and why?"'],
+  P:['Add a neutral player on each side line who always plays for the team with the ball.','Players find the wide free player to change the point of attack.','"Pass wide!"','"Who was free?"']},
+ {p:'They don\'t look before receiving (no scanning)',drill:'rondo',
+  S:['Make the area smaller, so pressure arrives faster.','Players who don\'t scan lose the ball, so they start checking.','"Look around!"','"Where was the defender before you got it?"'],
+  T:['Before each reception the coach shows a colour card. The receiver must call it out: correct call = 1 point.','Heads turn before the ball arrives.','"Check your shoulder."','"What did you see behind you?"'],
+  E:['Put coloured gates behind the receiver. The coach calls a colour as the pass is made; the receiver must turn out through that gate.','Players look behind before the ball arrives so they can turn the right way.','"Turn!"','"Which way was free?"'],
+  P:['A defender enters from behind the receiver on the coach\'s signal.','Receivers learn the pressure can come from anywhere, so they scan.','"Man on!"','"How did you know he was coming?"']},
+ {p:'They always play backwards or sideways',drill:'pocket',
+  S:['Make the pitch longer and narrower.','More forward options appear; players look for them.','"Play forward!"','"Was there a forward pass on?"'],
+  T:['A pass that breaks a line of defenders = 2 points. Max 2 backward passes in a row.','Players search for passes between and past defenders.','"Be brave."','"Which pass beat the most defenders?"'],
+  E:['Put two target gates between the opponent\'s lines.','Players learn where the "pockets" are.','"Find the gap."','"Where could a team-mate receive between their lines?"'],
+  P:['Add a target player in the end zone who is always free.','Players look up and forward first.','"Look up!"','"Who could you see when you received?"']},
+ {p:'Slow reaction after losing the ball',drill:'hunt',
+  S:['Make the pitch smaller, so the ball is always close.','The nearest players can reach the ball in 1–2 seconds.','"React!"','"How many seconds did it take to win it back?"'],
+  T:['Win the ball back within 5 seconds = 2 points. The coach counts out loud.','Players attack the ball immediately after losing it.','"Press!"','"Who pressed first, and who closed the passing lanes?"'],
+  E:['Mini-goals on the sides: after winning the ball, the team that won it can score in them immediately.','Both teams learn the danger right after a turnover.','"Don\'t switch off."','"When is the opponent most disorganised?"'],
+  P:['The team that just lost the ball gets a joker for 5 seconds.','Losing the ball becomes a chance, not a disaster.','"Get it back!"','"What did the joker help you do?"']},
+ {p:'Afraid to take players on 1 v 1',drill:'gate',
+  S:['More space per player: wide channels with one defender each.','There is room to try a move and accelerate away.','"Dribble!"','"Where was the space behind the defender?"'],
+  T:['Beating a player = 1 point, even if the attack fails after.','Players try moves without fear of losing the ball.','"Don\'t lose it."','"What made the defender move the wrong way?"'],
+  E:['Replace goals with three dribble gates.','Players read which gate the defender leaves open.','"Go left."','"Which gate did the defender leave open?"'],
+  P:['Play 2 v 1 and 1 v 1 in turn.','Players learn when to dribble and when to pass.','"Take him on!"','"When was it better to dribble than to pass?"']},
+ {p:'One-footed players',drill:'mirror',
+  S:['Put the goal or target on the player\'s weak-foot side.','The weak foot becomes the natural choice.','"Use your left!"','"Which foot made it easier?"'],
+  T:['Goals and passes with the weak foot count double.','Players choose the weak foot more often.','"Weak foot only!"','"How did you set up your weaker foot?"'],
+  E:['Gates placed only on the weak-foot side in ball-mastery games.','Thousands of weak-foot touches without a lecture.','"Stop using your right."','"Can you do the same move with both feet?"'],
+  P:['A partner feeds the ball only to the weak foot.','Players get used to receiving on their weaker side.','"Control it with your left."','"Which first touch worked best?"']}
+];
+let clP=0,clL='T';
+const probSel=$('clProb'),levBox=$('clLever'),out=$('clOut');
+LAB.forEach((x,i)=>{const o=document.createElement('option');o.value=i;o.textContent=x.p;probSel.appendChild(o)});
+LEVERS.forEach(([k,n])=>{const b=document.createElement('button');b.type='button';b.textContent=k+' · '+n;b.dataset.k=k;b.onclick=()=>{clL=k;renderLab()};levBox.appendChild(b)});
+probSel.onchange=()=>{clP=+probSel.value;renderLab()};
+function renderLab(){
+  const x=LAB[clP],r=x[clL];
+  [...levBox.children].forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===clL));
+  out.innerHTML='';
+  const rows=[['Change this',r[0]],['What you should see',r[1]],['Instead of saying',r[2]],['Ask this question',r[3]]];
+  rows.forEach(([h,t],i)=>{const d=document.createElement('div');d.className='cl-row'+(i===2?' no':i===3?' ask':'');const b=document.createElement('b');b.textContent=h;const p=document.createElement('span');p.textContent=t;d.appendChild(b);d.appendChild(p);out.appendChild(d)});
+  const lk=document.createElement('a');lk.href='#drill-'+x.drill;lk.textContent='See a drill that uses this →';lk.className='xlink';out.appendChild(lk);
+  const lb=document.createElement('p');lb.className='wc';lb.innerHTML='<span class="lbl our">Our design</span> Built on the research principles above. Test it with your team and keep what works.';out.appendChild(lb);
+}
+renderLab();
+
+/* 3 · Scanning trainer (top view): head turns N times while the ball travels */
+const svg=$('scSvg'); let scN=2, scT=0, scLast=0, ansShown=false;
+const DUR=4200;
+function newEx(){scN=1+Math.floor(Math.random()*4);scT=0;ansShown=false;$('scAns').textContent='Count the head turns. Then press "Show answer".';}
+function drawSc(t){
+  svg.innerHTML='';
+  el('rect',{x:0,y:0,width:300,height:180,fill:'var(--pitch)'},svg);
+  for(let i=0;i<6;i+=2)el('rect',{x:i*50,y:0,width:50,height:180,fill:'rgba(255,255,255,.05)'},svg);
+  const p=Math.min(1,t/DUR);
+  // passer, receiver, defender
+  const P=[40,90],Y=[175,92],D=[232,60];
+  const person=(x,y,face,col,ink,lab,look)=>{const f=face*Math.PI/180,sx=-Math.sin(f),sy=Math.cos(f);
+    if(look!=null){const l=look*Math.PI/180,w=.38,len=70;el('path',{d:`M${x} ${y} L${x+Math.cos(l-w)*len} ${y+Math.sin(l-w)*len} L${x+Math.cos(l+w)*len} ${y+Math.sin(l+w)*len} Z`,fill:'rgba(255,214,90,.3)',stroke:'rgba(255,214,90,.7)'},svg);}
+    [1,-1].forEach(s=>el('ellipse',{cx:x+sx*14*s,cy:y+sy*14*s,rx:6,ry:3.8,fill:col,stroke:ink,transform:`rotate(${face} ${x+sx*14*s} ${y+sy*14*s})`},svg));
+    el('ellipse',{cx:x,cy:y,rx:8,ry:14.5,fill:col,stroke:ink,'stroke-width':1.2,transform:`rotate(${face} ${x} ${y})`},svg);
+    const hl=(look!=null?look:face)*Math.PI/180;
+    el('circle',{cx:x,cy:y,r:6.5,fill:'#2a1d14'},svg);
+    el('path',{d:`M${x+Math.cos(hl)*9.5} ${y+Math.sin(hl)*9.5} L${x+Math.cos(hl+.5)*5.5} ${y+Math.sin(hl+.5)*5.5} L${x+Math.cos(hl-.5)*5.5} ${y+Math.sin(hl-.5)*5.5} Z`,fill:'#B9805A'},svg);
+    const w=lab.length*6.2+10;el('rect',{x:x-w/2,y:y-34,width:w,height:14,rx:7,fill:'rgba(0,0,0,.55)'},svg);
+    const tx=el('text',{x,y:y-24,'text-anchor':'middle','font-size':9,'font-weight':700,fill:'#fff','font-family':'JetBrains Mono, monospace'},svg);tx.textContent=lab;};
+  person(P[0],P[1],0,'#C8102E','#fff','MATE');
+  person(D[0],D[1],200,'#F4F1E8','#1C2A44','OPP');
+  // receiver look: default towards ball (180); scans are short turns to ~-20° (behind) spread over the first 80% of the time
+  let look=180;
+  if(p<.85){const seg=.85/scN, k=Math.floor(p/seg), local=(p-k*seg)/seg; if(local>.35&&local<.75) look=-25+((k%2)?40:0);}
+  person(Y[0],Y[1],180,'#C8102E','#fff','YOU',look);
+  // ball: waits at passer for 1.6 s, then travels
+  const bp=Math.max(0,(p-.55)/.45);
+  const bx=P[0]+12+(Y[0]-12-(P[0]+12))*bp, by=P[1]+(Y[1]-P[1])*bp;
+  el('circle',{cx:bx,cy:by,r:5,fill:'#fff',stroke:'#111','stroke-width':1.4},svg);
+  const tx=el('text',{x:8,y:172,'font-size':10,fill:'rgba(255,255,255,.85)','font-family':'JetBrains Mono, monospace'},svg);tx.textContent=p<1?`${(p*DUR/1000).toFixed(1)} s`:'Ball arrived';
+}
+function tick(now){const dt=Math.min(64,now-(scLast||now));scLast=now;
+  if(svg.isConnected&&svg.getBoundingClientRect().width>0){ if(!reduce){scT+=dt; if(scT>DUR+1800)scT=0;} else scT=DUR; drawSc(scT);} requestAnimationFrame(tick);}
+$('scNew').onclick=()=>newEx();
+$('scShow').onclick=()=>{const rate=(scN/(DUR/1000)).toFixed(2);$('scAns').textContent=`${scN} scan${scN>1?'s':''} in ${(DUR/1000).toFixed(1)} seconds = ${rate} scans per second.`;};
+newEx(); requestAnimationFrame(tick);
+
+/* calculator */
+function calc(){const n=Math.max(0,+$('scN').value||0),s=Math.max(1,+$('scS').value||1),r=n/s;
+  const box=$('scRate');box.innerHTML='';
+  const big=document.createElement('div');big.className='spbig';big.innerHTML=`<span>${r.toFixed(2)}</span><small>scans per second</small>`;box.appendChild(big);
+  const bar=document.createElement('div');bar.className='sc-bar';const fill=document.createElement('i');fill.style.width=Math.min(100,r/0.8*100)+'%';bar.appendChild(fill);const mk=document.createElement('b');mk.style.left=(0.6/0.8*100)+'%';mk.title='0.6 per second';bar.appendChild(mk);box.appendChild(bar);
+  const p=document.createElement('p');p.className='wc';
+  p.textContent=r>=0.6?'At the level of the best scanners in Jordet\'s Premier League study (about 0.6 per second).':r>=0.3?'A good habit is forming. Aim to raise this number over the next 4 weeks.':'Scanning rarely. Start with the colour-card rule in the rondo.';
+  box.appendChild(p);
+  const n2=document.createElement('p');n2.className='wc';n2.textContent='The 0.6 mark comes from elite professional midfielders. Young players start lower: compare a player with their own earlier number, not with Lampard.';box.appendChild(n2);
+}
+['scN','scS'].forEach(id=>$(id).addEventListener('input',calc));calc();
+
+/* field test: 10 receptions, week 1 vs week 4 */
+const ft=store.get('ft',{w1:Array(10).fill(''),w4:Array(10).fill('')});
+const tbl=$('ftTable');
+function buildFt(){
+  tbl.innerHTML='';
+  const thead=document.createElement('thead');const hr=document.createElement('tr');
+  ['','1','2','3','4','5','6','7','8','9','10','Average'].forEach(h=>{const th=document.createElement('th');th.textContent=h;hr.appendChild(th)});thead.appendChild(hr);tbl.appendChild(thead);
+  const tb=document.createElement('tbody');
+  [['w1','Week 1'],['w4','Week 4']].forEach(([k,n])=>{const tr=document.createElement('tr');const th=document.createElement('th');th.textContent=n;tr.appendChild(th);
+    for(let i=0;i<10;i++){const td=document.createElement('td');const inp=document.createElement('input');inp.type='number';inp.min=0;inp.max=9;inp.id='ft-'+k+'-'+i;inp.setAttribute('aria-label',n+', reception '+(i+1));inp.value=ft[k][i];inp.oninput=()=>{ft[k][i]=inp.value;store.set('ft',ft);avg()};td.appendChild(inp);tr.appendChild(td)}
+    const td=document.createElement('td');td.id='ftAvg-'+k;td.style.fontWeight='700';tr.appendChild(td);tb.appendChild(tr)});
+  tbl.appendChild(tb);avg();
+}
+function mean(a){const v=a.filter(x=>x!==''&&!isNaN(+x)).map(Number);return v.length?v.reduce((s,x)=>s+x,0)/v.length:null}
+function avg(){const a=mean(ft.w1),b=mean(ft.w4);
+  $('ftAvg-w1').textContent=a==null?'–':a.toFixed(1);$('ftAvg-w4').textContent=b==null?'–':b.toFixed(1);
+  $('ftOut').textContent=a!=null&&b!=null?(b>a?`Improved: ${a.toFixed(1)} → ${b.toFixed(1)} scans per reception (+${Math.round((b-a)/Math.max(a,.1)*100)}%).`:`No improvement yet (${a.toFixed(1)} → ${b.toFixed(1)}). Use more scanning constraints in training.`):'Fill in both weeks to see the change.';}
+buildFt();
 })();
 </script>

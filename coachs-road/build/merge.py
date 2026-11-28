@@ -3,6 +3,9 @@ S='/tmp/claude-0/-home-user-Clausde/2d228f61-562f-5a74-9a4c-5c84ecfb8309/scratch
 CR=open('/root/.claude/projects/-home-user-Clausde/2d228f61-562f-5a74-9a4c-5c84ecfb8309/tool-results/artifact-75d8671a-1795872088-378b.html').read()
 PC=open('/home/user/Clausde/pitchcraft/index.html').read()
 BS=open(S+'bs2.js').read()
+FHTML=open(S+'found.html').read()
+FJS=open(S+'found.js').read()
+FUN=open(S+'funino.js').read()
 
 def one(h,a,b,cnt=1):
     assert h.count(a)==cnt,(a[:70],h.count(a)); return h.replace(a,b)
@@ -160,6 +163,38 @@ a{color:var(--red)}
 @media (max-width:960px){.lib,.fix,.method-grid,.space{grid-template-columns:minmax(0,1fr)}}
 .fun b,.card b{overflow-wrap:anywhere}
 
+
+/* Foundations */
+.fnd{display:flex;flex-direction:column;gap:18px}
+.lbl-key{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:.85rem;color:var(--muted)}
+.lbl{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:5px;padding:2px 6px;margin-right:4px;vertical-align:1px;white-space:nowrap}
+.lbl.res{background:var(--green-soft);color:var(--green)}.lbl.gen{background:var(--blue-soft,#E3EAFB);color:var(--blue,#1D4ED8)}.lbl.our{background:var(--gold-soft);color:#7A5600}
+:root[data-theme="dark"] .lbl.our{color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbl.our{color:var(--gold)}}
+.fnd-card{gap:12px}
+.fnd-head{display:flex;gap:14px;align-items:center}
+.fnd-n{font-family:var(--display);font-weight:800;font-size:3rem;line-height:.8;color:var(--red)}
+.fnd-card ul{display:flex;flex-direction:column;gap:8px}
+.src{font-size:.82rem;color:var(--muted);border-top:1px dashed var(--rule);padding-top:8px}
+.cl-grid{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:14px;align-items:start}
+.cl-ctrl{display:flex;flex-direction:column;gap:8px}
+.cl-ctrl select{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);width:100%;min-width:0}
+.cl-out{display:grid;gap:8px}
+.cl-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;background:var(--paper);border-radius:10px;padding:10px 12px}
+.cl-row b{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.cl-row.no{background:var(--red-soft)}.cl-row.no span{text-decoration:line-through;text-decoration-color:var(--red)}
+.cl-row.ask{background:var(--green-soft)}.cl-row.ask span{font-weight:700}
+.fn-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:start}
+.fn-table table{width:100%}
+.sc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.sc-box{background:var(--paper);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.sc-box svg{width:100%;height:auto;border-radius:10px;display:block}
+.sc-bar{position:relative;height:12px;border-radius:6px;background:var(--rule);overflow:visible}
+.sc-bar i{display:block;height:100%;border-radius:6px;background:var(--red)}
+.sc-bar b{position:absolute;top:-4px;width:2px;height:20px;background:var(--ink)}
+table.ft{min-width:620px}.ft input{width:44px;font:inherit;padding:4px;border:1px solid var(--rule);border-radius:6px;background:var(--panel);color:var(--ink);text-align:center}
+.ft td,.ft th{padding:6px 6px!important;text-align:center!important}
+@media (max-width:760px){.cl-grid,.fn-grid,.sc-grid{grid-template-columns:minmax(0,1fr)}.cl-row{grid-template-columns:minmax(0,1fr)}}
 /* Body shape in the 4 moments */
 .bshape{margin-top:44px;display:grid;gap:14px}
 .bs-tabs{display:flex;gap:6px;flex-wrap:wrap}
@@ -282,8 +317,19 @@ assert nsub==1,nsub
 x=x.replace('href="#measure"','href="#space"')
 x=one(x,'<p style="margin-top:10px"><a href="#space" class="mlink">Size these drills for your players →</a></p>','<p style="margin-top:10px"><a href="#space" class="mlink">Size these drills for your players →</a> · <a href="#drill-hunt" class="mlink">Animated: Five-Second Hunt →</a> · <a href="#drill-zones" class="mlink">Animated: Three-Zone Overload →</a> · <a href="#drill-invbox" class="mlink">Animated: Inverted Fullback Box →</a></p>')
 s=s.replace('href="#measure"','href="#space"')
+
+# ---- Foundations (constraints-led, Funino, scanning) ----
+h=one(h,'  <div class="method-grid">',FHTML+'\n  <div class="sec-head"><span class="eyebrow">Our influences</span><h2 style="font-size:clamp(26px,4vw,36px)">Where our drills come from</h2></div>\n  <div class="method-grid">')
+j=one(j,"  {d:1.5,cap:\"Ball over the top! The keeper reads it early and sweeps outside the box.\",b:\"g\",m:{g:[31,19],b2:[34,23]}}\n ]}",
+      "  {d:1.5,cap:\"Ball over the top! The keeper reads it early and sweeps outside the box.\",b:\"g\",m:{g:[31,19],b2:[34,23]}}\n ]}"+FUN)
+j=one(j,'hunt:{type:"area",base:8}};','hunt:{type:"area",base:8},funino:{type:"station",base:6}};')
+x=x.replace('<small>21 animated drills</small>','<small>22 animated drills</small>')
+h=h.replace('21 animated drills','22 animated drills')
+
+h=one(h,'<p>Skills are built from the bottom up. Tap a level to see how Pitchcraft trains it.</p>','<p><span class="lbl res">School\'s own model</span> The six-level pyramid is Coerver Coaching\'s player development model. <span class="lbl our">Our design</span> The drills linked to each level are ours. Tap a level.</p>')
+h=one(h,'<p>Technique always serves a decision. Players learn to perceive, decide and then execute, in situations that look like the real game.</p>','<p><span class="lbl res">School\'s idea</span> Ekkono teaches football intelligence through real game situations, with the coach guiding by questions. <span class="lbl gen">Football principle</span> Perceive → decide → execute and the types of superiority below are shared by many modern schools, not only Ekkono.</p>')
 fonts=cr_head_links  # title + meta + CR fonts
-doc=fonts+c+'\n'+appbar+x+'\n'+h+'\n'+s+'\n<script>\n'+j+'</script>\n<script>\n'+BS+'</script>\n'
+doc=fonts+c+'\n'+appbar+x+'\n'+h+'\n'+s+'\n<script>\n'+j+'</script>\n<script>\n'+BS+'</script>\n<script>\n'+FJS+'</script>\n'
 doc=doc.replace("<title>The Coach's Road</title>","<title>The Coach's Road</title>")
 open('/home/user/Clausde/coachs-road/index.html','w').write(doc)
 print(len(doc))
