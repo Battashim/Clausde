@@ -159,6 +159,19 @@ table.vs{width:100%;border-collapse:collapse;min-width:620px;font-size:.95rem}
 .hats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .hat{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;font-size:.92rem}
 .hat b{display:block;font-family:var(--display);font-size:1.08rem;color:var(--red)}
+.mlink{color:var(--red);font-weight:700;white-space:nowrap}
+.tri{display:block;width:100%;max-width:340px;height:auto}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.calc-grid label{display:grid;gap:6px;font-weight:700;font-size:.9rem;min-width:0}
+.calc-grid select,.calc-grid input[type=number]{width:100%;min-width:0}
+.calc-grid input[type=number],.calc-grid select{font:inherit;font-weight:400;padding:8px 10px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+.calc-grid input[type=range]{accent-color:var(--red);width:100%}
+.calc-note{font-size:.88rem;color:var(--muted)}
+.calc-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.calc-out div{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:10px 12px}
+.calc-out b{display:block;font-family:var(--display);font-size:1.5rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.calc-out small{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.calc-out .wide{grid-column:1/-1;font-size:.95rem}
 .funrules{margin:0;padding-left:22px;display:grid;gap:6px}
 .inventor{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:16px;align-items:start}
 @media (max-width:700px){.inventor{grid-template-columns:minmax(0,1fr)}}
@@ -326,7 +339,7 @@ footer h2{font-size:2rem}
           <li><span class="cw">Coach word: third man</span><h4>A → B → C</h4><p>When A can't pass to C, A passes to B and B gives it first-time to C. Defenders watch the ball; the third man arrives free.</p></li>
           <li><span class="cw">Coach word: scanning & half-turn</span><h4>Look before you get it</h4><p>Check over your shoulder before the ball comes. Receive with your body open (side-on) so you can play forward with your first touch.</p></li>
         </ul>
-        <div class="drill"><h4>Try it this week: the rondo ladder</h4><p>Start 4 vs 1 in a 10×10 m square, 2 touches. 10 passes = 1 point. A pass between two defenders (split pass) = 2 points. When it's easy go to 5 vs 2, then 1 touch. Ask: "Where should you stand so the ball can always reach you?"</p></div>
+        <div class="drill"><h4>Try it this week: the rondo ladder</h4><p>Start 4 vs 1 in a 10×10 m square, 2 touches. 10 passes = 1 point. A pass between two defenders (split pass) = 2 points. When it's easy go to 5 vs 2, then 1 touch. Ask: "Where should you stand so the ball can always reach you?" <a href="#measure" class="mlink">How to measure it →</a></p></div>
         <div class="checks" data-level="2">
           <label><input type="checkbox" id="c2a" data-key="2a"> I can explain triangles, width and depth to a child</label>
           <label><input type="checkbox" id="c2b" data-key="2b"> I can name the 3 kinds of superiority</label>
@@ -353,7 +366,7 @@ footer h2{font-size:2rem}
           <li><span class="cw">Coach word: cover shadow</span><h4>Press with your back</h4><p>Run in a curve so your body hides the pass behind you. You press one player and block a second one at the same time.</p></li>
           <li><span class="cw">Coach word: block height</span><h4>High, middle or low</h4><p>Decide where your blanket lives: near their goal (high press), in the middle, or near your own box (low block). Modern teams can do all three.</p></li>
         </ul>
-        <div class="drill"><h4>Try it this week: 6 v 6 with a bonus</h4><p>Normal small game on a 40×30 m pitch. New rule: if you win the ball back within 5 seconds of losing it, that's a bonus point. Count the bonuses. Kids learn to react instead of complaining.</p></div>
+        <div class="drill"><h4>Try it this week: 6 v 6 with a bonus</h4><p>Normal small game on a 40×30 m pitch. New rule: if you win the ball back within 5 seconds of losing it, that's a bonus point. Count the bonuses. Kids learn to react instead of complaining. <a href="#measure" class="mlink">How to measure it →</a></p></div>
         <div class="checks" data-level="3">
           <label><input type="checkbox" id="c3a" data-key="3a"> I can explain compactness with the "rope" picture</label>
           <label><input type="checkbox" id="c3b" data-key="3b"> I can list 4 pressing triggers</label>
@@ -449,6 +462,59 @@ footer h2{font-size:2rem}
           <div class="week" id="week"></div>
         </div>
       </div>
+    </div>
+
+    <div id="measure" style="scroll-margin-top:70px">
+    <h3 class="section-title">Measure your space</h3>
+    <div class="cols" style="align-items:start">
+      <div class="text">
+        <div class="kid"><p class="eyebrow">Like you're 6</p>When a drill says "20 × 20 m", that's a square that is 20 metres long on every side. You don't need a tape measure. Your <b>feet</b> are your ruler. First you find out how long <b>your</b> step is, then you count steps and put a cone at every corner.</div>
+        <ul class="ideas">
+          <li><span class="cw">Step 1 · measure your step once</span><h4>Use the penalty box as your ruler</h4><p>Every full-size pitch has lines with known sizes. The penalty box goes <b>16.5 m</b> out from the goal line. Walk that line with normal steps and count. Type the number in the calculator, and it works out your step length. Most adults take about 22 steps, so each step is about 75 cm.</p></li>
+          <li><span class="cw">No pitch lines? Other rulers</span><h4>A tape, a rope, or a phone</h4><p>Measure 10 m once with a tape and count your steps along it. Or tie knots every 5 m in a cheap 30 m rope and carry it in your bag. Map apps on a phone can also measure a distance on a satellite view of your field.</p></li>
+          <li><span class="cw">Step 2 · walk it out</span><h4>Count, then put a cone down</h4><p>Walk the length and put a cone down. Turn, walk the width, and put another cone down. Repeat until you have 4 corners. For a big area, add a cone every 5 m along the sides so players can see the lines.</p></li>
+          <li><span class="cw">Step 3 · get square corners</span><h4>The 6-8-10 trick</h4><p>Walk 6 steps along one side and 8 steps along the other. If the corner is square, the straight line between those two points is exactly 10 steps. Too long or too short? Move one cone until it's 10.</p></li>
+          <li><span class="cw">Shortcut: rulers already on the pitch</span><h4>Sizes you can reuse without measuring</h4><p>Penalty box: 40 × 16.5 m. Goal area (6-yard box): 18 × 5.5 m. Centre circle: 18.3 m across, close to 20 m. Penalty spot: 11 m from the goal line. A full pitch is about 105 × 68 m, so half a pitch is about 52 × 68 m.</p></li>
+        </ul>
+        <svg viewBox="0 0 220 150" class="tri" role="img" aria-label="The 6-8-10 trick for a square corner">
+          <rect x="0" y="0" width="220" height="150" rx="12" fill="var(--panel)" stroke="var(--rule)"></rect>
+          <line x1="40" y1="120" x2="40" y2="30" stroke="var(--green)" stroke-width="4" stroke-linecap="round"></line>
+          <line x1="40" y1="120" x2="160" y2="120" stroke="var(--green)" stroke-width="4" stroke-linecap="round"></line>
+          <line x1="40" y1="30" x2="160" y2="120" stroke="var(--red)" stroke-width="3" stroke-dasharray="7 5"></line>
+          <rect x="40" y="108" width="12" height="12" fill="none" stroke="var(--ink)" stroke-width="1.5"></rect>
+          <path d="M33 22 l7 -12 l7 12 z M153 128 l7 -12 l7 12 z M33 128 l7 -12 l7 12 z" fill="#F08A24"></path>
+          <text x="14" y="80" fill="var(--ink)" font-size="13" font-family="var(--mono)" font-weight="700">6</text>
+          <text x="95" y="140" fill="var(--ink)" font-size="13" font-family="var(--mono)" font-weight="700">8 steps</text>
+          <text x="104" y="66" fill="var(--red)" font-size="13" font-family="var(--mono)" font-weight="700">10 = square!</text>
+        </svg>
+      </div>
+
+      <div class="board calc" style="gap:14px">
+        <p class="eyebrow">Space planner · players → pitch size</p>
+        <div class="calc-grid">
+          <label for="cStep">Your steps along the penalty box (16.5 m)<input type="number" id="cStep" min="10" max="40" value="22" inputmode="numeric"></label>
+          <label for="cType">What kind of drill?<select id="cType">
+            <option value="rondo">Rondo / keep-ball circle</option>
+            <option value="poss" selected>Possession game (no goals)</option>
+            <option value="ssg">Small game with goals (duels, pressing)</option>
+            <option value="big">Big game (like a real match)</option>
+          </select></label>
+          <label for="cAge">Age group<select id="cAge">
+            <option value=".6">Under 9</option><option value=".75">9 to 12</option><option value=".9" selected>13 to 16</option><option value="1">17 and adults</option>
+          </select></label>
+          <label for="cPlayers">Players on the field: <b id="cPlayersOut">12</b><input type="range" id="cPlayers" min="3" max="22" value="12"></label>
+        </div>
+        <p class="calc-note">Count everyone on the field, including jokers. <b>Don't</b> count goalkeepers.</p>
+        <div class="pitchbox" style="aspect-ratio:111/74"><svg id="cSvg" viewBox="-3 -3 111 74" role="img" aria-label="Drill area drawn to scale on a full pitch"></svg></div>
+        <div class="calc-out" id="cOut" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="levers" style="margin-top:18px">
+      <div class="lever"><span class="cw">The space rule</span><h4>Space for each player</h4><p class="kidline">Space for each player = length × width ÷ number of players. A 20 × 20 m square is 400 m². With 8 players, that's 50 m² each.</p></div>
+      <div class="lever"><span class="cw">Smaller space</span><h4>More pressure, more duels</h4><p class="kidline">Less time on the ball and quicker decisions. Good for rondos, counter-pressing and 1 v 1 courage.</p></div>
+      <div class="lever"><span class="cw">Bigger space</span><h4>More time, more running</h4><p class="kidline">Easier to keep the ball, and more long passes and sprints. Good for young kids, switching play and fitness.</p></div>
+      <div class="lever"><span class="cw">Real match</span><h4>About 340 m² each</h4><p class="kidline">105 × 68 m shared by 20 outfield players. Training games are much smaller so players get many more touches.</p></div>
+    </div>
     </div>
   </div>
 </section>
@@ -1032,6 +1098,40 @@ function showAge(k){ const A=AGES[k]; tree.style.transform=`scale(${A.s})`;
 AGES.forEach((A,k)=>{ const b=document.createElement('button'); b.className='age'; b.textContent='Age '+A.a; b.onclick=()=>showAge(k); agesBox.appendChild(b); });
 showAge(1);
 
+/* ---------- Space planner ---------- */
+(function(){
+  const PER={rondo:{a:20,r:1,n:'rondo'},poss:{a:70,r:1.3,n:'possession game'},ssg:{a:100,r:1.5,n:'small game with goals'},big:{a:170,r:1.5,n:'big game'}};
+  const cSvg=document.getElementById('cSvg'); drawPitch(cSvg);
+  const area=el('rect',{class:'zone',rx:.6},cSvg), dotsG=el('g',{},cSvg);
+  const $=id=>document.getElementById(id);
+  const r5=m=>m<16?Math.max(5,Math.round(m)):Math.round(m/5)*5;
+  function calc(){
+    const steps=Math.min(40,Math.max(10,+$('cStep').value||22)), stepM=16.5/steps;
+    const T=PER[$('cType').value], age=+$('cAge').value, n=+$('cPlayers').value;
+    $('cPlayersOut').textContent=n;
+    const A=n*T.a*age;
+    let W=r5(Math.sqrt(A/T.r)), L=r5(W*T.r);
+    L=Math.min(L,105); W=Math.min(W,68);
+    const each=Math.round(L*W/n);
+    const sL=Math.round(L/stepM), sW=Math.round(W/stepM);
+    const cmp=L*W<=120?'about the size of the goal area (6-yard box)':L*W<=300?'a bit smaller than the centre circle area':L*W<=700?'about the size of the penalty box':L*W<=1800?'about 2 penalty boxes':L*W<=3700?'about half a pitch':'most of a full pitch';
+    $('cOut').innerHTML=`<div><small>Pitch size</small><b>${L} × ${W} m</b></div>
+      <div><small>In your steps</small><b>${sL} × ${sW}</b></div>
+      <div><small>Space per player</small><b>${each} m²</b></div>
+      <div class="wide">Your step is about <b style="display:inline;font-size:1rem">${Math.round(stepM*100)} cm</b>. Walk <b style="display:inline;font-size:1rem">${sL} steps</b> for the length and <b style="display:inline;font-size:1rem">${sW} steps</b> for the width, and put a cone at each corner. That's ${cmp}. Want more pressure? Take away 2–3 steps on each side. Kids losing the ball too much? Add 2–3 steps.</div>`;
+    const x=(105-L)/2, y=(68-W)/2;
+    area.setAttribute('x',x); area.setAttribute('y',y); area.setAttribute('width',L); area.setAttribute('height',W);
+    dotsG.innerHTML='';
+    const cols=Math.ceil(Math.sqrt(n*L/W)), rows=Math.ceil(n/cols);
+    for(let i=0;i<n;i++){ const c=i%cols, r=Math.floor(i/cols);
+      el('circle',{cx:x+L*(c+.5)/cols,cy:y+W*(r+.5)/rows,r:Math.min(1.6,L/cols/3,W/rows/3),fill:i%2?'var(--them)':'var(--red)',stroke:'#fff','stroke-width':.2},dotsG); }
+    store.set('calc',JSON.stringify({s:$('cStep').value,t:$('cType').value,a:$('cAge').value,p:$('cPlayers').value}));
+  }
+  try{ const s=JSON.parse(store.get('calc')||'null'); if(s){ $('cStep').value=s.s; $('cType').value=s.t; $('cAge').value=s.a; $('cPlayers').value=s.p; } }catch(e){}
+  ['cStep','cType','cAge','cPlayers'].forEach(id=>$(id).addEventListener('input',calc));
+  calc();
+})();
+
 /* ---------- Level 8: library ---------- */
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const LIB=[
@@ -1069,7 +1169,7 @@ Object.keys(TEACH).forEach(t=>{ const o=document.createElement('option'); o.text
 function invent(){
   const t=invTeach.value, story=pick(TEACH[t]);
   invCard.innerHTML=`<p class="eyebrow">Your new game</p><h4>${esc(story)}</h4><dl>
-   <dt>Secret lesson</dt><dd>${esc(t)}</dd><dt>Where</dt><dd>Play it ${pick(SPACES)}.</dd><dt>Special rule</dt><dd>${cap1(pick(RULES))}.</dd>
+   <dt>Secret lesson</dt><dd>${esc(t)}</dd><dt>Where</dt><dd>Play it ${pick(SPACES)}. <a href="#measure" class="mlink">Size it for your players →</a></dd><dt>Special rule</dt><dd>${cap1(pick(RULES))}.</dd>
    <dt>Scoring</dt><dd>${cap1(pick(SCORES))}.</dd><dt>Challenge</dt><dd>${pick(LEVELS)}</dd>
    <dt>Ask them</dt><dd>"What helped you win points?" Then let one player add a new rule.</dd></dl>`;
 }
