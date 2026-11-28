@@ -178,7 +178,7 @@ main{padding-block:28px 64px}
 .dfacts div{background:var(--surface-2);border-radius:8px;padding:8px 10px;min-width:0}
 .dfacts small{display:block;font-family:var(--font-mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .dfacts b{font-size:15px}
-.roots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.roots{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
 .roots div{border:1px dashed var(--line);border-radius:8px;padding:8px 10px;font-size:14px;min-width:0}
 .roots small{display:block;font-family:var(--font-mono);font-size:11px;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.08em}
 .dcols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -331,7 +331,7 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
     <div class="hero-copy">
       <span class="eyebrow">D License → Pro · Ball mastery × game intelligence</span>
       <h1>Coach the <em>player</em>. Then the <em>team</em>. Then the club.</h1>
-      <p class="lede">Pitchcraft is our own training method. It mixes Coerver-style ball mastery (lots of touches, 1v1 courage) with Ekkono-style game intelligence (every rep has a decision). Every drill is animated, scored like a game, and tagged for defenders, midfielders, attackers and keepers.</p>
+      <p class="lede">Pitchcraft is our own training method. It mixes Coerver-style ball mastery (lots of touches, 1v1 courage) with Ekkono-style game intelligence (every rep has a decision) and Fàbregas-style brave possession. Every drill is animated, scored like a game, and tagged for defenders, midfielders, attackers and keepers.</p>
       <div class="cta-row">
         <a class="btn primary" href="#drills">Open the drill library</a>
         <a class="btn" href="#license">See the license path</a>
@@ -343,7 +343,7 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
     <a href="#exam"><span class="k">Your assessor</span><b>Exam room</b><span>Get tested at each level, learn why each answer is right or wrong, and unlock the next level at 100%.</span></a>
     <a href="#license"><span class="k">D · C · B · A · Pro</span><b>License path</b><span>What each course assesses, what to study, and a checklist to track your progress.</span></a>
     <a href="#method"><span class="k">Coerver + Ekkono</span><b>The method</b><span>The ideas we borrowed, and the 4 Pitchcraft rules every drill follows.</span></a>
-    <a href="#drills"><span class="k">17 animated drills</span><b>Drill library</b><span>Filter by position or skill. Press play to watch every movement.</span></a>
+    <a href="#drills"><span class="k">21 animated drills</span><b>Drill library</b><span>Filter by position or skill. Press play to watch every movement.</span></a>
     <a href="#session"><span class="k">Play–Practice–Play</span><b>Session builder</b><span>Pick a position and a problem. Get a full session in seconds.</span></a>
   </div>
 </section>
@@ -420,7 +420,7 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
   <div class="sec-head">
     <span class="eyebrow">What we borrowed, what we built</span>
     <h2>The Pitchcraft method</h2>
-    <p class="lede">Coerver gives players the ball skills. Ekkono teaches them when and why to use those skills. Pitchcraft puts both into every drill and makes it competitive, so players enjoy it and keep coming back.</p>
+    <p class="lede">Coerver gives players the ball skills. Ekkono teaches them when and why to use those skills. Fàbregas gives the team a brave, possession-first style. Pitchcraft puts both into every drill and makes it competitive, so players enjoy it and keep coming back.</p>
   </div>
   <div class="method-grid">
     <div class="card">
@@ -443,6 +443,20 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
         <div><b>Phases</b><span>Attack, defend and both transitions are coached as one game.</span></div>
       </div>
     </div>
+  </div>
+  <div class="card">
+    <h4>Influence 3 · Cesc Fàbregas</h4>
+    <h3>Brave possession, played between the lines</h3>
+    <p>As a player, Fàbregas was a playmaker for Arsenal, Barcelona and Chelsea, known for scanning and the final pass. As a coach (head coach of Como since 2024) his teams are known for building from the keeper, controlling the ball, and winning it back fast. We took six ideas from that style.</p>
+    <div class="prin">
+      <div><b>Brave build-up</b><span>The keeper and centre-backs play through the press. Long balls are a choice, not an escape.</span></div>
+      <div><b>Inside to go outside</b><span>Fullbacks step into midfield to create a box, which frees the winger.</span></div>
+      <div><b>Live in the pocket</b><span>8s and 10s receive between the opponent's lines, half-turned, facing goal.</span></div>
+      <div><b>Scan like a playmaker</b><span>Look before the ball arrives so the next pass is already decided.</span></div>
+      <div><b>5-second hunt</b><span>Lose it, win it back immediately, before the opponent can counter.</span></div>
+      <div><b>Trust young players</b><span>Technical, brave young players get minutes and responsibility.</span></div>
+    </div>
+    <div class="links"><a href="#drill-invbox">Inverted Fullback Box</a><a href="#drill-pocket">Pocket Hunter</a><a href="#drill-hunt">Five-Second Hunt</a><a href="#drill-killer">Killer Pass Lab</a></div>
   </div>
   <div class="sec-head"><span class="eyebrow">Our creation</span><h2 style="font-size:clamp(26px,4vw,36px)">4 Pitchcraft rules</h2></div>
   <div class="fusion">
@@ -515,7 +529,7 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
 </section>
 
 </main>
-<footer><div class="wrap">Pitchcraft Coaching Lab · original drills inspired by the principles of Coerver Coaching and the Ekkono Method. Not affiliated with US Soccer, UEFA, Coerver Coaching or Ekkono.</div></footer>
+<footer><div class="wrap">Pitchcraft Coaching Lab · original drills inspired by the principles of Coerver Coaching, the Ekkono Method and the coaching ideas of Cesc Fàbregas. Not affiliated with US Soccer, UEFA, Coerver Coaching, Ekkono, Cesc Fàbregas or Como 1907.</div></footer>
 
 <script>
 (()=>{
@@ -567,7 +581,7 @@ const DRILLS=[
   {d:.6,h:.8,cap:"Coach shows a BLUE card…",m:{c:[16,3]}},
   {d:1.4,cap:"…race! First to dribble through the blue gate scores.",m:{a1:[26,2.6],a2:[27.6,0]}}
  ]},
-{id:"rondo",name:"Scan & Strike Rondo",pos:["all","mid","def"],theme:"Possession",n:"6 (4 v 2)",area:"15 × 15 m",time:"12–15 min",age:"U9 – Adult",
+{id:"rondo",name:"Scan & Strike Rondo",fab:"Rondos and an instant counter-press after losing the ball.",pos:["all","mid","def"],theme:"Possession",n:"6 (4 v 2)",area:"15 × 15 m",time:"12–15 min",age:"U9 – Adult",
  coerver:"Receiving & passing: two-touch, directional first touch.",ekkono:"Superiority 4v2 and perception: split passes, scanning, instant transition.",
  fixes:["scan","panic","transition","talk"],
  fun:"Split pass between the defenders = 2 points. 10 passes = 3 points. Defenders who win it get a 'transition' chance worth 3.",
@@ -654,7 +668,7 @@ const DRILLS=[
   {d:1,cap:"Keep 10–15 m between defenders. No gaps for a through ball.",b:"b5",m:{a4:[59,25],a3:[48,21],a2:[37,20],a1:[27,20],g:[37,3]}},
   {d:1,cap:"Compact line = easy interception. 1 point to the defenders.",b:"a3",m:{a3:[49,18],b4:[46,26]}}
  ]},
-{id:"buildout",name:"Build-Out Under Fire",pos:["def","mid","gk"],theme:"Build-up",n:"GK + 5 v 2 (+1)",area:"Half pitch",time:"15–18 min",age:"U11 – Adult",
+{id:"buildout",name:"Build-Out Under Fire",fab:"Brave build-up: the keeper and centre-backs play through the press instead of kicking long.",pos:["def","mid","gk"],theme:"Build-up",n:"GK + 5 v 2 (+1)",area:"Half pitch",time:"15–18 min",age:"U11 – Adult",
  coerver:"Receiving & passing under pressure: back-foot receiving, passing to the far foot.",ekkono:"Positional superiority: GK + 5 vs 2 pressers, create angles for the free player.",
  fixes:["buildout","panic","scan"],
  fun:"Pass or dribble through an end gate = 1 point, through the middle gate = 2. If the pressers win the ball they shoot at the big goal: a goal = 3.",
@@ -706,7 +720,7 @@ const DRILLS=[
   {d:1,cap:"Forward in 2 touches: 2 points.",b:"a3",m:{a3:[31,8]}},
   {d:1.1,cap:"Ball comes back. The defender attacks from the other side now.",b:"a2",m:{a2:[18,11],b1:[21,14.5],a3:[31,10]}}
  ]},
-{id:"thirdman",name:"Third-Man Triangle",pos:["mid","att"],theme:"Movement",n:"4 (3 + 1 defender)",area:"30 × 24 m",time:"12 min",age:"U11 – Adult",
+{id:"thirdman",name:"Third-Man Triangle",fab:"Combination play: the free player is found through a third man, a pattern his midfielders repeat.",pos:["mid","att"],theme:"Movement",n:"4 (3 + 1 defender)",area:"30 × 24 m",time:"12 min",age:"U11 – Adult",
  coerver:"Group play: combination passing and one-touch lay-offs.",ekkono:"Use the third man: the free player is the one the defender isn't watching.",
  fixes:["movement","buildout","scan"],
  fun:"Through the gate via a third-man pass = 3 points. Any other way = 1. Defender intercepts = 2 for the defender.",
@@ -722,7 +736,7 @@ const DRILLS=[
   {d:1,cap:"C drives through the gate: 3 points.",m:{a3:[29.8,11],b1:[19,11]}},
   {d:1,cap:"Rotate: A becomes B, B becomes C, C becomes A.",m:{a3:[4,12],a2:[13,5],a1:[14,16],b1:[12,13.5]},fade:{}}
  ]},
-{id:"zones",name:"Three-Zone Overload",pos:["mid","def","att"],theme:"Possession",n:"4 v 4 + 2 neutrals",area:"40 × 30 m",time:"18 min",age:"U11 – Adult",
+{id:"zones",name:"Three-Zone Overload",fab:"Positional play: create superiority and find players between the lines.",pos:["mid","def","att"],theme:"Possession",n:"4 v 4 + 2 neutrals",area:"40 × 30 m",time:"18 min",age:"U11 – Adult",
  coerver:"Group play: quick passing combinations with a directional first touch.",ekkono:"Numerical superiority (6v4 with neutrals), playing between lines, transitions.",
  fixes:["buildout","transition","movement","scan"],
  fun:"End player to end player = 1 point. A pass that breaks a line = bonus point. Win the ball and score within 5 seconds = 2.",
@@ -804,7 +818,7 @@ const DRILLS=[
   {d:.9,cap:"…so pass! Now it's 1v0.",b:"a2",m:{a2:[17,14]}},
   {d:1.1,cap:"Finish in the mini-goal. Next rep: if the defender blocks the pass, dribble.",b:[30.6,11],m:{a2:[24,12.5],b1:[19,11]}}
  ]},
-{id:"sweeper",name:"Sweeper-Keeper Starts",pos:["gk","def"],theme:"Build-up",n:"GK + 2 CB + 2 att + server",area:"Half pitch",time:"12–15 min",age:"U11 – Adult",
+{id:"sweeper",name:"Sweeper-Keeper Starts",fab:"The keeper as an outfield player: calm on the ball and first to start attacks.",pos:["gk","def"],theme:"Build-up",n:"GK + 2 CB + 2 att + server",area:"Half pitch",time:"12–15 min",age:"U11 – Adult",
  coerver:"Receiving & passing for keepers: first touch away from pressure, both feet.",ekkono:"Keeper as the extra outfield player; reading space behind the line.",
  fixes:["buildout","panic"],
  fun:"Keeper: clean pass to a centre-back = 1, line-breaking pass = 2, successful sweep outside the box = 2. Strikers: win the ball = 2.",
@@ -820,10 +834,81 @@ const DRILLS=[
   {d:1,cap:"Pass to the side the striker can't cover.",b:"a1",m:{a1:[16,15]}},
   {d:.9,cap:"Reset: ball back to the server.",b:"c",m:{a1:[22,13],b1:[38,24],g:[34,6]}},
   {d:1.5,cap:"Ball over the top! The keeper reads it early and sweeps outside the box.",b:"g",m:{g:[31,19],b2:[34,23]}}
+ ]},
+{id:"invbox",name:"Inverted Fullback Box",pos:["def","mid"],theme:"Build-up",n:"GK + 6 v 3",area:"Half pitch",time:"15 min",age:"U12 – Adult",
+ coerver:"Receiving & passing: the inverted fullback receives on the half-turn in traffic.",ekkono:"Positional superiority: a 3-2 box creates free players between the pressers.",
+ fab:"Inside to go outside: the fullback steps into midfield so the build-up has an extra central player, then the ball is switched to the free winger.",
+ fixes:["buildout","panic","scan"],
+ fun:"Through a wide gate = 1 point, through a wide gate after a pass into the inverted fullback = 2. Pressers who win it and score in the big goal = 3.",
+ setup:"Keeper, two centre-backs, a 6, a left-back and a left winger build from the big goal. Three pressers. Two wide gates about 44 m out.",
+ how:["Every rep starts with the keeper.","When the keeper has the ball, the left-back steps inside next to the 6.","Play through the box and out to the winger.","Score by dribbling or passing through a wide gate."],
+ points:["Fullback: step inside early, before the ball arrives","The 6 and inverted fullback stand on different lines, never side by side","Keeper is the fourth player at the back","Inside to go outside: play into the middle to free the winger"],
+ prog:["Easier: 2 pressers","Harder: 4 pressers, max 2 touches","Harder: the right-back also inverts and the right winger joins"],
+ view:{w:68,h:52,tpl:"half"},marks:[{t:"gate",x1:12,y1:44,x2:20,y2:44,c:"y"},{t:"gate",x1:48,y1:44,x2:56,y2:44,c:"y"}],
+ cast:[{id:"g",t:"g",l:"GK",x:34,y:4},{id:"a1",t:"a",l:"CB",x:24,y:12},{id:"a2",t:"a",l:"CB",x:44,y:12},{id:"a4",t:"a",l:"LB",x:10,y:20},{id:"a5",t:"a",l:"6",x:34,y:24},{id:"a6",t:"a",l:"W",x:6,y:36},{id:"b1",t:"b",l:"",x:30,y:26},{id:"b2",t:"b",l:"",x:40,y:26},{id:"b3",t:"b",l:"",x:16,y:30}],ball:"g",focus:["a4","a5","g"],
+ frames:[
+  {d:1.3,cap:"Keeper has it: the left-back steps inside next to the 6. Now it's a box: 3 at the back, 2 in midfield.",m:{a4:[24,28],a5:[38,23],a1:[20,12],a2:[48,12],b1:[28,22],b2:[40,21],b3:[20,30]}},
+  {d:1.1,cap:"Keeper finds the free centre-back.",b:"a1",m:{b1:[24,16],a1:[19,13]}},
+  {d:1.1,cap:"Centre-back plays into the inverted fullback, between the pressers.",b:"a4",m:{a4:[25,29],b3:[22,32]}},
+  {d:1.3,cap:"The opponent's winger was pulled inside, so the left winger is free. Inside to go outside.",b:"a6",m:{a6:[8,38],a4:[26,30]}},
+  {d:1.1,cap:"Winger drives through the gate: 2 points.",m:{a6:[16,45.5],b3:[17,37]}}
+ ]},
+{id:"pocket",name:"Pocket Hunter",pos:["mid","att"],theme:"Receiving",n:"3 v 4",area:"40 × 30 m",time:"15 min",age:"U11 – Adult",
+ coerver:"Receiving & passing: turning in tight space, receiving across the body.",ekkono:"Perception: find the space between the opponent's lines and use the third player.",
+ fab:"Live between the lines: Fàbregas-style 8s and 10s drift into the pocket behind the midfield, turn, and play the final pass.",
+ fixes:["scan","movement","touch"],
+ fun:"End gate = 1 point. End gate after the ball went through the pocket = 3. Blue win it and dribble back over the start line = 2.",
+ setup:"Three zones. A centre-back with the ball, the 8 in midfield and a striker at the far end. Two blue midfielders and two blue defenders.",
+ how:["The 8 drifts into the pocket between blue's lines.","The centre-back passes through the gap in the midfield line.","The 8 turns, a defender steps out, and the striker runs into the space behind.","Score by dribbling through the end gate."],
+ points:["Arrive in the pocket late, as the passer looks up","Scan before receiving: which shoulder is free?","Open body: receive on the back foot and face goal","Once a defender steps out, play into the space they left"],
+ prog:["Easier: blue midfielders can't leave their line","Harder: a blue midfielder can drop into the pocket","Harder: 2 touches max for the 8"],
+ view:{w:40,h:30},marks:[{t:"line",x1:12,y1:0,x2:12,y2:30},{t:"line",x1:28,y1:0,x2:28,y2:30},{t:"zone",x:20,y:0,w:6,h:30,lab:"POCKET"},{t:"gate",x1:39.5,y1:11,x2:39.5,y2:19,c:"r"}],
+ cast:[{id:"a1",t:"a",l:"CB",x:5,y:15},{id:"a2",t:"a",l:"8",x:15,y:10},{id:"a3",t:"a",l:"9",x:33,y:15},{id:"b1",t:"b",l:"",x:18,y:12},{id:"b2",t:"b",l:"",x:18,y:20},{id:"b3",t:"b",l:"",x:30,y:11},{id:"b4",t:"b",l:"",x:30,y:20}],ball:"a1",focus:["a2"],
+ frames:[
+  {d:1.2,cap:"The 8 drifts into the pocket: behind the midfielders, in front of the defenders.",m:{a2:[23,16],b1:[18,13],b2:[18,19]}},
+  {d:1,cap:"The pass splits the midfield line and reaches the pocket.",b:"a2"},
+  {d:.9,cap:"Half-turn to face goal. The defender has to step out, which opens space behind.",m:{a2:[24.5,15],b3:[27,13.5],a3:[34,21]}},
+  {d:1,cap:"Play the striker into the space the defender left.",b:"a3",m:{a3:[36,17],b4:[32,21]}},
+  {d:1,cap:"Through the end gate after a pocket pass: 3 points.",m:{a3:[40.5,15],b4:[35,18]}}
+ ]},
+{id:"hunt",name:"Five-Second Hunt",pos:["all","mid","att"],theme:"Transition",n:"4 v 4",area:"36 × 24 m",time:"15 min",age:"U9 – Adult",
+ coerver:"Speed: the reaction and acceleration of the first 2 steps after losing the ball.",ekkono:"Defensive transition: press the ball, close the lanes, all within seconds.",
+ fab:"Win it back in 5 seconds: lose the ball and the nearest players hunt immediately, so the opponent never gets to counter.",
+ fixes:["transition","talk","def1v1"],
+ fun:"Goal = 1. Win the ball back within 5 seconds = 2. Goal straight after a counter-press win = 3. The coach counts the 5 seconds out loud.",
+ setup:"4v4 with a mini-goal at each end. Coach on the side with spare balls.",
+ how:["Normal 4v4 to mini-goals.","When a team loses the ball, the coach shouts and counts to 5.","Win it back before 5 for bonus points.","If the 5 seconds pass, drop back and defend normally."],
+ points:["React in the first second: no complaining","The two nearest players press the ball","The others close the nearest passing lanes","When you win it, attack straight away: they're still unorganised"],
+ prog:["Easier: 4v3 for the pressing team","Harder: 3 seconds instead of 5","Harder: losing team must touch the ball 3 times before they can score"],
+ view:{w:36,h:24},marks:[{t:"goal",x:36,y:12,w:4,v:"right"},{t:"goal",x:-.9,y:12,w:4,v:"right"}],
+ cast:[{id:"a1",t:"a",l:"",x:8,y:6},{id:"a2",t:"a",l:"",x:14,y:18},{id:"a3",t:"a",l:"10",x:22,y:8},{id:"a4",t:"a",l:"",x:28,y:16},{id:"b1",t:"b",l:"",x:12,y:12},{id:"b2",t:"b",l:"",x:18,y:10},{id:"b3",t:"b",l:"",x:24,y:14},{id:"b4",t:"b",l:"",x:31,y:10}],ball:"a1",focus:["a1","a2","a3","a4"],
+ frames:[
+  {d:1,cap:"Orange attacks to the right and plays into the 10.",b:"a3",m:{b2:[20,9]}},
+  {d:.8,cap:"Ball lost! The coach starts counting: 1…",b:"b3",m:{b3:[26,14]}},
+  {d:.9,cap:"2… The two nearest press the ball; the others close the closest passing lanes.",m:{a3:[25,12],a4:[27.5,15.5],a2:[21,16],a1:[16,10],b3:[26,13.6]}},
+  {d:.7,cap:"3… Won back inside 5 seconds: 2 points. Blue is still unorganised…",b:"a4",m:{a4:[26.5,14]}},
+  {d:1,cap:"…so attack straight away. Goal right after a counter-press = 3.",b:[36.6,12.5],m:{a4:[31,13.5],b4:[33,11]}}
+ ]},
+{id:"killer",name:"Killer Pass Lab",pos:["mid","att"],theme:"Passing",n:"Playmaker + 2 runners + 2 def + GK",area:"Half pitch",time:"15 min",age:"U11 – Adult",
+ coerver:"Receiving & passing: weighted through balls with both feet, the inside and outside of the foot.",ekkono:"Perception-decision: read which runner is free and when.",
+ fab:"The playmaker's pass: scan early, then put the ball into the space between centre-back and fullback so the runner never breaks stride.",
+ fixes:["movement","finish","scan"],
+ fun:"Goal from a through ball = 2 for the scorer, 1 for the assist. Assist with the weaker foot = 2. Offside = minus 1.",
+ setup:"A server, a playmaker 30 m from goal, two runners, two defenders and a keeper.",
+ how:["Server passes to the playmaker.","One runner checks short to drag a defender, the other attacks the space behind.","The playmaker chooses the free runner and plays the through ball.","Finish within 2 touches. Rotate every 3 reps."],
+ points:["Playmaker: scan before receiving, look up after the first touch","Pass into space, not to feet","Weight: the runner shouldn't slow down or stretch","Runners: one short, one long; never both the same"],
+ prog:["Easier: defenders passive","Harder: a defender presses the playmaker","Harder: 3 runners vs 3 defenders"],
+ view:{w:68,h:52,tpl:"half"},marks:[],
+ cast:[{id:"g",t:"g",l:"GK",x:34,y:3},{id:"b1",t:"b",l:"",x:28,y:17},{id:"b2",t:"b",l:"",x:40,y:17},{id:"a2",t:"a",l:"9",x:22,y:24},{id:"a3",t:"a",l:"11",x:46,y:24},{id:"a1",t:"a",l:"8",x:34,y:38},{id:"c",t:"c",l:"S",x:34,y:49}],ball:"c",focus:["a1"],
+ frames:[
+  {d:1.1,cap:"Server plays in. The playmaker scans before receiving: where are the runners and the gaps?",b:"a1",m:{a1:[34,35],a2:[24,21],a3:[44,22]}},
+  {d:1.1,cap:"One runner shows short to drag a defender; the other attacks the space between centre-back and fullback.",m:{a3:[45,27],b2:[42,22],a2:[30,14],b1:[29,16]}},
+  {d:1.1,cap:"The killer pass: into space, weighted so the runner never breaks stride.",b:"a2",m:{a2:[33,9],b1:[31,12.5]}},
+  {d:.8,cap:"Finish first-time. Assist + goal = 3 points between them.",b:[36.4,-.6],m:{g:[33,2.6]}}
  ]}
 ];
 const D=Object.fromEntries(DRILLS.map(d=>[d.id,d]));
-const THEMES=["All skills",...new Set(DRILLS.map(d=>d.theme))];
+const THEMES=["All skills",...new Set(DRILLS.map(d=>d.theme)),"Fàbregas style"];
 
 /* ---------------- ANIMATION ENGINE ---------------- */
 const boards=new Set();
@@ -1060,7 +1145,7 @@ function renderFilters(){
 const posChips=d=>d.pos.map(p=>`<span class="chip ${p}">${POSSHORT[p]}</span>`).join("");
 function renderList(){
   const list=$("#dlist");list.innerHTML="";
-  const items=DRILLS.filter(d=>(fPos==="all"||d.pos.includes(fPos))&&(fTheme==="All skills"||d.theme===fTheme));
+  const items=DRILLS.filter(d=>(fPos==="all"||d.pos.includes(fPos))&&(fTheme==="All skills"||d.theme===fTheme||(fTheme==="Fàbregas style"&&d.fab)));
   if(!items.length){list.innerHTML=`<p class="note">No drills match both filters. Try "All skills".</p>`;return}
   items.forEach(d=>{const b=document.createElement("button");b.type="button";b.className="ditem";b.setAttribute("aria-current",d.id===curDrill);
     b.appendChild(thumb(d));const t=document.createElement("div");t.style.minWidth="0";
@@ -1076,7 +1161,7 @@ function showDrill(id,scroll){
    <div class="dfacts"><div><small>Players</small><b>${esc(d.n)}</b></div><div><small>Area</small><b>${esc(d.area)}</b>${dimsOf(d)?`<small style="text-transform:none;letter-spacing:0">≈ ${steps(dimsOf(d)[0])} × ${steps(dimsOf(d)[1])} steps</small>`:""}</div><div><small>Time</small><b>${esc(d.time)}</b></div><div><small>Age</small><b>${esc(d.age)}</b></div></div>
    <div class="fun"><b>Why players love it:</b> ${esc(d.fun)}</div>
    ${drillSpaceHTML(d)}
-   <div class="roots"><div><small>Coerver root</small>${esc(d.coerver)}</div><div><small>Ekkono root</small>${esc(d.ekkono)}</div></div>
+   <div class="roots"><div><small>Coerver root</small>${esc(d.coerver)}</div><div><small>Ekkono root</small>${esc(d.ekkono)}</div>${d.fab?`<div><small>Fàbregas root</small>${esc(d.fab)}</div>`:""}</div>
    <div class="dcols"><div class="card"><h4>How it works</h4><ol class="how">${li(d.how)}</ol></div><div class="card"><h4>Coaching points</h4><ul>${li(d.points)}</ul></div></div>
    <div class="dcols"><div class="card"><h4>Make it easier / harder</h4><ul>${li(d.prog)}</ul></div><div class="card"><h4>Fixes these problems</h4><div class="links">${d.fixes.map(f=>`<a href="#fix-${f}">${esc(P[f].name)}</a>`).join("")}</div></div></div>`;
   detailBoard=makeBoard($("#dboard"),d);wireDrillSpace(d);
@@ -1268,12 +1353,24 @@ const EXAM={
    ["Drop the 6 between the centre-backs, or use the keeper as the third player","Correct. Three players against two pressers gives you a free player."],
    ["Play long balls immediately","You give the ball away instead of solving the press."],
    ["Push both fullbacks into midfield","They stretch the press, but you still need the 3v2 at the back."],
-   ["Ask the centre-backs to dribble past the strikers","Too risky as a plan. It has no structure."]]}
+   ["Ask the centre-backs to dribble past the strikers","Too risky as a plan. It has no structure."]]},
+  {q:"Why would a team like Fàbregas's Como move a fullback into midfield during build-up?",a:2,o:[
+   ["To have an extra defender in case of a counter only","Rest defence is a bonus, but the main aim is in possession."],
+   ["Because the fullback can't cross","It's a positional idea, not a way to hide a weakness."],
+   ["To create a box with an extra central player, so the ball can go inside and then out to a free winger","Correct. Inside to go outside: the extra central player pulls opponents in and frees the wide player."],
+   ["To make the pitch narrow when attacking","The team stays wide through the wingers; the fullback adds a central option."]]},
+  {q:"In a possession style with a 5-second counter-press, what happens in the first second after losing the ball?",a:0,o:[
+   ["The nearest players press the ball, the others close the nearest passing lanes","Correct. Speed and closing lanes stop the counter before it starts."],
+   ["Everyone sprints back to their own box","That's a recovery choice for when the press isn't on. It isn't counter-pressing."],
+   ["Only the player who lost the ball chases","One player alone is easy to play around."],
+   ["Wait to see where the opponent passes","Waiting gives away the 1–2 seconds that make counter-pressing work."]]}
  ],tasks:[
   {id:"b1",title:"Game model: build-up sub-principles",prompt:"One of your principles is: 'We build up through central midfield against a high press.' Write the sub-principles and each unit's role (GK + back line, midfield, front line) in a 4-3-3.",
    rubric:["Describes the starting structure (e.g. CB width, the 6's position, fullback height)","Gives clear roles for each unit","Explains how to create superiority (numerical, positional or qualitative)","Includes triggers or cues (when to go forward, when to switch or play long)","Covers what happens if the ball is lost (rest defence)"]},
   {id:"b2",title:"Opponent analysis",prompt:"Next opponent: 4-3-3, a very fast left winger, a high defensive line that is slow to turn, and weak at defending crosses to the back post. Write your 3 key messages for the players and the two training sessions that prepare them.",
    rubric:["Gives clear, short key messages (3–4)","Has a plan to stop the opponent's main strength (the winger)","Has a plan to exploit their weaknesses (the high line, the back post)","Training sessions match the messages and look like the game","Shows how it will be communicated (clips, walk-through, cues)"]},
+  {id:"b4",title:"Fàbregas-style build-up plan",prompt:"Your team wants to play like Fàbregas's Como: build from the keeper and play through the press. The opponent presses high with 3 forwards. Describe your build-up structure (including the keeper and an inverted fullback), the first 3 passing options, and one training activity to rehearse it.",
+   rubric:["Uses the keeper as an extra player in the build-up","Describes a clear structure (e.g. box with an inverted fullback) and why it beats a front 3","Gives specific passing options and triggers (inside to go outside, switch, third man)","Plans for losing the ball (rest defence, 5-second counter-press)","Includes a realistic training activity that rehearses it"]},
   {id:"b3",title:"Unit session: back four",prompt:"Design a 25-minute unit session for your GK and back four to improve stepping up and dropping as a line. Include setup, rules, scoring and coaching points.",
    rubric:["Realistic setup with attackers and direction","The rules create many stepping-up and dropping moments","Gives specific coaching points (cues, distances, communication, GK role)","Has scoring or competition that rewards the right behaviour","Includes a progression or regression"]}
  ]},
@@ -1317,7 +1414,12 @@ const EXAM={
    ["Drop them and don't explain","No communication damages the relationship."],
    ["Ignore it, it's private","Wellbeing affects performance. Elite coaches care about the person."],
    ["Discuss it in front of the team","That breaks confidentiality and trust."],
-   ["A private conversation, support from specialists such as a psychologist, and clear expectations","Correct. Support the person while keeping your standards."]]}
+   ["A private conversation, support from specialists such as a psychologist, and clear expectations","Correct. Support the person while keeping your standards."]]},
+  {q:"You want to play a brave possession style with a young squad and a small budget (as Fàbregas has done with young players at Como). What matters most?",a:3,o:[
+   ["Only sign experienced players to avoid mistakes","Expensive, and it blocks the pathway for young technical players."],
+   ["Play long balls until the players are ready","They never get ready for a possession style without practising it in games."],
+   ["Ask players to avoid risk on the ball","A possession style needs bravery; fear of mistakes kills it."],
+   ["Recruit and develop technical players for the style, give them minutes, and accept mistakes as part of learning","Correct. Profile, trust and patience make a brave style work with young players."]]}
  ],tasks:[
   {id:"a1",title:"Academy or season plan",prompt:"Outline a one-season plan for a U15 academy team: phases or blocks of the season, the main objectives in each block, how you'll track individual development, and how the plan links to the club's first-team game model.",
    rubric:["Divides the season into logical blocks with objectives","Links clearly to the club game model","Covers individual development (IDPs, reviews, minutes)","Considers load, growth and maturation","Explains how progress is measured"]},
@@ -1555,7 +1657,7 @@ const PURPOSE=[
  {id:"game",name:"Game-realistic / tactical (shape, transitions)",m2:180,ratio:1.5,ex:"8v8 to big goals"}
 ];
 const AGE=[{id:"y",name:"U6 – U9",f:.5},{id:"m",name:"U10 – U13",f:.75},{id:"o",name:"U14 – Adult",f:1}];
-const SCALE={mirror:{type:"area",base:12},rondo:{type:"station",base:6},gate:{type:"station",base:3},traffic:{type:"area",base:10},jockey:{type:"station",base:2},halfturn:{type:"station",base:4},thirdman:{type:"station",base:4},zones:{type:"area",base:10},twovone:{type:"station",base:3}};
+const SCALE={mirror:{type:"area",base:12},rondo:{type:"station",base:6},gate:{type:"station",base:3},traffic:{type:"area",base:10},jockey:{type:"station",base:2},halfturn:{type:"station",base:4},thirdman:{type:"station",base:4},zones:{type:"area",base:10},twovone:{type:"station",base:3},pocket:{type:"station",base:7},hunt:{type:"area",base:8}};
 const dimsOf=d=>{const m=String(d.area).match(/(\d+)\s*×\s*(\d+)\s*m/);return m?[+m[1],+m[2]]:/half pitch/i.test(d.area)?[52.5,68]:null};
 const fmt=x=>(Math.round(x*2)/2).toString();
 
