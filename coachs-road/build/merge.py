@@ -2,7 +2,7 @@ import re, sys
 S='/tmp/claude-0/-home-user-Clausde/2d228f61-562f-5a74-9a4c-5c84ecfb8309/scratchpad/merge/'
 CR=open('/root/.claude/projects/-home-user-Clausde/2d228f61-562f-5a74-9a4c-5c84ecfb8309/tool-results/artifact-75d8671a-1795872088-378b.html').read()
 PC=open('/home/user/Clausde/pitchcraft/index.html').read()
-BS=open(S+'bodyshape.js').read()
+BS=open(S+'bs2.js').read()
 
 def one(h,a,b,cnt=1):
     assert h.count(a)==cnt,(a[:70],h.count(a)); return h.replace(a,b)
@@ -163,15 +163,30 @@ a{color:var(--red)}
 /* Body shape in the 4 moments */
 .bshape{margin-top:44px;display:grid;gap:14px}
 .bs-tabs{display:flex;gap:6px;flex-wrap:wrap}
-.bs-stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;background:var(--panel);border:1px solid var(--rule);border-radius:16px;padding:14px}
-.bs-fig{margin:0;background:var(--paper);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.bs-stage{display:grid;gap:16px;background:var(--panel);border:1px solid var(--rule);border-radius:16px;padding:14px}
+.bs-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
+.bs-fig{margin:0;background:var(--paper);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0;border:2px solid transparent}
+.bs-fig.ok{border-color:var(--green)}.bs-fig.bad{border-color:var(--red)}
 .bs-fig svg{display:block;width:100%;height:auto}
-.bs-fig figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:6px 10px}
-.bs-info{grid-column:1/-1;display:grid;gap:10px}
-.bs-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.bs-tag{font-family:var(--display);font-weight:800;font-size:1.05rem;padding:8px 12px;color:var(--ink)}
+.bs-tag.ok{background:var(--green-soft);color:var(--green)}.bs-tag.bad{background:var(--red-soft);color:var(--red)}
+.bs-badtxt{padding:8px 12px 12px;font-size:.95rem}
+.bs-step{display:grid;gap:8px}
+.bs-step .cap{min-height:3.2em;font-size:1.15rem;font-weight:700}
+.bs-legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 12px 12px;font-size:.82rem;color:var(--muted)}
+.bs-legend span{display:inline-flex;align-items:center;gap:6px}
+.bs-legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.bs-legend i.ln{height:0;width:18px;border-top:2px solid var(--ink);border-radius:0}.bs-legend i.ln.dash{border-top-style:dashed}
+.bs-body{display:grid;gap:10px;align-content:start;min-width:0}
+.bs-list{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.bs-part{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;text-align:left;width:100%;border:1px solid var(--rule);background:var(--paper);border-radius:10px;padding:8px 10px;cursor:pointer;font-size:.95rem;line-height:1.4}
+.bs-part b{display:block;font-family:var(--display);font-size:1rem}
+.bs-part[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--gold) inset}
+.bs-num{width:26px;height:26px;border-radius:50%;background:var(--gold);color:#16231B;font-weight:800;display:grid;place-items:center;border:1.5px solid var(--ink)}
+.bs-say{background:var(--gold-soft);border-radius:10px;padding:10px 12px}
+.bs-say #bsSay{font-family:var(--display);font-size:1.3rem;font-weight:800}
 .bs-cues{margin:0;padding-left:20px;display:grid;gap:4px}
-.bs-wrong{background:var(--red-soft);border-radius:10px;padding:10px 12px;font-size:.95rem}
-@media (max-width:760px){.bs-stage,.bs-cols{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){.bs-pair{grid-template-columns:minmax(0,1fr)}}
 '''
 c=c.replace('</style>','\n/* ===== Toolbox (Pitchcraft) ===== */\n'+css+extra+'</style>')
 
@@ -209,20 +224,23 @@ x=one(x,'<label><input type="checkbox" id="c7a"','<a class="xlink" href="#exam">
 bs_html='''
     <div class="bshape" id="bodyshape">
       <h3 class="section-title" style="margin:0">How a player stands in each moment</h3>
-      <p style="max-width:70ch;color:var(--muted)">Pick a moment and a position. Watch the whole body: head, hips, knees, arms and feet. On the left you see the player from the side, on the right from above, with the ball, team-mates and opponents. The yellow cone shows where the player is looking.</p>
+      <p style="max-width:72ch;color:var(--muted)">Choose a moment and a position. <b style="color:var(--ink)">Left:</b> the right way, with numbered body points. <b style="color:var(--ink)">Right:</b> the common mistake, with the wrong body parts crossed out. <b style="color:var(--ink)">Below:</b> the same moment seen from above, and the body checklist to read out. Tap a checklist line to light up its number on the player.</p>
       <div class="bs-tabs" id="bsMoments" role="tablist" aria-label="Moment of the game"></div>
       <div class="bs-tabs" id="bsPos" aria-label="Position"></div>
       <div class="bs-stage">
-        <figure class="bs-fig"><svg id="bsSide" viewBox="0 0 320 300" role="img" aria-label="Player body position seen from the side"></svg><figcaption>From the side</figcaption></figure>
-        <figure class="bs-fig"><svg id="bsTop" viewBox="0 0 300 220" role="img" aria-label="Player body position seen from above"></svg><figcaption>From above · you are the player marked YOU</figcaption></figure>
-        <div class="bs-info">
-          <p class="cap" id="bsCap" aria-live="polite"></p>
-          <div class="ctrls"><button class="cbtn" id="bsBack" type="button" aria-label="Previous step">◀</button><button class="cbtn play" id="bsPlay" type="button">▶ Play</button><button class="cbtn" id="bsNext" type="button" aria-label="Next step">▶|</button><div class="dots" id="bsDots"></div></div>
-          <div class="bs-cols">
-            <div><p class="eyebrow" style="margin-bottom:6px">Coach it · for this position</p><ul class="bs-cues" id="bsCues"></ul></div>
-            <p class="bs-wrong" id="bsWrong"></p>
-          </div>
+        <div class="bs-pair">
+          <figure class="bs-fig ok"><figcaption class="bs-tag ok">✓ Do this</figcaption><svg id="bsSide" viewBox="0 44 320 256" role="img" aria-label="Correct body position, seen from the side, with numbered body points"></svg></figure>
+          <figure class="bs-fig bad"><figcaption class="bs-tag bad">✗ Not this</figcaption><svg id="bsBad" viewBox="0 44 320 256" role="img" aria-label="Common mistake, seen from the side"></svg><p class="bs-badtxt" id="bsBadTxt"></p></figure>
         </div>
+        <div class="bs-step"><p class="cap" id="bsCap" aria-live="polite"></p>
+          <div class="ctrls"><button class="cbtn" id="bsBack" type="button" aria-label="Previous step">◀</button><button class="cbtn play" id="bsPlay" type="button">▶ Play</button><button class="cbtn" id="bsNext" type="button" aria-label="Next step">▶|</button><div class="dots" id="bsDots"></div></div></div>
+        <div class="bs-pair">
+          <figure class="bs-fig"><figcaption class="bs-tag">From above</figcaption><svg id="bsTop" viewBox="0 0 300 220" role="img" aria-label="The same moment seen from above"></svg>
+            <div class="bs-legend"><span><i style="background:#C8102E"></i>YOU / MATE: our team</span><span><i style="background:#F4F1E8;border:1px solid #1C2A44"></i>OPP: opponent</span><span><i style="background:#fff;border:1px solid #111;border-radius:50%"></i>Ball</span><span><i class="ln"></i>Pass</span><span><i class="ln dash"></i>Run</span><span><i style="background:rgba(226,169,43,.5)"></i>Where the player looks</span></div></figure>
+          <div class="bs-body"><p class="eyebrow">Body checklist · matches the numbers</p><ol class="bs-list" id="bsBody"></ol>
+            <div class="bs-say"><p class="eyebrow">Say it to your players</p><p id="bsSay"></p></div></div>
+        </div>
+        <div><p class="eyebrow" style="margin-bottom:6px">Extra coaching points · for this position</p><ul class="bs-cues" id="bsCues"></ul></div>
       </div>
     </div>
   </div>
